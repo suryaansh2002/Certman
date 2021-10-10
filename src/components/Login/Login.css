@@ -1,0 +1,77 @@
+.login-container{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgb(238, 229, 229);
+}
+.login-box{
+width: 30rem;
+border-radius: 20px;
+background-color: white;
+padding-bottom: 1rem;
+
+}
+.login-box .login-input{
+    width: 60%;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    font-size: 1.2rem;
+    border: 2px solid rgb(102, 102, 190);
+    box-shadow: 1px 1px 1px rgb(102, 102, 190);
+}
+.login-box .submit-button{
+    width: 70%;
+    background-color: rgb(102, 102, 190);
+    color: white;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin: 1rem;
+}
+.login-box .submit-button:hover{
+    cursor: pointer;
+}
+.toggle-div{
+    padding: 0.5rem;
+    margin: 2rem;
+    border-bottom: 4px solid rgb(102, 102, 190);
+
+}
+.login-toggler{
+    background-color: transparent;
+    color: rgb(102, 102, 190);
+    font-weight: 700;
+    margin: 0.2rem 1.5rem;
+    padding: 0.8rem;
+    border-radius:10px ;
+    border: none;
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+.login-toggler:hover{
+    cursor: pointer;
+    color: white;
+    background-color: rgb(102, 102, 190);
+}
+
+.signup-role{
+    color: rgb(102, 102, 190);
+    text-align: left;
+    margin-left: 15%;
+}
+.signup-role label{
+    font-weight: 700;
+    padding: 0.5rem;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+}
+.signup-role div{
+    margin: 1rem 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
