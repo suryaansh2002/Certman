@@ -1,0 +1,133 @@
+.login-container {
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: rgb(238, 229, 229);
+}
+.login-box {
+  width: 30rem;
+  border-radius: 20px;
+  background-color: white;
+  padding-bottom: 1rem;
+}
+.login-box .login-input,
+select {
+  width: 60%;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  border: 2px solid rgb(102, 102, 190);
+  box-shadow: 1px 1px 1px rgb(102, 102, 190);
+}
+.login-box .submit-button {
+  width: 70%;
+  background-color: rgb(102, 102, 190);
+  color: white;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  margin: 1rem;
+}
+.login-box .submit-button:hover {
+  cursor: pointer;
+}
+.toggle-div {
+  padding: 0.5rem;
+  margin: 2rem;
+  border-bottom: 4px solid rgb(102, 102, 190);
+}
+.login-toggler {
+  background-color: transparent;
+  color: rgb(102, 102, 190);
+  font-weight: 700;
+  margin: 0.2rem 1.5rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.5rem;
+  transition: 0.3s;
+}
+.login-toggler:hover {
+  cursor: pointer;
+  color: white;
+  background-color: rgb(102, 102, 190);
+}
+
+.signup-role {
+  color: rgb(102, 102, 190);
+  text-align: left;
+  margin-left: 15%;
+}
+.signup-role label {
+  font-weight: 700;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+.signup-role div {
+  margin: 1rem 0.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.failure {
+  background-color: rgb(216, 123, 123);
+  color: rgb(75, 9, 9);
+  font-weight: 600;
+  padding: 0.5em;
+  text-align: center;
+  border: 3px solid rgb(75, 9, 9);
+  margin: 0 10%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.success {
+  background-color: rgb(125, 235, 125);
+  color: rgb(3, 29, 8);
+  font-weight: 600;
+  padding: 0.5em;
+  text-align: center;
+  border: 3px solid rgb(3, 29, 8);
+  margin: 0 10%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.visible-header {
+  text-decoration: underline;
+}
+
+.forgot {
+  color: rgb(102, 102, 190);
+  text-align: right;
+  margin: 0.6rem 0;
+  margin-right: 10%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+#forgot {
+  text-decoration: none;
+}
+#forgot:hover {
+  text-decoration: underline;
+}
+select {
+  width: 80%;
+  text-align: center;
+}
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+}
+
+.toggle-icon {
+  width: 20px;
+}
