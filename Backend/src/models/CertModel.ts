@@ -8,6 +8,9 @@ const certSchema = new Schema({
     type: String,
   },
   coordinates: [Number],
+  category:String,
+  // [[100,200],[450,600],[400,100]]
+  userId:String,
 });
 
 module.exports = mongoose.model("Cert", certSchema);

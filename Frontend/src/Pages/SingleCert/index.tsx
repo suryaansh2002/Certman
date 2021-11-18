@@ -7,7 +7,8 @@ import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 export default function SingleImage(props) {
   const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
-  const id = window.location.pathname.slice(14);
+
+  const id = window.location.pathname.split('/')[2];
 
   const [csv, setCsv] = useState("");
   const [certUrl, setCertUrl] = useState("");
@@ -38,6 +39,7 @@ export default function SingleImage(props) {
       .get("http://localhost:5000/api/cert/" + id)
       .then((response:any) => {
         console.log(response);
+        console.log("jrr;;;oo");
         setCertUrl(response.data.certUrl);
         setCoordinates(response.data.coordinates);
         setFinal(true);
@@ -49,7 +51,7 @@ export default function SingleImage(props) {
 
   useEffect(() => {
     console.log("This fucker ran");
-
+    console.log(id)
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     canvas.width = 700;

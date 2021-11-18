@@ -42,7 +42,6 @@ router.post("/cert-upload", upload.single("certUrl"), (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const cert = new CertModel({
     _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
     certUrl: url + "/cert-uploads/" + req.file.filename,
   });
   cert

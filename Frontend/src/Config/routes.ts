@@ -4,6 +4,7 @@ import Dashboard from '../Pages/Dashboard';
 import Generate from '../Pages/Generate';
 import SingleCert from '../Pages/SingleCert';
 import NotFound from '../Pages/NotFound';
+import Upload from '../Pages/Upload';
 
 const routes = [
 	{
@@ -19,6 +20,11 @@ const routes = [
 	{
 		path: '/dashboard',
 		component: Dashboard,
+		isPrivate: true,
+	},
+	{
+		path: '/upload',
+		component: Upload,
 		isPrivate: true,
 	},
 	{

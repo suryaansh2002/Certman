@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import {Link} from 'react-router-dom';
+import NavBar from "../Navbar";
 function Home2(props) {
   const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
@@ -33,9 +34,13 @@ function Home2(props) {
     formData.append("certUrl", cert);
     console.log(formData);
     await axios
-      .post("http://localhost:5000/api/cert/cert-upload", formData, {})
+      .post(   "http://localhost:5000/api/cert/cert-upload", formData, {})
       .then((res) => {
         console.log(res);
+
+        //post
+        //route??
+        
       });
     const modalClose = document.getElementById("modalClose");
     modalClose.click();
@@ -49,11 +54,12 @@ function Home2(props) {
   console.log(userDetails.user.role);
   return (
     <div className="container">
-      <div className="home-top">
+      <NavBar/>
+      {/* <div className="home-top">
         <button onClick={() => handleLogout()} className="logout-button">
           Logout
         </button>
-      </div>
+      </div> */}
       <div className="home-main">
         <a className="modal-open" href="#modal">
           {" "}
@@ -79,7 +85,7 @@ function Home2(props) {
               <div className="row">
                 <form onSubmit={onSubmit}>
                   <div className="form-group">
-                    <input
+                  <input
                       className="upload-input"
                       type="file"
                       onChange={onFileChange}
