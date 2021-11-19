@@ -5,7 +5,11 @@ import $ from "jquery";
 import axios from "axios";
 
 export default function Upload() {
+  let userId = localStorage.getItem("currentUser")
+    ? JSON.parse(localStorage.getItem("currentUser"))._id
+    : "";
   const [cert, setCert] = useState("");
+  const [certId, setCertId] = useState("");
   const [type, setType] = useState("");
 
   const [nameTop, setNameTop] = useState<number>(0);
@@ -112,6 +116,13 @@ export default function Upload() {
     postion: [positionTop, positionLeft],
   };
 
+  var certDetailObj = {
+    certId: certId,
+    category: type,
+    userId: userId,
+    coordinates: coordinates,
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -119,13 +130,20 @@ export default function Upload() {
     console.log(formData);
     await axios
       .post("http://localhost:5000/api/cert/cert-upload", formData, {})
-      .then((res) => {
-        console.log(res);
+      .then(async (res: any) => {
+        console.log(res.id);
+        setCertId(res.id);
 
-        //post
-        //route??
+        return axios
+          .put(
+            "http://localhost:5000/api/cert/cert-upload-details",
+            certDetailObj,
+            {}
+          )
+          .then((res) => {
+            console.log(res);
+          });
       });
-    window.location.reload();
   };
 
   return (
@@ -397,7 +415,9 @@ export default function Upload() {
                   all coordinates in px keeping this height and width in mind.
                 </div>
                 <div>
-                  <button type="submit" className="submit-up">Upload</button>
+                  <button type="submit" className="submit-up">
+                    Upload
+                  </button>
                 </div>
               </div>
             )}
