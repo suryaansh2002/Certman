@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
+import NavBar from "../Navbar";
 
 function Generate(props) {
   const dispatch = useAuthDispatch();
@@ -30,15 +31,7 @@ function Generate(props) {
 
   return (
     <div className="container">
-      <div className="home-top">
-        <Link to={"/dashboard"}>
-          {" "}
-          <button className="home-button-2">Back To Home</button>
-        </Link>
-        <button onClick={() => handleLogout()} className="logout-button">
-          Logout
-        </button>
-      </div>
+<NavBar/>
       <div className="home-main"></div>
       <div className="home-header">Choose a template</div>
 

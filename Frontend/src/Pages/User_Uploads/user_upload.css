@@ -1,0 +1,45 @@
+.user-name{
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 700;
+    padding: 1.5rem;
+    color: rgb(50,50,50);
+}
+
+.user-email{
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+    padding: 1.5rem;
+    padding-top: 0px;
+    color: rgb(50,50,50);
+    border-bottom: 2px solid rgb(50,50,50,0.3);
+}
+.cert-delete{
+    background-color: red;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    margin-left: 2rem;
+}
+.cert-delete:hover{
+    cursor: pointer;
+}
+.upload-photo{
+	height: 20rem;
+	padding: 2rem;
+  }
+  .up-container{
+      display: inline-block;
+  }
+
+  .map-c{
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+  }

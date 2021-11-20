@@ -5,6 +5,7 @@ import Generate from '../Pages/Generate';
 import SingleCert from '../Pages/SingleCert';
 import NotFound from '../Pages/NotFound';
 import Upload from '../Pages/Upload';
+import User_Upload from '../Pages/User_Uploads';
 
 const routes = [
 	{
@@ -25,6 +26,11 @@ const routes = [
 	{
 		path: '/upload',
 		component: Upload,
+		isPrivate: true,
+	},
+	{
+		path: '/user_upload',
+		component: User_Upload,
 		isPrivate: true,
 	},
 	{

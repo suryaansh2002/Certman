@@ -3,12 +3,13 @@ import "../Dashboard/dashboard.css";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
+import NavBar from "../Navbar";
 
 export default function SingleImage(props) {
   const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
 
-  const id = window.location.pathname.split('/')[2];
+  const id = window.location.pathname.split("/")[2];
 
   const [csv, setCsv] = useState("");
   const [certUrl, setCertUrl] = useState("");
@@ -37,7 +38,7 @@ export default function SingleImage(props) {
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/cert/" + id)
-      .then((response:any) => {
+      .then((response: any) => {
         console.log(response);
         console.log("jrr;;;oo");
         setCertUrl(response.data.certUrl);
@@ -51,7 +52,7 @@ export default function SingleImage(props) {
 
   useEffect(() => {
     console.log("This fucker ran");
-    console.log(id)
+    console.log(id);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     canvas.width = 700;
@@ -149,7 +150,7 @@ export default function SingleImage(props) {
 
     await axios
       .post("http://localhost:5000/api/csv/csv-upload", formData, {})
-      .then((res:any) => {
+      .then((res: any) => {
         setArr(res.data);
         const modalClose = document.getElementById("modalClose");
         modalClose.click();
@@ -184,7 +185,7 @@ export default function SingleImage(props) {
         ctx.fillStyle = "black";
 
         ctx.fillText(element.name, 280, 300);
-        var canvas2:any = document.getElementById("myCanvas");
+        var canvas2: any = document.getElementById("myCanvas");
         var url = canvas2.toDataURL("image/png");
 
         var link = document.createElement("a");
@@ -219,17 +220,7 @@ export default function SingleImage(props) {
   }
   return (
     <div className="container">
-      <div className="home-top">
-        <Link to={"/home"}>
-          {" "}
-          <button className="home-button-2">Back To Home</button>
-        </Link>
-
-        <button onClick={() => handleLogout()} className="logout-button">
-          Logout
-        </button>
-      </div>
-
+      <NavBar />
       <div className="row">
         <a className="modal-open" href="#modal">
           {" "}

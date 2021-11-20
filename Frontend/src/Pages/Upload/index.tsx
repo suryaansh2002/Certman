@@ -3,11 +3,14 @@ import NavBar from "../Navbar";
 import "./Upload.css";
 import $ from "jquery";
 import axios from "axios";
+import { useAuthDispatch, logOut, useAuthState } from "../../Context";
+
 
 export default function Upload() {
-  let userId = localStorage.getItem("currentUser")
-    ? JSON.parse(localStorage.getItem("currentUser"))._id
-    : "";
+  const dispatch = useAuthDispatch();
+  const userDetails = useAuthState();
+
+  let userId = userDetails.user.id;
   const [cert, setCert] = useState("");
   const [certId, setCertId] = useState("");
   const [type, setType] = useState("");
@@ -116,12 +119,6 @@ export default function Upload() {
     postion: [positionTop, positionLeft],
   };
 
-  var certDetailObj = {
-    certId: certId,
-    category: type,
-    userId: userId,
-    coordinates: coordinates,
-  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -131,17 +128,29 @@ export default function Upload() {
     await axios
       .post("http://localhost:5000/api/cert/cert-upload", formData)
       .then(async (res: any) => {
-        console.log(res.id);
-        setCertId(res.id);
+        console.log(res);
+        console.log(res.data._id);
 
-        return axios
+        setCertId(res.data._id);
+        var certDetailObj = {
+          certId: res.data._id,
+          category: type,
+          userId: userId,
+          coordinates: coordinates,
+        };
+        console.log("Hello");
+        console.log(certDetailObj);
+        await axios
           .put(
             "http://localhost:5000/api/cert/cert-upload-details",
             certDetailObj
           )
           .then((res) => {
-            console.log("hello");
             console.log(res);
+            window.alert("Certificate Uploaded Successfully");
+            window.location.reload();
+          }).catch((err)=>{
+            console.log(err)
           });
       })
       
@@ -149,6 +158,7 @@ export default function Upload() {
       ;
   };
 
+console.log(userId);
   return (
     <div>
       <NavBar />

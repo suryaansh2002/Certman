@@ -47,7 +47,7 @@ router.post("/cert-upload", upload.single("certUrl"), (req, res, next) => {
   cert
     .save()
     .then((result) => {
-      res.send(cert);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err),
@@ -60,16 +60,22 @@ router.post("/cert-upload", upload.single("certUrl"), (req, res, next) => {
 //to update the certificate details
 router.put("/cert-upload-details", async (req, res, next) => {
   const { certId, category, userId, coordinates } = req.body;
-
+  console.log(certId);
   try {
-    const updatedCert = await CertModel.findOneAndUpdate(
-      certId,
-      {
-        $set: { category: category, userId: userId, coordinates: coordinates },
-      },
-      { new: true }
+    const updatedCert = await CertModel.updateOne(
+      { _id: certId },
+      { $set: { category: category, userId: userId, coordinates: coordinates } }
     );
+
+    // const updatedCert = await CertModel.update(
+    //   certId,
+    //   {
+    //     $set: { category: category, userId: userId, coordinates: coordinates },
+    //   },
+    // );
+
     res.status(200).json(updatedCert);
+    console.log("Done");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -87,6 +93,14 @@ router.get("/:id", async (req, res) => {
   try {
     const cert = await CertModel.findById(req.params.id);
     console.log(cert);
+    res.status(200).json(cert);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.delete("/:id", async (req, res) => {
+  try {
+    const cert = await CertModel.deleteOne({ _id: req.params.id });
     res.status(200).json(cert);
   } catch (err) {
     res.status(500).json(err);

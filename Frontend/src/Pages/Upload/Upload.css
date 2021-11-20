@@ -53,7 +53,7 @@
   font-size: 0.9rem;
   border-radius: 5px;
   position: absolute;
-  bottom: 20px;
+  top: 600px;
 }
 .delete-up:hover {
   cursor: pointer;

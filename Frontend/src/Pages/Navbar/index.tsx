@@ -33,14 +33,14 @@ export default function NavBar(props) {
       {toggle && (
         <div className="toggle-div">
           <div>
-            <Link className="toggle-item">Your Uploads</Link>
+            <Link className="toggle-item" to={"/user_upload"}>Your Uploads</Link>
           </div>
           <div>
             <Link to={"/upload"} className="toggle-item">Upload a new Template </Link>
           </div>
           {userDetails.user.role == "Board" && (
             <div>
-              <Link className="toggle-item">Generate Certificates </Link>
+              <Link className="toggle-item" to={"/generate"}>Generate Certificates </Link>
             </div>
           )}
           <div>
