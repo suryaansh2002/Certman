@@ -47,7 +47,7 @@ router.post("/cert-upload", upload.single("certUrl"), (req, res, next) => {
   cert
     .save()
     .then((result) => {
-      res.send(result);
+      res.send(cert);
     })
     .catch((err) => {
       console.log(err),
@@ -55,6 +55,24 @@ router.post("/cert-upload", upload.single("certUrl"), (req, res, next) => {
           error: err,
         });
     });
+});
+
+//to update the certificate details
+router.put("/cert-upload-details", async (req, res, next) => {
+  const { certId, category, userId, coordinates } = req.body;
+
+  try {
+    const updatedCert = await CertModel.findOneAndUpdate(
+      certId,
+      {
+        $set: { category: category, userId: userId, coordinates: coordinates },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedCert);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //for all uploaded certificates

@@ -129,7 +129,7 @@ export default function Upload() {
     formData.append("certUrl", cert);
     console.log(formData);
     await axios
-      .post("http://localhost:5000/api/cert/cert-upload", formData, {})
+      .post("http://localhost:5000/api/cert/cert-upload", formData)
       .then(async (res: any) => {
         console.log(res.id);
         setCertId(res.id);
@@ -137,13 +137,16 @@ export default function Upload() {
         return axios
           .put(
             "http://localhost:5000/api/cert/cert-upload-details",
-            certDetailObj,
-            {}
+            certDetailObj
           )
           .then((res) => {
+            console.log("hello");
             console.log(res);
           });
-      });
+      })
+      
+      
+      ;
   };
 
   return (
