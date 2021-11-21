@@ -6,8 +6,15 @@ import SingleCert from '../Pages/SingleCert';
 import NotFound from '../Pages/NotFound';
 import Upload from '../Pages/Upload';
 import User_Upload from '../Pages/User_Uploads';
+import Home from '../Pages/Home/Home';
+
 
 const routes = [
+	{
+		path: '/home',
+		component: Home,
+		isPrivate: false,
+	},
 	{
 		path: '/login',
 		component: Login,

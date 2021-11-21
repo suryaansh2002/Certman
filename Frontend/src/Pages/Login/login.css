@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+.login-box {
+  /* position: absolute; */
+  width: 600px;
+  height: 400px;
+  /* left: 311px;
+  top: 250px; */
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(50px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -35%);
+}
+
+.login-h {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 39px;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #faf8f6;
+  padding: 15px;
+}
+.blue {
+  color: #7ac7f2;
+}
+.log-form {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 35px;
+}
+.form-item {
+  background: transparent;
+  border: 1px solid rgb(255, 255, 255, 0.5);
+  border-radius: 8px;
+  width: 60%;
+  font-size: 16px;
+  color: white;
+  padding: 10px;
+  margin: 15px;
+}
+
+.toggle-button {
+  background: transparent;
+  border: none;
+  color: rgb(255, 255, 255, 0.5);
+  font-size: 20px;
+  position: absolute;
+  right: 110px;
+  top: 200px;
+}
+.toggle-button:hover {
+  cursor: pointer;
+}
+
+.toggle-button-2 {
+    background: transparent;
+    border: none;
+    color: rgb(255, 255, 255, 0.5);
+    font-size: 20px;
+    position: absolute;
+    right: 110px;
+    top: 270px;
+  }
+  .toggle-button-2:hover {
+    cursor: pointer;
+  }
+
+.submit-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-sizing: border-box;
+  border-radius: 8px;
+  width: 65%;
+  font-size: 16px;
+  color: white;
+  margin-top: 15px;
+  padding: 8px;
+}
+
+.submit-btn:hover{
+    cursor: pointer;
+}
+.forgot{
+    color: rgb(255, 255, 255, 0.8);
+    text-align: right;
+    margin-right: 15%;
+    text-decoration: none;
+    margin-top: 15px;
+}
+.f-link{
+    color: rgb(255, 255, 255, 0.8);
+    text-decoration: none;
+    
+}
+.error{
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+
+    color: red;
+    transform: translate(-50%, -35%);
+
+}

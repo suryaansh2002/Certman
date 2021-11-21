@@ -11,7 +11,7 @@ export default function NavBar(props) {
   const userDetails = useAuthState();
   const handleLogout = () => {
     logOut(dispatch);
-    window.location.href = '/login';
+    window.location.href = '/home';
     
     } //relative to domain  };
 
