@@ -129,6 +129,7 @@ export default function SingleImage(props) {
         content,
         user,
         certUrl,
+        
       };
       await axios
         .post("http://localhost:5000/api/sendmail/cert/", data)

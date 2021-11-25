@@ -1,6 +1,6 @@
 export {};
 const fs = require("fs");
-let express = require("express")
+let express = require("express");
 const router = express.Router();
 const EmailedCertModel = require("../models/EmailedCert");
 const ShortUniqueId = require("short-unique-id");
@@ -8,8 +8,8 @@ let multer = require("multer"),
   mongoose = require("mongoose"),
   { v4: uuidv4 } = require("uuid");
 
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+var request = require("request");
+
 const { createCanvas, loadImage } = require("canvas");
 
 const jwt_decode = require("jwt-decode");
@@ -63,7 +63,7 @@ router.post("/cert", async (req: any, res: any) => {
   const width = 700;
   const height = 500;
 
-  loadImage(certUrl).then((image) => {
+  loadImage(certUrl).then(async (image) => {
     const url = req.protocol + "://" + req.get("host");
     const canvas = createCanvas(width, height);
     const context = canvas.getContext("2d");
@@ -78,25 +78,31 @@ router.post("/cert", async (req: any, res: any) => {
     context.fillText(user.name, 280, 300);
 
     const buffer = canvas.toBuffer("image/png");
-    const uid = new ShortUniqueId({ length: 10 });
 
-    const emailedCert = new EmailedCertModel({
-      _id: new mongoose.Types.ObjectId(),
-      emailedCertUrl: url + "/iecse/certificates/" + uid() + "/" + user.name,
-    });
+    const filePath = `./emailed-cert-uploads/${user.name}.png`;
 
-    emailedCert
-      .save()
-      .then((result) => {
-        res.send(result);
-        content = content + result.emailedCertUrl;
-      })
-      .catch((err) => {
-        console.log(err),
-          res.status(500).json({
-            error: err,
+    await fs.writeFile(filePath, buffer, (err, data) => {
+      if (err) console.log(err);
+      else {
+        console.log("File written successfully\n");
+
+        const emailedCert = new EmailedCertModel({
+          _id: new mongoose.Types.ObjectId(),
+          emailedCertUrl: url + "/emailed-cert-uploads/" + `${user.name}.png`,
+        });
+        emailedCert
+          .save()
+          .then((result) => {
+            res.json(result);
+          })
+          .catch((err) => {
+            console.log(err),
+              res.status(500).json({
+                error: err,
+              });
           });
-      });
+      }
+    });
 
     let transporter = nodemailer.createTransport({
       service: "Outlook365",

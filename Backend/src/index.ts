@@ -33,6 +33,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/cert-uploads", express.static("cert-uploads"));
 app.use("/csv-uploads", express.static("csv-uploads"));
+app.use("/emailed-cert-uploads", express.static("emailed-cert-uploads"));
 app.use("/api/cert", certRoute);
 app.use("/api/csv", csvRoute);
 app.use("/api/sendmail", sendMailRoute);
