@@ -4,8 +4,9 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 700;
   padding: 1.5rem;
-  color: rgb(50, 50, 50);
+color: white;
 }
+
 
 .user-email {
   text-align: center;
@@ -14,14 +15,14 @@
   font-weight: 600;
   padding: 1.5rem;
   padding-top: 0px;
-  color: rgb(50, 50, 50);
-  border-bottom: 2px solid rgb(50, 50, 50, 0.3);
+color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 .cert-delete {
-  background-color: red;
-  color: white;
+  background-color: rgb(226, 226, 226);
+  color: #b51212;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
@@ -42,4 +43,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin-top: 2rem;
 }
+

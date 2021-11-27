@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import NavBar from "../Navbar";
 import "./Upload.css";
 import $ from "jquery";
 import axios from "axios";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
+import Navbar2 from "../Navbar2/Navbar2";
 
 export default function Upload() {
   const dispatch = useAuthDispatch();
@@ -156,8 +156,8 @@ export default function Upload() {
 
   console.log(userId);
   return (
-    <div>
-      <NavBar />
+    <div className="container">
+      <Navbar2 />
       <div className="left-c">
         <div className="left-box" id="set-bg">
           <div id="name">Person Name</div>

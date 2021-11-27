@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import { Link } from "react-router-dom";
-import NavBar from "../Navbar";
+import NavBar2 from "../Navbar2/Navbar2";
 function Home2(props) {
   const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
@@ -53,12 +53,15 @@ function Home2(props) {
   console.log(userDetails.user.role);
   return (
     <div className="container">
-      <NavBar />
-
+    <NavBar2/>
       <div className="home-header">Existing Templates</div>
+      <div className="img-container">
       {uploadedCerts.map((cert) => (
-        <img src={cert.certUrl} className="home-photo" />
+        <img  src={cert.certUrl} className="home-photo" />
       ))}
+      </div>
+      <div className="adjust">
+      </div>
     </div>
   );
 }

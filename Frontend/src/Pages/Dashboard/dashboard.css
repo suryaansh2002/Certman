@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 .home-top {
   width: 100%;
   height: 7rem;
@@ -53,7 +54,13 @@
   font-size: 1.2rem;
 }
 .container {
-  background-color: rgb(255, 255, 255);
+  background: radial-gradient(
+    147.85% 147.85% at 50.97% -93.26%,
+    #7ac7f2 0%,
+    #121024 100%
+  );
+
+  padding-top: 80px;
   min-height: 100vh;
 }
 
@@ -145,14 +152,37 @@ a.modal-open {
 }
 
 .home-header {
-  font-size: 3rem;
-  color: #171717;
+  font-size: 2.5rem;
+  color: white;
   font-weight: 700;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
+text-align: center;
   margin: 1rem;
 }
 .home-photo {
-  height: 250px;
-  width: 750px;
-  padding: 2rem;
+  height: 300px;
+  width: 420px;
+  display: inline;
+  margin: 20px;
+  transition: 0.4s;
+
+}
+.home-photo:hover{
+  transform: scale(1.4);
+
+}
+.home-photo:hover .container{
+  height: max-content;
+}
+.img-container{
+  text-align: center;
+  justify-content: center;
+  padding-top: 3rem;
+}
+.home-header{
+  padding-top: 2rem;
+}
+.adjust{
+  height: 50px;
+
 }

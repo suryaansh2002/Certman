@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import { Link } from "react-router-dom";
-import NavBar from "../Navbar";
 import "./user_upload.css";
 import axios from "axios";
+import Navbar2 from "../Navbar2/Navbar2";
 
 export default function User_Upload() {
   const dispatch = useAuthDispatch();
@@ -38,14 +38,14 @@ export default function User_Upload() {
       .then((res) => window.location.reload());
   }
   return (
-    <div>
-      <NavBar />
+    <div className="container">
+      <Navbar2 />
       <div className="user-name">{userDetails.user.name}</div>
       <div className="user-email">{userDetails.user.email}</div>
       <div className="map-c">
         {user_array.map((cert) => (
           <div className="up-container">
-            <img src={cert.certUrl} className="upload-photo" />
+            <img src={cert.certUrl} className="home-photo" />
             <div>
               <button
                 className="cert-delete"

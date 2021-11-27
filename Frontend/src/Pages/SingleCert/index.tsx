@@ -3,7 +3,7 @@ import "../Dashboard/dashboard.css";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
-import NavBar from "../Navbar";
+import Navbar2 from "../Navbar2/Navbar2";
 
 export default function SingleImage(props) {
   const dispatch = useAuthDispatch();
@@ -241,7 +241,7 @@ export default function SingleImage(props) {
   }
   return (
     <div className="container">
-      <NavBar />
+      <Navbar2 />
       <div className="row">
         <a className="modal-open" href="#modal">
           {" "}
