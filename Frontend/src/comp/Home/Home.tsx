@@ -50,15 +50,15 @@ function Home(props) {
     e.preventDefault();
     const formData = new FormData();
     formData.append("certUrl", cert);
-    const coordinates={
-      name:[nameTop,nameLeft],
-      event:[eventTop,eventLeft],
-      date:[dateTop,dateLeft],
-      postion:[positionTop, positionLeft]
-    }
-    
+    const coordinates = {
+      name: [nameTop, nameLeft],
+      event: [eventTop, eventLeft],
+      date: [dateTop, dateLeft],
+      postion: [positionTop, positionLeft],
+    };
+
     console.log(formData);
-    console.log(coordinates)
+    console.log(coordinates);
 
     await axios
       .post("http://localhost:5000/api/cert/cert-upload", formData, {})
@@ -304,7 +304,6 @@ function Home(props) {
                                 onChange={(e) =>
                                   setPositionTop(parseInt(e.target.value))
                                 }
-
                               ></input>
                               <label>Left:</label>
                               <input
@@ -313,7 +312,6 @@ function Home(props) {
                                 onChange={(e) =>
                                   setPositionLeft(parseInt(e.target.value))
                                 }
-
                               ></input>
                             </div>
                           </div>

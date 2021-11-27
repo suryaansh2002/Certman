@@ -57,7 +57,7 @@ router.get("/", (req: any, res: any) => {
 });
 
 router.post("/cert", async (req: any, res: any) => {
-  const { subject, user, certUrl } = req.body;
+  const { subject, user, certUrl, type, coordinates } = req.body;
   var content = req.body.content;
 
   const width = 700;
@@ -75,7 +75,41 @@ router.post("/cert", async (req: any, res: any) => {
     context.textAlign = "left";
     context.textBaseline = "top";
     context.fillStyle = "black";
-    context.fillText(user.name, 280, 300);
+
+    if (type == "wc" || type == "mc") {
+      context.fillText(user.name, coordinates.name[1], coordinates.name[0]);
+    }
+    if (type == "org") {
+      context.fillText(user.name, coordinates.name[1], coordinates.name[0]);
+      context.fillText(
+        user.event_name,
+        coordinates.event[1],
+        coordinates.event[0]
+      );
+      context.fillText(
+        user.event_date,
+        coordinates.event_date[1],
+        coordinates.event_date[0]
+      );
+    }
+    if (type == "won") {
+      context.fillText(user.name, coordinates.name[1], coordinates.name[0]);
+      context.fillText(
+        user.event_name,
+        coordinates.event[1],
+        coordinates.event[0]
+      );
+      context.fillText(
+        user.event_date,
+        coordinates.event_date[1],
+        coordinates.event_date[0]
+      );
+      context.fillText(
+        user.position,
+        coordinates.position[1],
+        coordinates.position[0]
+      );
+    }
 
     const buffer = canvas.toBuffer("image/png");
 

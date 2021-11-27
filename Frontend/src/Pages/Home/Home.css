@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
 
 .main-c {
   height: calc(100vh);
@@ -27,20 +27,20 @@
 }
 
 .c-byline {
-    font-size: 30px;
-    font-weight: 400;
-    font-family: 'Mulish', sans-serif;
-    color: white;
-    position: absolute;
-    right: 100px;
-    top: 360px;
+  font-size: 30px;
+  font-weight: 400;
+  font-family: "Mulish", sans-serif;
+  color: white;
+  position: absolute;
+  right: 100px;
+  top: 360px;
 }
 
-.c-more{
-    position: absolute;
-    right: 230px;
-    font-family: 'Mulish', sans-serif;
-color: white;
-    font-size: 16px;
-    top:420px
+.c-more {
+  position: absolute;
+  right: 230px;
+  font-family: "Mulish", sans-serif;
+  color: white;
+  font-size: 16px;
+  top: 420px;
 }

@@ -71,7 +71,6 @@ const ForgotPassword: React.FC<Props> = (props) => {
             >
               Submit
             </button>
-           
           </form>
         </div>
       </div>

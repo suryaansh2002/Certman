@@ -26,24 +26,23 @@ const storage_new = multer.diskStorage({
 var upload_new = multer({
   storage: storage_new,
   fileFilter: (req, file, cb) => {
-      cb(null, true);
+    cb(null, true);
   },
 });
 
 //to upload a new csv file
 router.post("/csv-upload", upload_new.single("csv"), (req, res, next) => {
- try{
-  if (req.file === undefined)
-    return res.status(404).send("You must select a file.");
-  let path = DIR + req.file.filename;
-  fs.createReadStream(path)
-    .pipe(csv({}))
-    .on("data", (data) => results.push(data))
-    .on("end", () => res.status(200).send(results));
- }
- catch(e){
-console.log(e)
- }
+  try {
+    if (req.file === undefined)
+      return res.status(404).send("You must select a file.");
+    let path = DIR + req.file.filename;
+    fs.createReadStream(path)
+      .pipe(csv({}))
+      .on("data", (data) => results.push(data))
+      .on("end", () => res.status(200).send(results));
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 module.exports = router;

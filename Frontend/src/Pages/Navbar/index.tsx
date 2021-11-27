@@ -11,9 +11,8 @@ export default function NavBar(props) {
   const userDetails = useAuthState();
   const handleLogout = () => {
     logOut(dispatch);
-    window.location.href = '/home';
-    
-    } //relative to domain  };
+    window.location.href = "/home";
+  }; //relative to domain  };
 
   return (
     <>
@@ -33,19 +32,25 @@ export default function NavBar(props) {
       {toggle && (
         <div className="toggle-div">
           <div>
-            <Link className="toggle-item" to={"/user_upload"}>Your Uploads</Link>
+            <Link className="toggle-item" to={"/user_upload"}>
+              Your Uploads
+            </Link>
           </div>
           <div>
-            <Link to={"/upload"} className="toggle-item">Upload a new Template </Link>
+            <Link to={"/upload"} className="toggle-item">
+              Upload a new Template{" "}
+            </Link>
           </div>
           {userDetails.user.role == "Board" && (
             <div>
-              <Link className="toggle-item" to={"/generate"}>Generate Certificates </Link>
+              <Link className="toggle-item" to={"/generate"}>
+                Generate Certificates{" "}
+              </Link>
             </div>
           )}
           <div>
-            <button className="logout-btn" onClick={()=>handleLogout()}>
-            <Link className="toggle-item"> Logout</Link>
+            <button className="logout-btn" onClick={() => handleLogout()}>
+              <Link className="toggle-item"> Logout</Link>
             </button>
           </div>
         </div>

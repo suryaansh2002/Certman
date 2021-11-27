@@ -30,23 +30,23 @@
 }
 
 .nav-active:after {
-    content:"";
-    background: linear-gradient(90deg, #79C6F2 -27%, #201D47 131%);   
-    display: block;
-    height:2px;
-    width: 50px;
-    position: absolute;
-    top: 25px;
-    left: 20px;
+  content: "";
+  background: linear-gradient(90deg, #79c6f2 -27%, #201d47 131%);
+  display: block;
+  height: 2px;
+  width: 50px;
+  position: absolute;
+  top: 25px;
+  left: 20px;
 }
 
 .nav-active-2:after {
-    content:"";
-    background: linear-gradient(90deg, #79C6F2 -27%, #201D47 131%);   
-    display: block;
-    height:2px;
-    width: 70px;
-    position: absolute;
-    top: 25px;
-    left: 105px;
+  content: "";
+  background: linear-gradient(90deg, #79c6f2 -27%, #201d47 131%);
+  display: block;
+  height: 2px;
+  width: 70px;
+  position: absolute;
+  top: 25px;
+  left: 105px;
 }

@@ -13,16 +13,17 @@ export default function SingleImage(props) {
 
   const [csv, setCsv] = useState("");
   const [certUrl, setCertUrl] = useState("");
-  const [arr, setArr] = useState([]);
+  const [arr2, setArr2] = useState([]);
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
 
-  const [coordinates, setCoordinates] = useState([]);
+  const [coordinates, setCoordinates] = useState<any>([]);
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [emailCount, setEmailCount] = useState(0);
   const [csvError, setCsvError] = useState(false);
   const [final, setFinal] = useState(false);
+  const [type, setType] = useState("");
 
   const canvasRef = useRef(null);
 
@@ -40,9 +41,9 @@ export default function SingleImage(props) {
       .get("http://localhost:5000/api/cert/" + id)
       .then((response: any) => {
         console.log(response);
-        console.log("jrr;;;oo");
         setCertUrl(response.data.certUrl);
         setCoordinates(response.data.coordinates);
+        setType(response.data.category);
         setFinal(true);
       })
       .catch((error) => {
@@ -51,8 +52,8 @@ export default function SingleImage(props) {
   }, []);
 
   useEffect(() => {
-    console.log("This fucker ran");
     console.log(id);
+    console.log(coordinates);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     canvas.width = 700;
@@ -69,8 +70,20 @@ export default function SingleImage(props) {
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
       ctx.fillStyle = "black";
-
-      ctx.fillText("Person Name", 280, 300);
+      if (type == "wc" || type == "mc") {
+        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
+      }
+      if (type == "org") {
+        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
+        ctx.fillText("Event Name", coordinates.event[1], coordinates.event[0]);
+        ctx.fillText("01/01/2021", coordinates.date[1], coordinates.date[0]);
+      }
+      if (type == "comp") {
+        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
+        ctx.fillText("Event Name", coordinates.event[1], coordinates.event[0]);
+        ctx.fillText("01/01/2021", coordinates.date[1], coordinates.date[0]);
+        ctx.fillText("1st", coordinates.postion[1], coordinates.postion[0]);
+      }
     };
   }, [final]);
 
@@ -83,7 +96,6 @@ export default function SingleImage(props) {
     e.preventDefault();
     console.log("hello");
 
-    console.log(arr);
     setShow(true);
     console.log(certUrl);
     function toBuffer(ab) {
@@ -94,42 +106,17 @@ export default function SingleImage(props) {
       }
       return buf;
     }
-    for (var i = 0; i < arr.length; i++) {
+    for (var i = 0; i < arr2.length; i++) {
       var canvasUrl, canvasBuffer;
-      var user = arr[i];
+      var user = arr2[i];
       console.log("Sending:", user);
-      const elementCanvas = document.createElement("canvas");
-      elementCanvas.setAttribute("ref", user.name);
-      const canvasObj = canvasRef.current;
-      const ctx = canvasObj.getContext("2d");
-      canvasObj.width = 700;
-      canvasObj.height = 500;
-
-      var background = new Image();
-      background.setAttribute("crossOrigin", "anonymous");
-      background.src = certUrl;
-
-      background.onload = function () {
-        ctx.drawImage(background, 0, 0, 700, 500);
-
-        ctx.font = "20px Arial";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "top";
-        ctx.fillStyle = "black";
-
-        ctx.fillText(user.name, 280, 300);
-        var canvas2 = document.getElementById("myCanvas");
-        // var imageData = ctx.getImageData(0, 0, 700, 500);
-        // canvasUrl = imageData.data.buffer
-        // canvasBuffer=toBuffer(canvasUrl)
-        // console.log(canvasUrl)
-      };
       var data = {
         subject,
         content,
         user,
         certUrl,
-        
+        type,
+        coordinates,
       };
       await axios
         .post("http://localhost:5000/api/sendmail/cert/", data)
@@ -152,7 +139,9 @@ export default function SingleImage(props) {
     await axios
       .post("http://localhost:5000/api/csv/csv-upload", formData, {})
       .then((res: any) => {
-        setArr(res.data);
+        setArr2([]);
+        setArr2(res.data);
+        console.log(res.data);
         const modalClose = document.getElementById("modalClose");
         modalClose.click();
       });
@@ -164,8 +153,8 @@ export default function SingleImage(props) {
       alert("No csv uploaded!");
       return;
     }
-    console.log(arr);
-    arr.map((element) => {
+    console.log(arr2);
+    arr2.map((element) => {
       const elementCanvas = document.createElement("canvas");
       elementCanvas.setAttribute("ref", element.name);
       const canvasObj = canvasRef.current;
@@ -185,7 +174,36 @@ export default function SingleImage(props) {
         ctx.textBaseline = "top";
         ctx.fillStyle = "black";
 
-        ctx.fillText(element.name, 280, 300);
+        if (type == "wc" || type == "mc") {
+          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
+        }
+        if (type == "wc" || type == "mc") {
+          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
+        }
+        if (type == "org") {
+          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
+          ctx.fillText(
+            element.event_name,
+            coordinates.event[1],
+            coordinates.event[0]
+          );
+          ctx.fillText(element.date, coordinates.date[1], coordinates.date[0]);
+        }
+        if (type == "comp") {
+          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
+          ctx.fillText(
+            element.event_name,
+            coordinates.event[1],
+            coordinates.event[0]
+          );
+          ctx.fillText(element.date, coordinates.date[1], coordinates.date[0]);
+          ctx.fillText(
+            element.postion,
+            coordinates.postion[1],
+            coordinates.postion[0]
+          );
+        }
+
         var canvas2: any = document.getElementById("myCanvas");
         var url = canvas2.toDataURL("image/png");
 
@@ -216,7 +234,9 @@ export default function SingleImage(props) {
       ctx.textBaseline = "top";
       ctx.fillStyle = "black";
 
-      ctx.fillText("Person Name", 280, 300);
+      if (type == "wc" || type == "mc") {
+        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
+      }
     };
   }
   return (
@@ -280,7 +300,7 @@ export default function SingleImage(props) {
               {show ? (
                 <div className="count">
                   Sending mails... <br />
-                  Sent {emailCount}/{arr.length} mails
+                  Sent {emailCount}/{arr2.length} mails
                 </div>
               ) : null}
               <div className="row">
@@ -315,7 +335,27 @@ export default function SingleImage(props) {
           </div>
         </div>
       </div>
-
+      <div>
+        {(type == "wc" || type == "mc") && (
+          <div>
+            The csv uploaded should contain 2 columns only, one column with
+            heading <b>name</b> and one with heading <b>email</b>.{" "}
+          </div>
+        )}
+        {type == "org" && (
+          <div>
+            The csv uploaded should contain 4 columns only, with headings-{" "}
+            <b>name</b>, <b>email</b>,<b>event_name</b>,<b>date</b>.{" "}
+          </div>
+        )}
+        {type == "comp" && (
+          <div>
+            The csv uploaded should contain 5 columns only, with headings-{" "}
+            <b>name</b>, <b>email</b>,<b>event_name</b>,<b>date</b>,
+            <b>postion</b>.{" "}
+          </div>
+        )}
+      </div>
       <div className="canvas-container">
         <canvas
           ref={canvasRef}

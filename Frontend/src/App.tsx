@@ -17,7 +17,7 @@ function App() {
       <AuthProvider>
         <Router>
           <Switch>
-          <Route path="/forgot" exact>
+            <Route path="/forgot" exact>
               <ForgotPassword />
             </Route>
             <Route path="/reset/:id/:token" exact>
@@ -36,7 +36,6 @@ function App() {
                 />
               );
             })}
-         
           </Switch>
         </Router>
       </AuthProvider>

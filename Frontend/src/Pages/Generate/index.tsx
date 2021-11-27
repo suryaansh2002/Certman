@@ -31,7 +31,7 @@ function Generate(props) {
 
   return (
     <div className="container">
-<NavBar/>
+      <NavBar />
       <div className="home-main"></div>
       <div className="home-header">Choose a template</div>
 

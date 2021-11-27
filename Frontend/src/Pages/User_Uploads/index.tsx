@@ -35,28 +35,28 @@ export default function User_Upload() {
   function handleDelete(id) {
     axios
       .delete("http://localhost:5000/api/cert/" + id)
-      .then((res) =>  window.location.reload());
+      .then((res) => window.location.reload());
   }
   return (
     <div>
       <NavBar />
       <div className="user-name">{userDetails.user.name}</div>
       <div className="user-email">{userDetails.user.email}</div>
-    <div className="map-c">
-      {user_array.map((cert) => (
-        <div className="up-container">
-          <img src={cert.certUrl} className="upload-photo" />
-          <div>
-            <button
-              className="cert-delete"
-              onClick={(e) => handleDelete(cert._id)}
-            >
-              Delete
-            </button>
+      <div className="map-c">
+        {user_array.map((cert) => (
+          <div className="up-container">
+            <img src={cert.certUrl} className="upload-photo" />
+            <div>
+              <button
+                className="cert-delete"
+                onClick={(e) => handleDelete(cert._id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </div>
   );
 }

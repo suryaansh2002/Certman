@@ -8,7 +8,6 @@ const User = require("../models/CertModel");
 
 const csv = require("csv-parser");
 const fs = require("fs");
-const results = [];
 const obj = [];
 
 const DIR = "./csv-uploads/";
@@ -36,6 +35,8 @@ var upload_new = multer({
 });
 
 router.post("/", upload_new.single("csv"), (req, res, next) => {
+  const results = [];
+
   let path = DIR + req.file.filename;
   fs.createReadStream(path)
     .pipe(csv({}))

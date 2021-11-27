@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { signUpUser, useAuthState, useAuthDispatch } from "../../Context";
 import styles from "./signup.module.css";
 import Navbar2 from "../Navbar2/Navbar2";
-import { AiFillEyeInvisible } from 'react-icons/ai';
+import { AiFillEyeInvisible } from "react-icons/ai";
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -11,23 +11,27 @@ function Login(props) {
   const [name, setName] = useState("");
 
   const dispatch = useAuthDispatch();
-  const { loading, errorMessage }:any = useAuthState();
+  const { loading, errorMessage }: any = useAuthState();
   const [visible, setVisible] = useState(false);
-  
-  
-  const handleSignUp = async(e) => {
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     try {
-      let res = await signUpUser(dispatch, { name, email, password, role: 'MC' });
+      let res = await signUpUser(dispatch, {
+        name,
+        email,
+        password,
+        role: "MC",
+      });
       if (res == "success") {
         props.history.push("./login");
       }
     } catch (error) {
       console.log(error);
     }
-  }
-  function toggleVisible(e){
+  };
+  function toggleVisible(e) {
     e.preventDefault();
     setVisible(!visible);
   }
@@ -89,19 +93,17 @@ function Login(props) {
               An <span className="blue">in-house</span> certificate generator.
             </div>
             <div>
-            {errorMessage ? (
-              <p className="error">{errorMessage}</p>
-            ) : null}
+              {errorMessage ? <p className="error">{errorMessage}</p> : null}
 
-            {/* {successMessage ? (
+              {/* {successMessage ? (
               <p className="success">{successMessage}</p>
             ) : null} */}
-          </div>
+            </div>
 
             <form className="log-form">
               <div>
-              <input
-              className="form-item"
+                <input
+                  className="form-item"
                   type="text"
                   id="text"
                   value={name}
@@ -109,11 +111,10 @@ function Login(props) {
                   onChange={(e) => setName(e.target.value)}
                   disabled={loading}
                 />
-
               </div>
-              <div >
+              <div>
                 <input
-                className="form-item"
+                  className="form-item"
                   type="email"
                   id="email"
                   value={email}
@@ -121,20 +122,28 @@ function Login(props) {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div >
+              <div>
                 <input
-                className="form-item"
-                  type={visible?"text":"password"}
+                  className="form-item"
+                  type={visible ? "text" : "password"}
                   placeholder="Enter Password"
-
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
                 />
-                <button  className="toggle-button-2" onClick={(e)=>toggleVisible(e)}><AiFillEyeInvisible/></button>
+                <button
+                  className="toggle-button-2"
+                  onClick={(e) => toggleVisible(e)}
+                >
+                  <AiFillEyeInvisible />
+                </button>
               </div>
-              <button className="submit-btn" onClick={handleSignUp} disabled={loading}>
+              <button
+                className="submit-btn"
+                onClick={handleSignUp}
+                disabled={loading}
+              >
                 Sign Up
               </button>
             </form>

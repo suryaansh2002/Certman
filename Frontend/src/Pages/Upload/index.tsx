@@ -5,7 +5,6 @@ import $ from "jquery";
 import axios from "axios";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 
-
 export default function Upload() {
   const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
@@ -119,7 +118,6 @@ export default function Upload() {
     postion: [positionTop, positionLeft],
   };
 
-
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -149,16 +147,14 @@ export default function Upload() {
             console.log(res);
             window.alert("Certificate Uploaded Successfully");
             window.location.reload();
-          }).catch((err)=>{
-            console.log(err)
+          })
+          .catch((err) => {
+            console.log(err);
           });
-      })
-      
-      
-      ;
+      });
   };
 
-console.log(userId);
+  console.log(userId);
   return (
     <div>
       <NavBar />

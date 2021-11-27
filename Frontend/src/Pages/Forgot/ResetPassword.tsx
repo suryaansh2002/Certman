@@ -77,44 +77,43 @@ const ResetPassword: React.FC<Props> = (props) => {
     //   </div>
     // </div>
     <div>
-    <Navbar2 login={false} signup={false} />
-    <div className="main-c">
-      <div className="bg-design"></div>
-      <div className="login-box box-2">
-        <div className="login-h">Reset Password</div>
-        <div>
-          {msg !== "" ? (
-            <div
-              className={err ? "failure" : success ? "success" : "no-class"}
-            >
-              {msg}
-            </div>
-          ) : null}
-        </div>
-
-        <form className="log-form">
+      <Navbar2 login={false} signup={false} />
+      <div className="main-c">
+        <div className="bg-design"></div>
+        <div className="login-box box-2">
+          <div className="login-h">Reset Password</div>
           <div>
-            <input
-              className="form-item"
-              type="email"
-            onChange={(e) => setPass(e.target.value)}
-            placeholder="Enter new password"
-    />
+            {msg !== "" ? (
+              <div
+                className={err ? "failure" : success ? "success" : "no-class"}
+              >
+                {msg}
+              </div>
+            ) : null}
           </div>
-          <button
-            className="submit-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-          >
-            Submit
-          </button>
-         
-        </form>
+
+          <form className="log-form">
+            <div>
+              <input
+                className="form-item"
+                type="email"
+                onChange={(e) => setPass(e.target.value)}
+                placeholder="Enter new password"
+              />
+            </div>
+            <button
+              className="submit-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

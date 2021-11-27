@@ -62,17 +62,17 @@
 }
 
 .toggle-button-2 {
-    background: transparent;
-    border: none;
-    color: rgb(255, 255, 255, 0.5);
-    font-size: 20px;
-    position: absolute;
-    right: 110px;
-    top: 270px;
-  }
-  .toggle-button-2:hover {
-    cursor: pointer;
-  }
+  background: transparent;
+  border: none;
+  color: rgb(255, 255, 255, 0.5);
+  font-size: 20px;
+  position: absolute;
+  right: 110px;
+  top: 270px;
+}
+.toggle-button-2:hover {
+  cursor: pointer;
+}
 
 .submit-btn {
   background: rgba(255, 255, 255, 0.2);
@@ -86,30 +86,28 @@
   padding: 8px;
 }
 
-.submit-btn:hover{
-    cursor: pointer;
+.submit-btn:hover {
+  cursor: pointer;
 }
-.forgot{
-    color: rgb(255, 255, 255, 0.8);
-    text-align: right;
-    margin-right: 15%;
-    text-decoration: none;
-    margin-top: 15px;
+.forgot {
+  color: rgb(255, 255, 255, 0.8);
+  text-align: right;
+  margin-right: 15%;
+  text-decoration: none;
+  margin-top: 15px;
 }
-.f-link{
-    color: rgb(255, 255, 255, 0.8);
-    text-decoration: none;
-    
+.f-link {
+  color: rgb(255, 255, 255, 0.8);
+  text-decoration: none;
 }
-.error{
-    text-align: center;
-    font-size: 17px;
-    font-weight: bold;
-    position: absolute;
-    top: 70px;
-    left: 50%;
+.error {
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+  position: absolute;
+  top: 70px;
+  left: 50%;
 
-    color: red;
-    transform: translate(-50%, -35%);
-
+  color: red;
+  transform: translate(-50%, -35%);
 }
