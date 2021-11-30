@@ -2,8 +2,11 @@ export {};
 const fs = require("fs");
 let express = require("express");
 const router = express.Router();
+
 const EmailedCertModel = require("../models/EmailedCert");
 const ShortUniqueId = require("short-unique-id");
+var QRCode = require("qrcode");
+
 let multer = require("multer"),
   mongoose = require("mongoose"),
   { v4: uuidv4 } = require("uuid");
@@ -11,7 +14,7 @@ let multer = require("multer"),
 var request = require("request");
 
 const { createCanvas, loadImage } = require("canvas");
-
+const Canvas = require("canvas");
 const jwt_decode = require("jwt-decode");
 
 const JWT_SECRET = "certmanjwtsecret";
@@ -57,9 +60,15 @@ router.get("/", (req: any, res: any) => {
 });
 
 router.post("/cert", async (req: any, res: any) => {
+  console.log("waiting");
+
   const { subject, user, certUrl, type, coordinates } = req.body;
   var content = req.body.content;
-
+  const url2 = req.protocol + "://" + req.get("host");
+  var imgLink;
+  QRCode.toDataURL("https://www.google.com/", function (err, url) {
+    imgLink = url;
+  });
   const width = 700;
   const height = 500;
 
@@ -71,6 +80,19 @@ router.post("/cert", async (req: any, res: any) => {
     context.fillStyle = "#fff";
     context.fillRect(0, 0, width, height);
     context.drawImage(image, 0, 0, 700, 500);
+
+    var img = new Canvas.Image(); // Create a new Image
+    img.src = imgLink;
+    console.log(coordinates.qr);
+    console.log(typeof img);
+    // ctx.drawImage(img, coordinates.qr[1], coordinates.qr[0],coordinates.qr[4],coordinates.qr[3]);
+    context.drawImage(
+      img,
+      coordinates.qr[1],
+      coordinates.qr[0],
+      coordinates.qr[3],
+      coordinates.qr[2]
+    );
     context.font = "20px Arial";
     context.textAlign = "left";
     context.textBaseline = "top";
@@ -127,13 +149,10 @@ router.post("/cert", async (req: any, res: any) => {
         emailedCert
           .save()
           .then((result) => {
-            res.json(result);
+            console.log(result);
           })
           .catch((err) => {
-            console.log(err),
-              res.status(500).json({
-                error: err,
-              });
+            console.log(err);
           });
       }
     });
@@ -142,6 +161,8 @@ router.post("/cert", async (req: any, res: any) => {
       service: "Outlook365",
       host: "smtp.office365.com",
       port: "587",
+      name:'certman',
+      maxConnections: 10,
       tls: {
         ciphers: "SSLv3",
         rejectUnauthorized: false,
@@ -153,7 +174,7 @@ router.post("/cert", async (req: any, res: any) => {
         pass: "123@ABC@abc",
       },
     });
-
+    console.log(user.name);
     const options = {
       // from: "temp_certman@outlook.com",
       from: "temp_cert@outlook.com",
@@ -170,14 +191,22 @@ router.post("/cert", async (req: any, res: any) => {
       ],
     };
 
-    transporter.sendMail(options, function (err, info) {
+    await transporter.sendMail(options, async function (err, info) {
       if (err) {
         console.log(err);
         res.json({ status: "error", error: err, data: user, buffer });
 
         return;
       }
-      res.json({ status: "success", error: "", data: user, info, buffer });
+      console.log("Mail sent");
+      console.log(info);
+      await res.json({
+        status: "success",
+        error: "",
+        data: user,
+        info,
+        buffer,
+      });
     });
   });
 });

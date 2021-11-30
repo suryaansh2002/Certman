@@ -53,6 +53,7 @@ export const AuthReducer = (initialState, action) => {
         ...initialState,
         successMessage: "Signed up Successfully",
         loading: false,
+        errorMessage:''
       };
     case "SIGNUP_ERROR":
       return {

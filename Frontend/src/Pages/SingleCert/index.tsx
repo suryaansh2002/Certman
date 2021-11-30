@@ -4,12 +4,30 @@ import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
+import QRCode from "qrcode";
+import qrcode_1 from "../../images/qrcode.png";
 
 export default function SingleImage(props) {
   const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
-
+  const [link, setLink] = useState("");
   const id = window.location.pathname.split("/")[2];
+  QRCode.toDataURL("https://www.google.com/")
+    .then((url) => {
+      setLink(url);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  // With async/await
+  const generateQR = async (text) => {
+    try {
+      console.log(await QRCode.toDataURL(text));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const [csv, setCsv] = useState("");
   const [certUrl, setCertUrl] = useState("");
@@ -65,11 +83,25 @@ export default function SingleImage(props) {
 
     background.onload = function () {
       ctx.drawImage(background, 0, 0, 700, 500);
-
+        var img = new Image();
+        img.src = qrcode_1;
+        console.log(coordinates.qr);
+        console.log(typeof img);
+        // ctx.drawImage(img, coordinates.qr[1], coordinates.qr[0],coordinates.qr[4],coordinates.qr[3]);
+        ctx.drawImage(
+          img,
+          coordinates.qr[1],
+          coordinates.qr[0],
+          coordinates.qr[3],
+          coordinates.qr[2]
+        );
       ctx.font = "20px Arial";
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
       ctx.fillStyle = "black";
+      // ctx.drawImage(qr, 20, 422,50,50);
+      // ctx.fillText("Personffffff", 200, 200);
+
       if (type == "wc" || type == "mc") {
         ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
       }
@@ -107,8 +139,9 @@ export default function SingleImage(props) {
       return buf;
     }
     for (var i = 0; i < arr2.length; i++) {
+
       var canvasUrl, canvasBuffer;
-      var user = arr2[i];
+      var user = arr2[i]
       console.log("Sending:", user);
       var data = {
         subject,
@@ -244,7 +277,6 @@ export default function SingleImage(props) {
       <Navbar2 />
       <div className="row">
         <a className="modal-open" href="#modal">
-          {" "}
           <button className="home-button">Upload CSV File</button>
         </a>
         <button className="home-button" onClick={download}>

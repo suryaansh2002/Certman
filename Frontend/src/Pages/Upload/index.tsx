@@ -4,6 +4,7 @@ import $ from "jquery";
 import axios from "axios";
 import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
+import qr from '../../images/qrcode.png';
 
 export default function Upload() {
   const dispatch = useAuthDispatch();
@@ -13,6 +14,12 @@ export default function Upload() {
   const [cert, setCert] = useState("");
   const [certId, setCertId] = useState("");
   const [type, setType] = useState("");
+
+  const [qrTop, setqrTop] = useState<number>(0);
+  const [qrLeft, setqrLeft] = useState<number>(0);
+  const [qrW, setqrW] = useState<number>(0);
+  const [qrH, setqrH] = useState<number>(0);
+
 
   const [nameTop, setNameTop] = useState<number>(0);
   const [nameLeft, setNameLeft] = useState<number>(0);
@@ -50,6 +57,38 @@ export default function Upload() {
     const inp = document.getElementById("file-inp");
     inp.click();
   }
+
+  function positionqrTop() {
+    const q = document.getElementById("qrc");
+    q.style.top = qrTop.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function positionqrLeft() {
+    const q = document.getElementById("qrc");
+    q.style.left = qrLeft.toString() + "px";
+    console.log(nameLeft);
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+
+
+
+  function qrWidth() {
+    const q = document.getElementById("qrc");
+    q.style.width = qrW.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function qrHeight() {
+    const q = document.getElementById("qrc");
+    q.style.height = qrH.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+
+
+
 
   function positionNameTop() {
     const name = document.getElementById("name");
@@ -116,6 +155,7 @@ export default function Upload() {
     event: [eventTop, eventLeft],
     date: [dateTop, dateLeft],
     postion: [positionTop, positionLeft],
+    qr:[qrTop,qrLeft,qrH,qrW]
   };
 
   const onSubmit = async (e) => {
@@ -164,6 +204,7 @@ export default function Upload() {
           <div id="event">Event Name</div>
           <div id="e-date">01/01/21</div>
           <div id="position">2</div>
+          <img src={qr} id="qrc"></img>
 
           <button className="up-btn" id="up-btn" onClick={upload}>
             Choose a file
@@ -184,7 +225,7 @@ export default function Upload() {
               onChange={onFileChange}
             />
           </div>
-          <div>
+          <div className="up-box">
             <select
               onChange={(e) => setType(e.target.value)}
               className="up-select"
@@ -199,6 +240,56 @@ export default function Upload() {
             </select>
             {type && (
               <div>
+                                  <div>
+                    <div className="row type-row">
+                      <div>QRCODE:</div>
+                      <label className="type-label">
+                        Coordinates for QRCODE:
+                      </label>
+                      <br />
+                      <div className="row input-row">
+                        <label>Top:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => (
+                            setqrTop(parseInt(e.target.value)),
+                            positionqrTop()
+                          )}
+                        ></input>
+                        <label>Left:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => (
+                            setqrLeft(parseInt(e.target.value)),
+                            positionqrLeft()
+                          )}
+                        ></input>
+                      </div>
+                      <div className="row input-row" id="qr-row">
+                        <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => (
+                            setqrW(parseInt(e.target.value)),
+                            qrWidth()
+                          )}
+                        ></input>
+                        <label>Height:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => (
+                            setqrH(parseInt(e.target.value)),
+                            qrHeight()
+                          )}
+                        ></input>
+                      </div>
+                    </div>
+                  </div>
+
                 {(type == "wc" || type == "mc") && (
                   <div>
                     <div className="row type-row">

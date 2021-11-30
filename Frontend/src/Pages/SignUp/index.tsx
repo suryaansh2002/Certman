@@ -11,7 +11,7 @@ function Login(props) {
   const [name, setName] = useState("");
 
   const dispatch = useAuthDispatch();
-  const { loading, errorMessage }: any = useAuthState();
+  var { loading, errorMessage }: any = useAuthState();
   const [visible, setVisible] = useState(false);
 
   const handleSignUp = async (e) => {
@@ -25,6 +25,7 @@ function Login(props) {
         role: "MC",
       });
       if (res == "success") {
+        errorMessage="";
         props.history.push("./login");
       }
     } catch (error) {

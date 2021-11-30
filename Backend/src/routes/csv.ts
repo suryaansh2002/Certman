@@ -8,7 +8,6 @@ const User = require("../models/CertModel");
 
 const csv = require("csv-parser");
 const fs = require("fs");
-const results = [];
 const obj = [];
 
 const DIR = "./csv-uploads/";
@@ -33,6 +32,8 @@ var upload_new = multer({
 //to upload a new csv file
 router.post("/csv-upload", upload_new.single("csv"), (req, res, next) => {
   try {
+    const results = [];
+
     if (req.file === undefined)
       return res.status(404).send("You must select a file.");
     let path = DIR + req.file.filename;

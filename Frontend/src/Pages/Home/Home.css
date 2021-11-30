@@ -18,12 +18,8 @@
   font-size: 70px;
   font-weight: 600;
   font-family: sans-serif;
-  line-height: 120px;
-  position: absolute;
   color: #faf8f6;
   font-family: "Source Sans Pro", sans-serif;
-  top: 250px;
-  right: 150px;
 }
 
 .c-byline {
@@ -31,16 +27,18 @@
   font-weight: 400;
   font-family: "Mulish", sans-serif;
   color: white;
-  position: absolute;
-  right: 100px;
-  top: 360px;
 }
 
 .c-more {
-  position: absolute;
-  right: 230px;
   font-family: "Mulish", sans-serif;
   color: white;
   font-size: 16px;
-  top: 420px;
+}
+
+.home-box{
+  position: absolute;
+  right: 50px;
+  top: 250px;
+  width: auto;
+  height: 200px;
 }
