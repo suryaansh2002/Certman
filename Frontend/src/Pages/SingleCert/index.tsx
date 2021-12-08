@@ -1,33 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../Dashboard/dashboard.css";
 import axios from "axios";
-import { useHistory, Link } from "react-router-dom";
-import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
 import QRCode from "qrcode";
 import qrcode_1 from "../../images/qrcode.png";
+import './singlecert.css';
 
 export default function SingleImage(props) {
-  const dispatch = useAuthDispatch();
-  const userDetails = useAuthState();
-  const [link, setLink] = useState("");
   const id = window.location.pathname.split("/")[2];
   QRCode.toDataURL("https://www.google.com/")
     .then((url) => {
-      setLink(url);
+      // setLink(url);
     })
     .catch((err) => {
       console.error(err);
     });
 
   // With async/await
-  const generateQR = async (text) => {
-    try {
-      console.log(await QRCode.toDataURL(text));
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const [csv, setCsv] = useState("");
   const [certUrl, setCertUrl] = useState("");
@@ -36,19 +25,14 @@ export default function SingleImage(props) {
   const [content, setContent] = useState("");
 
   const [coordinates, setCoordinates] = useState<any>([]);
-  const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [emailCount, setEmailCount] = useState(0);
-  const [csvError, setCsvError] = useState(false);
   const [final, setFinal] = useState(false);
   const [type, setType] = useState("");
 
   const canvasRef = useRef(null);
 
-  const handleLogout = () => {
-    logOut(dispatch);
-    props.history.push("/login");
-  };
+  
 
   function onFileChange(e) {
     setCsv(e.target.files[0]);
@@ -58,7 +42,6 @@ export default function SingleImage(props) {
     axios
       .get("http://localhost:5000/api/cert/" + id)
       .then((response: any) => {
-        console.log(response);
         setCertUrl(response.data.certUrl);
         setCoordinates(response.data.coordinates);
         setType(response.data.category);
@@ -70,8 +53,6 @@ export default function SingleImage(props) {
   }, []);
 
   useEffect(() => {
-    console.log(id);
-    console.log(coordinates);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     canvas.width = 700;
@@ -85,9 +66,6 @@ export default function SingleImage(props) {
       ctx.drawImage(background, 0, 0, 700, 500);
         var img = new Image();
         img.src = qrcode_1;
-        console.log(coordinates.qr);
-        console.log(typeof img);
-        // ctx.drawImage(img, coordinates.qr[1], coordinates.qr[0],coordinates.qr[4],coordinates.qr[3]);
         ctx.drawImage(
           img,
           coordinates.qr[1],
@@ -102,15 +80,15 @@ export default function SingleImage(props) {
       // ctx.drawImage(qr, 20, 422,50,50);
       // ctx.fillText("Personffffff", 200, 200);
 
-      if (type == "wc" || type == "mc") {
+      if (type === "wc" || type === "mc") {
         ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
       }
-      if (type == "org") {
+      if (type === "org") {
         ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
         ctx.fillText("Event Name", coordinates.event[1], coordinates.event[0]);
         ctx.fillText("01/01/2021", coordinates.date[1], coordinates.date[0]);
       }
-      if (type == "comp") {
+      if (type === "comp") {
         ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
         ctx.fillText("Event Name", coordinates.event[1], coordinates.event[0]);
         ctx.fillText("01/01/2021", coordinates.date[1], coordinates.date[0]);
@@ -120,8 +98,7 @@ export default function SingleImage(props) {
   }, [final]);
 
   const emailHandler = async (e) => {
-    if (csv == "") {
-      setCsvError(true);
+    if (csv === "") {
       alert("No csv uploaded!");
       return;
     }
@@ -130,17 +107,8 @@ export default function SingleImage(props) {
 
     setShow(true);
     console.log(certUrl);
-    function toBuffer(ab) {
-      var buf = Buffer.alloc(ab.byteLength);
-      var view = new Uint8Array(ab);
-      for (var i = 0; i < buf.length; ++i) {
-        buf[i] = view[i];
-      }
-      return buf;
-    }
     for (var i = 0; i < arr2.length; i++) {
 
-      var canvasUrl, canvasBuffer;
       var user = arr2[i]
       console.log("Sending:", user);
       var data = {
@@ -153,15 +121,14 @@ export default function SingleImage(props) {
       };
       await axios
         .post("http://localhost:5000/api/sendmail/cert/", data)
-        .then((res) => (console.log(res.data), setEmailCount((c) => c + 1)))
+        .then((res) => ( setEmailCount((c) => c + 1)))
         .catch((err) => console.log(err.message));
     }
     setShow(false);
   };
 
   const onSubmit = async (e) => {
-    if (csv == "") {
-      setCsvError(true);
+    if (csv === "") {
       alert("No csv uploaded!");
       return;
     }
@@ -181,8 +148,7 @@ export default function SingleImage(props) {
   };
 
   function download() {
-    if (csv == "") {
-      setCsvError(true);
+    if (csv === "") {
       alert("No csv uploaded!");
       return;
     }
@@ -207,13 +173,13 @@ export default function SingleImage(props) {
         ctx.textBaseline = "top";
         ctx.fillStyle = "black";
 
-        if (type == "wc" || type == "mc") {
+        if (type === "wc" || type === "mc") {
           ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
         }
-        if (type == "wc" || type == "mc") {
+        if (type === "wc" || type === "mc") {
           ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
         }
-        if (type == "org") {
+        if (type === "org") {
           ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
           ctx.fillText(
             element.event_name,
@@ -222,7 +188,7 @@ export default function SingleImage(props) {
           );
           ctx.fillText(element.date, coordinates.date[1], coordinates.date[0]);
         }
-        if (type == "comp") {
+        if (type === "comp") {
           ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
           ctx.fillText(
             element.event_name,
@@ -267,7 +233,7 @@ export default function SingleImage(props) {
       ctx.textBaseline = "top";
       ctx.fillStyle = "black";
 
-      if (type == "wc" || type == "mc") {
+      if (type === "wc" || type === "mc") {
         ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
       }
     };
@@ -367,20 +333,20 @@ export default function SingleImage(props) {
           </div>
         </div>
       </div>
-      <div>
-        {(type == "wc" || type == "mc") && (
+      <div className="csv-inst">
+        {(type === "wc" || type === "mc") && (
           <div>
             The csv uploaded should contain 2 columns only, one column with
             heading <b>name</b> and one with heading <b>email</b>.{" "}
           </div>
         )}
-        {type == "org" && (
+        {type === "org" && (
           <div>
             The csv uploaded should contain 4 columns only, with headings-{" "}
             <b>name</b>, <b>email</b>,<b>event_name</b>,<b>date</b>.{" "}
           </div>
         )}
-        {type == "comp" && (
+        {type === "comp" && (
           <div>
             The csv uploaded should contain 5 columns only, with headings-{" "}
             <b>name</b>, <b>email</b>,<b>event_name</b>,<b>date</b>,

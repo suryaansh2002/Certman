@@ -1,25 +1,21 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./Upload.css";
-import $ from "jquery";
 import axios from "axios";
-import { useAuthDispatch, logOut, useAuthState } from "../../Context";
+import {  useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
-import qr from '../../images/qrcode.png';
+import qr from "../../images/qrcode.png";
 
 export default function Upload() {
-  const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
 
   let userId = userDetails.user.id;
   const [cert, setCert] = useState("");
-  const [certId, setCertId] = useState("");
   const [type, setType] = useState("");
 
   const [qrTop, setqrTop] = useState<number>(0);
   const [qrLeft, setqrLeft] = useState<number>(0);
   const [qrW, setqrW] = useState<number>(0);
   const [qrH, setqrH] = useState<number>(0);
-
 
   const [nameTop, setNameTop] = useState<number>(0);
   const [nameLeft, setNameLeft] = useState<number>(0);
@@ -58,93 +54,103 @@ export default function Upload() {
     inp.click();
   }
 
-  function positionqrTop() {
+  function positionqrTop(e) {
+    setqrTop(parseInt(e.target.value))
     const q = document.getElementById("qrc");
-    q.style.top = qrTop.toString() + "px";
+    q.style.top = e.target.value.toString() + "px";
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
-  function positionqrLeft() {
+  function positionqrLeft(e) {
+    setqrLeft(parseInt(e.target.value))
     const q = document.getElementById("qrc");
-    q.style.left = qrLeft.toString() + "px";
+    q.style.left = e.target.value.toString() + "px";
     console.log(nameLeft);
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
 
-
-
-  function qrWidth() {
+  function qrWidth(e) {
+    setqrW(parseInt(e.target.value));
     const q = document.getElementById("qrc");
-    q.style.width = qrW.toString() + "px";
+    q.style.width =  e.target.value.toString() + "px";
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
-  function qrHeight() {
+  function qrHeight(e) {
+    setqrH(parseInt(e.target.value));
+
     const q = document.getElementById("qrc");
-    q.style.height = qrH.toString() + "px";
+    q.style.height =  e.target.value.toString() + "px";
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
 
+  function positionNameTop(e) {
+    setNameTop(parseInt(e.target.value));
 
-
-
-  function positionNameTop() {
     const name = document.getElementById("name");
-    name.style.top = nameTop.toString() + "px";
+    name.style.top = e.target.value.toString() + "px";
     name.style.visibility = "visible";
     name.style.zIndex = "10";
     name.innerHTML = "Person Name";
   }
-  function positionNameLeft() {
+  function positionNameLeft(e) {
+    setNameLeft(parseInt(e.target.value));
     const name = document.getElementById("name");
-    name.style.left = nameLeft.toString() + "px";
+    name.style.left =  e.target.value.toString() + "px";
     console.log(nameLeft);
     name.style.visibility = "visible";
     name.style.zIndex = "10";
     name.innerHTML = "Person Name";
   }
 
-  function positionEventTop() {
+  function positionEventTop(e) {
+    setEventTop(parseInt(e.target.value))
     const event = document.getElementById("event");
-    event.style.top = eventTop.toString() + "px";
+    event.style.top = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
     event.innerHTML = "Event Name";
   }
-  function positionEventLeft() {
+  function positionEventLeft(e) {
+    setEventLeft(parseInt(e.target.value))
+
     const event = document.getElementById("event");
-    event.style.left = eventLeft.toString() + "px";
+    event.style.left = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
     event.innerHTML = "Event Name";
   }
 
-  function positionEventDateTop() {
+  function positionEventDateTop(e) {
+    setDateTop(e.target.value);
     const event = document.getElementById("e-date");
-    event.style.top = dateTop.toString() + "px";
+    event.style.top = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
     event.innerHTML = "01-01-2022";
   }
-  function positionEventDateLeft() {
+  function positionEventDateLeft(e) {
+    setDateLeft(e.target.value);
     const eventDate = document.getElementById("e-date");
-    eventDate.style.left = dateLeft.toString() + "px";
+    eventDate.style.left = e.target.value.toString() + "px";
     eventDate.style.visibility = "visible";
     eventDate.style.zIndex = "10";
     eventDate.innerHTML = "01-01-2022";
   }
-  function positionPosTop() {
+  function positionPosTop(e) {
+    setPositionTop(e.target.value);
     const position = document.getElementById("position");
-    position.style.top = positionTop.toString() + "px";
+    position.style.top = e.target.value.toString() + "px";
     position.style.visibility = "visible";
     position.style.zIndex = "10";
     position.innerHTML = "1st";
   }
-  function positionPosLeft() {
+  function positionPosLeft(e) {
+    setPositionLeft(e.target.value);
     const position = document.getElementById("position");
-    position.style.left = positionLeft.toString() + "px";
+    position.style.left = e.target.value.toString() + "px";
     position.style.visibility = "visible";
     position.style.zIndex = "10";
     position.innerHTML = "1st";
@@ -155,7 +161,7 @@ export default function Upload() {
     event: [eventTop, eventLeft],
     date: [dateTop, dateLeft],
     postion: [positionTop, positionLeft],
-    qr:[qrTop,qrLeft,qrH,qrW]
+    qr: [qrTop, qrLeft, qrH, qrW],
   };
 
   const onSubmit = async (e) => {
@@ -169,7 +175,6 @@ export default function Upload() {
         console.log(res);
         console.log(res.data._id);
 
-        setCertId(res.data._id);
         var certDetailObj = {
           certId: res.data._id,
           category: type,
@@ -204,7 +209,7 @@ export default function Upload() {
           <div id="event">Event Name</div>
           <div id="e-date">01/01/21</div>
           <div id="position">2</div>
-          <img src={qr} id="qrc"></img>
+          <img alt="qr" src={qr} id="qrc"></img>
 
           <button className="up-btn" id="up-btn" onClick={upload}>
             Choose a file
@@ -240,57 +245,52 @@ export default function Upload() {
             </select>
             {type && (
               <div>
-                                  <div>
-                    <div className="row type-row">
-                      <div>QRCODE:</div>
-                      <label className="type-label">
-                        Coordinates for QRCODE:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => (
-                            setqrTop(parseInt(e.target.value)),
-                            positionqrTop()
-                          )}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => (
-                            setqrLeft(parseInt(e.target.value)),
-                            positionqrLeft()
-                          )}
-                        ></input>
-                      </div>
-                      <div className="row input-row" id="qr-row">
-                        <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => (
-                            setqrW(parseInt(e.target.value)),
-                            qrWidth()
-                          )}
-                        ></input>
-                        <label>Height:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => (
-                            setqrH(parseInt(e.target.value)),
-                            qrHeight()
-                          )}
-                        ></input>
-                      </div>
+                <div>
+                  <div className="row type-row">
+                    <div>QRCODE:</div>
+                    <label className="type-label">
+                      Coordinates for QRCODE:
+                    </label>
+                    <br />
+                    <div className="row input-row">
+                      <label>Top:</label>
+                      <input
+                        className="type-input"
+                        type="number"
+                        onChange={(e) => (
+                          positionqrTop(e)
+                        )}
+                      ></input>
+                      <label>Left:</label>
+                      <input
+                        className="type-input"
+                        type="number"
+                        onChange={(e) => (
+                         positionqrLeft(e)
+                        )}
+                      ></input>
+                    </div>
+                    <div className="row input-row" id="qr-row">
+                      <label>Width:</label>
+                      <input
+                        className="type-input"
+                        type="number"
+                        onChange={(e) => (
+                           qrWidth(e)
+                        )}
+                      ></input>
+                      <label>Height:</label>
+                      <input
+                        className="type-input"
+                        type="number"
+                        onChange={(e) => (
+                           qrHeight(e)
+                        )}
+                      ></input>
                     </div>
                   </div>
-
-                {(type == "wc" || type == "mc") && (
+                </div>
+                {(type === "wc" || type === "mc") && (
                   <div>
                     <div className="row type-row">
                       <label className="type-label">
@@ -303,8 +303,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setNameTop(parseInt(e.target.value)),
-                            positionNameTop()
+                            positionNameTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -312,15 +311,14 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setNameLeft(parseInt(e.target.value)),
-                            positionNameLeft()
+                            positionNameLeft(e)
                           )}
                         ></input>
                       </div>
                     </div>
                   </div>
                 )}
-                {type == "org" && (
+                {type === "org" && (
                   <div>
                     <div className="row type-row">
                       <label className="type-label">
@@ -333,8 +331,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setNameTop(parseInt(e.target.value)),
-                            positionNameTop()
+                            positionNameTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -342,8 +339,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setNameLeft(parseInt(e.target.value)),
-                            positionNameLeft()
+                            positionNameLeft(e)
                           )}
                         ></input>
                       </div>
@@ -359,8 +355,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setEventTop(parseInt(e.target.value)),
-                            positionEventTop()
+                            positionEventTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -368,8 +363,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setEventLeft(parseInt(e.target.value)),
-                            positionEventLeft()
+                            positionEventLeft(e)
                           )}
                         ></input>
                       </div>
@@ -385,8 +379,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setDateTop(parseInt(e.target.value)),
-                            positionEventDateTop()
+                            positionEventDateTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -394,15 +387,14 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setDateLeft(parseInt(e.target.value)),
-                            positionEventDateLeft()
+                            positionEventDateLeft(e)
                           )}
                         ></input>
                       </div>
                     </div>
                   </div>
                 )}{" "}
-                {type == "comp" && (
+                {type === "comp" && (
                   <div>
                     <div className="row type-row">
                       <label className="type-label">
@@ -415,8 +407,8 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setNameTop(parseInt(e.target.value)),
-                            positionNameTop()
+                            // setNameTop(parseInt(e.target.value)),
+                            positionNameTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -424,8 +416,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setNameLeft(parseInt(e.target.value)),
-                            positionNameLeft()
+                            positionNameLeft(e)
                           )}
                         ></input>
                       </div>
@@ -441,8 +432,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setEventTop(parseInt(e.target.value)),
-                            positionEventTop()
+                            positionEventTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -450,8 +440,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setEventLeft(parseInt(e.target.value)),
-                            positionEventLeft()
+                            positionEventLeft(e)
                           )}
                         ></input>
                       </div>
@@ -467,8 +456,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setDateTop(parseInt(e.target.value)),
-                            positionEventDateTop()
+                            positionEventDateTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -476,8 +464,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setDateLeft(parseInt(e.target.value)),
-                            positionEventDateLeft()
+                            positionEventDateLeft(e)
                           )}
                         ></input>
                       </div>
@@ -493,8 +480,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setPositionTop(parseInt(e.target.value)),
-                            positionPosTop()
+                            positionPosTop(e)
                           )}
                         ></input>
                         <label>Left:</label>
@@ -502,8 +488,7 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => (
-                            setPositionLeft(parseInt(e.target.value)),
-                            positionPosLeft()
+                            positionPosLeft(e)
                           )}
                         ></input>
                       </div>

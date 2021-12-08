@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useAuthDispatch, logOut, useAuthState } from "../../Context";
-import { Link } from "react-router-dom";
+import  { useState, useEffect } from "react";
+import {  useAuthState } from "../../Context";
 import "./user_upload.css";
 import axios from "axios";
 import Navbar2 from "../Navbar2/Navbar2";
 
 export default function User_Upload() {
-  const dispatch = useAuthDispatch();
   const userDetails = useAuthState();
 
-  const [cert, setCert] = useState("");
   const [uploadedCerts, setUploadedCerts] = useState([]);
   const user_id = userDetails.user.id;
 
-  const handleLogout = (props) => {
-    logOut(dispatch);
-    props.history.push("/login");
-  };
 
   useEffect(() => {
     axios
@@ -24,7 +17,6 @@ export default function User_Upload() {
       .then((res) => {
         console.log(res);
         setUploadedCerts(res.data);
-        console.log(uploadedCerts);
       })
       .catch(function (err) {
         console.log(err);
@@ -45,7 +37,7 @@ export default function User_Upload() {
       <div className="map-c">
         {user_array.map((cert) => (
           <div className="up-container">
-            <img src={cert.certUrl} className="home-photo" />
+            <img alt="certficate" src={cert.certUrl} className="home-photo" />
             <div>
               <button
                 className="cert-delete"

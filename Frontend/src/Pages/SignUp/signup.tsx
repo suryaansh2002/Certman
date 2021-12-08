@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import { signUpUser, useAuthState, useAuthDispatch } from "../../Context";
-import styles from "./signup.module.css";
 import Navbar2 from "../Navbar2/Navbar2";
 import { AiFillEyeInvisible } from "react-icons/ai";
 
@@ -13,10 +13,12 @@ function Login(props) {
   const dispatch = useAuthDispatch();
   var { loading, errorMessage }: any = useAuthState();
   const [visible, setVisible] = useState(false);
+  const [successMessage, setSuccessMsg] = useState("");
+  const url = "http://localhost:5000";
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+    console.log("in sugnup");
     try {
       let res = await signUpUser(dispatch, {
         name,
@@ -24,9 +26,24 @@ function Login(props) {
         password,
         role: "MC",
       });
-      if (res == "success") {
-        errorMessage="";
-        props.history.push("./login");
+      if (res === "success") {
+        errorMessage = "";
+        console.log("res is success time for another request");
+        console.log(email);
+        setSuccessMsg("Signed up Successfully");
+        const data = {
+          email,
+        };
+        axios
+          .post(url + "/api/auth/verify", data)
+          .then((res: any) =>
+            res.data.status === "success"
+              ? setSuccessMsg("Please check your mail to verify your account.")
+              : console.log(res.data)
+          )
+          .catch((err) => console.log(err.message));
+
+        // props.history.push("./login");
       }
     } catch (error) {
       console.log(error);
@@ -38,53 +55,6 @@ function Login(props) {
   }
   return (
     <>
-      {/* <div className={styles.container}>
-        <div style={{width:200}}>
-          <h1>SignUp Page</h1>
-          <div>
-            {errorMessage ? (
-              <p className={styles.error}>{errorMessage}</p>
-            ) : null}
-          </div>
-          <form>
-            <div className={styles.loginForm}>
-              <div className={styles.loginFormItem}>
-                <label htmlFor="text">Name</label>
-                <input
-                  type="text"
-                  id="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              <div className={styles.loginFormItem}>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              <div className={styles.loginFormItem}>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-            </div>
-            <button onClick={handleSignUp} disabled={loading}>
-              Signup
-            </button>
-          </form>
-        </div>
-      </div> */}
       <div>
         <Navbar2 login={false} signup={true} />
         <div className="main-c">
@@ -96,9 +66,9 @@ function Login(props) {
             <div>
               {errorMessage ? <p className="error">{errorMessage}</p> : null}
 
-              {/* {successMessage ? (
-              <p className="success">{successMessage}</p>
-            ) : null} */}
+              {successMessage ? (
+                <p className="success">{successMessage}</p>
+              ) : null}
             </div>
 
             <form className="log-form">

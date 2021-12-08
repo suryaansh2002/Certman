@@ -69,17 +69,17 @@ router.post("/signup", async (req: any, res: any) => {
 
   try {
     if (!name || typeof name !== "string") {
-      return res.json({ status: "error", error: "Invalid Name" });
+      return await res.json({ status: "error", error: "Invalid Name" });
     }
     if (!email || typeof email !== "string" || email.indexOf("@") == -1) {
-      return res.json({ status: "error", error: "Invalid Email" });
+      return await res.json({ status: "error", error: "Invalid Email" });
     }
 
     if (!plainTextPassword || typeof plainTextPassword !== "string") {
-      return res.json({ status: "error", error: "Invalid Password" });
+      return await res.json({ status: "error", error: "Invalid Password" });
     }
     if (!role || typeof role !== "string") {
-      return res.json({ status: "error", error: "Please select a role" });
+      return await res.json({ status: "error", error: "Please select a role" });
     }
     if (plainTextPassword.length < 6) {
       return res.json({
@@ -100,7 +100,12 @@ router.post("/signup", async (req: any, res: any) => {
     }
     throw error;
   }
+
+
+
 });
+
+
 
 router.post("/forgot", async (req: any, res: any) => {
   const { email } = req.body;
@@ -179,5 +184,85 @@ router.patch("/reset", async (req: any, res: any) => {
     }
   }
 });
+
+
+router.post("/verify", async (req: any, res: any) => {
+  const { email } = req.body;
+  const user = await Users.findOne({ email }).lean();
+  if (!user) {
+    return res.json({
+      status: "error",
+      error: "User does not exist!",
+      data: "",
+    });
+  } else {
+    const link = `http://localhost:3000/verify/${user._id}`;
+
+    let transporter = nodemailer.createTransport({
+      service: "Outlook365",
+      host: "smtp.office365.com",
+      port: "587",
+      tls: {
+        ciphers: "SSLv3",
+        rejectUnauthorized: false,
+      },
+      auth: {
+        user: "temp_certman@outlook.com",
+        pass: "123@ABC@abc",
+      },
+    });
+
+    const options = {
+      from: "temp_certman@outlook.com",
+      to: email,
+      subject: "Verify your account",
+      text: `Verify your account at ${link}`,
+    };
+
+    transporter.sendMail(options, function (err, info) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.json({ status: "success", error: "", data: "" });
+    });
+  }
+});
+
+
+router.patch("/verifyacc", async (req: any, res: any) => {
+  const { id } = req.body;
+  const user = await 
+  Users.findOne({ id }).lean();
+  if (!user) {
+    console.log("e1")
+    return res.json({
+      status: "error",
+      error: "User does not exist!",
+      data: "",
+    });
+  } else {
+    try {
+      // const secret = JWT_SECRET + user.password;
+      // const hash_password = await bcrypt.hash(pass, 10);
+      const updatedUser = await Users.updateOne(
+        { _id: id },
+        {
+          $set: {
+            confirmed: true
+          },
+        }
+      );
+      res.json({ status: "success", error: "", data: "" });
+    } catch (error) {
+      res.json({ status: "error", error: error.message, data: "" });
+    }
+  }
+});
+
+
+
+
+
 
 module.exports = router;

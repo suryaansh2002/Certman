@@ -26,7 +26,7 @@ export default function Navbar2(props) {
         </div>
       ) : userDetails.user ? (
         <div className="b2">
-          <img className="s" src={s}></img>
+          <img className="s" src={s} alt="logo"></img>
           <div className="s-c">
             {" "}
             <Link className="certman2" to={"/dashboard"}>
@@ -36,7 +36,7 @@ export default function Navbar2(props) {
         </div>
       ) : (
         <div>
-          <img className="logo2" src={logo2}></img>
+          <img className="logo2" alt="logo2" src={logo2}></img>
         </div>
       )}
 
@@ -44,7 +44,7 @@ export default function Navbar2(props) {
         {userDetails.user ? (
           <div className="right-container">
             <button className="icon-btn" onClick={() => setToggle(!toggle)}>
-              <img src={user} className="user-icon"></img>
+              <img alt="icon" src={user} className="user-icon"></img>
             </button>
           </div>
         ) : (
@@ -77,7 +77,7 @@ export default function Navbar2(props) {
               Upload a new Template{" "}
             </Link>
           </div>
-          {userDetails.user.role == "Board" && (
+          {userDetails.user.role === "Board" && (
             <div>
               <Link className="toggle-item" to={"/generate"}>
                 Generate Certificates{" "}

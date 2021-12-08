@@ -42,3 +42,9 @@
   width: auto;
   height: 200px;
 }
+.verify-msg{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}

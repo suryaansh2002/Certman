@@ -15,7 +15,7 @@ export async function loginUser(dispatch, loginPayload) {
     console.log(res.data);
     console.log(res.status);
 
-    if (res.status == "success") {
+    if (res.status === "success") {
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       dispatch({
         type: "LOGIN_SUCCESS",
@@ -46,11 +46,9 @@ export async function signUpUser(dispatch, signUpPayload) {
     dispatch({ type: "REQUEST_SIGNUP" });
     let response = await fetch(`${ROOT_URL}/api/auth/signup`, requestOptions);
     let res = await response.json();
+    console.log(response);
 
-    console.log(res.data);
-    console.log(res.status);
-
-    if (res.status == "success") {
+    if (res.status === "success") {
       dispatch({ type: "SIGNUP_SUCCESS" });
       return res.status;
     }

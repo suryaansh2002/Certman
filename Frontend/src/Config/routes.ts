@@ -1,5 +1,5 @@
 import Login from "../Pages/Login";
-import SignUp from "../Pages/SignUp";
+import SignUp from "../Pages/SignUp/signup";
 import Dashboard from "../Pages/Dashboard";
 import Generate from "../Pages/Generate";
 import SingleCert from "../Pages/SingleCert";

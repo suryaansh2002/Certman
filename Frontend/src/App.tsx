@@ -10,6 +10,7 @@ import { AuthProvider } from "./Context";
 import AppRoute from "./Components/AppRoute";
 import ForgotPassword from "./Pages/Forgot/ForgotPassword";
 import ResetPassword from "./Pages/Forgot/ResetPassword";
+import Verify from "./Pages/Verify/verify";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
             </Route>
             <Route path="/reset/:id/:token" exact>
               <ResetPassword />
+            </Route>
+            <Route path="/verify/:id" exact>
+              <Verify/>
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />

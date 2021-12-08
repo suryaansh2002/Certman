@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Forgot.css";
-import { Link } from "react-router-dom";
 import Navbar2 from "../Navbar2/Navbar2";
 
 interface Props {}
@@ -23,9 +22,9 @@ const ForgotPassword: React.FC<Props> = (props) => {
     axios
       .post(url + "/api/auth/forgot", data)
       .then((res: any) =>
-        res.data.status == "error"
+        res.data.status === "error"
           ? (setError(true), setMsg(res.data.error))
-          : res.data.status == "success"
+          : res.data.status === "success"
           ? (setError(false),
             setSuccess(true),
             setMsg("Mail with password reset link has been sent."))

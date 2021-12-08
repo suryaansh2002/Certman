@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { loginUser, useAuthState, useAuthDispatch } from "../../Context";
-import styles from "./login.module.css";
+// import styles from "./login.module.css";
 import Navbar2 from "../Navbar2/Navbar2";
 import "./login.css";
 import { AiFillEyeInvisible } from "react-icons/ai";
