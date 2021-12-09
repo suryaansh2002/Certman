@@ -133,3 +133,22 @@ margin-top: 10px;
 .up-box{
   color: white;
 }
+
+.alert{
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250;
+  height: 50px;
+  background-color: rgba(52, 223, 52, 0.822);
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: rgb(6, 56, 6);
+  font-weight: 700;
+  z-index: 1000;
+}

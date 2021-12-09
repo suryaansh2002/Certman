@@ -1,7 +1,7 @@
-import  { useState } from "react";
+import { useState } from "react";
 import "./Upload.css";
 import axios from "axios";
-import {  useAuthState } from "../../Context";
+import { useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
 import qr from "../../images/qrcode.png";
 
@@ -29,6 +29,8 @@ export default function Upload() {
   const [positionTop, setPositionTop] = useState<number>(0);
   const [positionLeft, setPositionLeft] = useState<number>(0);
 
+  const [alert, setAlert] = useState<boolean>(false);
+
   function onFileChange(e) {
     setCert(e.target.files[0]);
 
@@ -55,14 +57,14 @@ export default function Upload() {
   }
 
   function positionqrTop(e) {
-    setqrTop(parseInt(e.target.value))
+    setqrTop(parseInt(e.target.value));
     const q = document.getElementById("qrc");
     q.style.top = e.target.value.toString() + "px";
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
   function positionqrLeft(e) {
-    setqrLeft(parseInt(e.target.value))
+    setqrLeft(parseInt(e.target.value));
     const q = document.getElementById("qrc");
     q.style.left = e.target.value.toString() + "px";
     console.log(nameLeft);
@@ -73,7 +75,7 @@ export default function Upload() {
   function qrWidth(e) {
     setqrW(parseInt(e.target.value));
     const q = document.getElementById("qrc");
-    q.style.width =  e.target.value.toString() + "px";
+    q.style.width = e.target.value.toString() + "px";
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
@@ -81,7 +83,7 @@ export default function Upload() {
     setqrH(parseInt(e.target.value));
 
     const q = document.getElementById("qrc");
-    q.style.height =  e.target.value.toString() + "px";
+    q.style.height = e.target.value.toString() + "px";
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
@@ -98,7 +100,7 @@ export default function Upload() {
   function positionNameLeft(e) {
     setNameLeft(parseInt(e.target.value));
     const name = document.getElementById("name");
-    name.style.left =  e.target.value.toString() + "px";
+    name.style.left = e.target.value.toString() + "px";
     console.log(nameLeft);
     name.style.visibility = "visible";
     name.style.zIndex = "10";
@@ -106,7 +108,7 @@ export default function Upload() {
   }
 
   function positionEventTop(e) {
-    setEventTop(parseInt(e.target.value))
+    setEventTop(parseInt(e.target.value));
     const event = document.getElementById("event");
     event.style.top = e.target.value.toString() + "px";
     event.style.visibility = "visible";
@@ -114,7 +116,7 @@ export default function Upload() {
     event.innerHTML = "Event Name";
   }
   function positionEventLeft(e) {
-    setEventLeft(parseInt(e.target.value))
+    setEventLeft(parseInt(e.target.value));
 
     const event = document.getElementById("event");
     event.style.left = e.target.value.toString() + "px";
@@ -190,8 +192,12 @@ export default function Upload() {
           )
           .then((res) => {
             console.log(res);
-            window.alert("Certificate Uploaded Successfully");
-            window.location.reload();
+            // window.alert("Certificate Uploaded Successfully");
+            setAlert(true);
+            setTimeout(function(){
+              window.location.reload();
+            }, 2000);
+
           })
           .catch((err) => {
             console.log(err);
@@ -202,6 +208,12 @@ export default function Upload() {
   console.log(userId);
   return (
     <div className="container">
+      {alert && (
+        <div className="alert">
+          Congratulations! Certifcate has been uploaded successfully!!
+        </div>
+      )}
+
       <Navbar2 />
       <div className="left-c">
         <div className="left-box" id="set-bg">
@@ -257,17 +269,13 @@ export default function Upload() {
                       <input
                         className="type-input"
                         type="number"
-                        onChange={(e) => (
-                          positionqrTop(e)
-                        )}
+                        onChange={(e) => positionqrTop(e)}
                       ></input>
                       <label>Left:</label>
                       <input
                         className="type-input"
                         type="number"
-                        onChange={(e) => (
-                         positionqrLeft(e)
-                        )}
+                        onChange={(e) => positionqrLeft(e)}
                       ></input>
                     </div>
                     <div className="row input-row" id="qr-row">
@@ -275,17 +283,13 @@ export default function Upload() {
                       <input
                         className="type-input"
                         type="number"
-                        onChange={(e) => (
-                           qrWidth(e)
-                        )}
+                        onChange={(e) => qrWidth(e)}
                       ></input>
                       <label>Height:</label>
                       <input
                         className="type-input"
                         type="number"
-                        onChange={(e) => (
-                           qrHeight(e)
-                        )}
+                        onChange={(e) => qrHeight(e)}
                       ></input>
                     </div>
                   </div>
@@ -302,17 +306,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionNameTop(e)
-                          )}
+                          onChange={(e) => positionNameTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionNameLeft(e)
-                          )}
+                          onChange={(e) => positionNameLeft(e)}
                         ></input>
                       </div>
                     </div>
@@ -330,17 +330,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionNameTop(e)
-                          )}
+                          onChange={(e) => positionNameTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionNameLeft(e)
-                          )}
+                          onChange={(e) => positionNameLeft(e)}
                         ></input>
                       </div>
                     </div>
@@ -354,17 +350,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventTop(e)
-                          )}
+                          onChange={(e) => positionEventTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventLeft(e)
-                          )}
+                          onChange={(e) => positionEventLeft(e)}
                         ></input>
                       </div>
                     </div>
@@ -378,17 +370,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventDateTop(e)
-                          )}
+                          onChange={(e) => positionEventDateTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventDateLeft(e)
-                          )}
+                          onChange={(e) => positionEventDateLeft(e)}
                         ></input>
                       </div>
                     </div>
@@ -406,18 +394,16 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
+                          onChange={(e) =>
                             // setNameTop(parseInt(e.target.value)),
                             positionNameTop(e)
-                          )}
+                          }
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionNameLeft(e)
-                          )}
+                          onChange={(e) => positionNameLeft(e)}
                         ></input>
                       </div>
                     </div>
@@ -431,17 +417,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventTop(e)
-                          )}
+                          onChange={(e) => positionEventTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventLeft(e)
-                          )}
+                          onChange={(e) => positionEventLeft(e)}
                         ></input>
                       </div>
                     </div>
@@ -455,17 +437,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventDateTop(e)
-                          )}
+                          onChange={(e) => positionEventDateTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionEventDateLeft(e)
-                          )}
+                          onChange={(e) => positionEventDateLeft(e)}
                         ></input>
                       </div>
                     </div>{" "}
@@ -479,17 +457,13 @@ export default function Upload() {
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionPosTop(e)
-                          )}
+                          onChange={(e) => positionPosTop(e)}
                         ></input>
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
-                          onChange={(e) => (
-                            positionPosLeft(e)
-                          )}
+                          onChange={(e) => positionPosLeft(e)}
                         ></input>
                       </div>
                     </div>

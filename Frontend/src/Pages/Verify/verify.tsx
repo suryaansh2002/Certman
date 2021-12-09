@@ -5,7 +5,7 @@ import Navbar2 from "../Navbar2/Navbar2";
 
 interface Props {}
 
-const Verify: React.FC<Props> = (props) => {
+const Verify = (props) => {
   const current_url = window.location.href;
   const param_array = current_url.split("/");
   const id = param_array[4];
@@ -23,7 +23,12 @@ const Verify: React.FC<Props> = (props) => {
           (res.data.status === "success"
             ?(
               console.log(res.data),
-              setMsg("Account Verrified Successfully!"))
+              setMsg("Account Verrified Successfully!"),
+              setTimeout(function(){
+                window.location.href="../login"
+              }, 2000)
+              
+              )
             : setMsg(res.data.error))
       )
       .catch((err) => setMsg(err.message));
