@@ -66,7 +66,9 @@ router.post("/cert", async (req: any, res: any) => {
   var content = req.body.content;
   const url2 = req.protocol + "://" + req.get("host");
   var imgLink;
-  QRCode.toDataURL("https://www.google.com/", function (err, url) {
+  const url = req.protocol + "://" + req.get("host");
+
+  QRCode.toDataURL( url + "/emailed-cert-uploads/" + `${user.name}.png`, function (err, url) {
     imgLink = url;
   });
   const width = 700;

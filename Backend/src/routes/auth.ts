@@ -40,26 +40,32 @@ router.post("/login", async (req: any, res: any) => {
       data: "",
     });
   } else {
-    if (await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign(
-        {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        },
-        JWT_SECRET
-      );
-      var payload = jwt_decode(token);
+    if(user.confirmed==false){
+      return res.json({ status: "error", error: "Account not verified" });
 
-      return res.json({ status: "success", error: "", data: payload });
-    } else {
-      return res.json({
-        status: "error",
-        error: "Incorrect Password",
-        data: "",
-      });
+    }else{
+      if (await bcrypt.compare(password, user.password)) {
+        const token = jwt.sign(
+          {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+          },
+          JWT_SECRET
+        );
+        var payload = jwt_decode(token);
+  
+        return res.json({ status: "success", error: "", data: payload });
+      } else {
+        return res.json({
+          status: "error",
+          error: "Incorrect Password",
+          data: "",
+        });
+      }
     }
+    
   }
 });
 router.post("/signup", async (req: any, res: any) => {
