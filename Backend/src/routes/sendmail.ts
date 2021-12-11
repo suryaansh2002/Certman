@@ -8,8 +8,9 @@ const ShortUniqueId = require("short-unique-id");
 var QRCode = require("qrcode");
 
 let multer = require("multer"),
-  mongoose = require("mongoose"),
-  { v4: uuidv4 } = require("uuid");
+  mongoose = require("mongoose");
+
+import { v4 as uuidv4 } from "uuid";
 
 var request = require("request");
 
@@ -64,13 +65,16 @@ router.post("/cert", async (req: any, res: any) => {
 
   const { subject, user, certUrl, type, coordinates } = req.body;
   var content = req.body.content;
-  const url2 = req.protocol + "://" + req.get("host");
   var imgLink;
+  const uid = uuidv4();
   const url = req.protocol + "://" + req.get("host");
 
-  QRCode.toDataURL( url + "/emailed-cert-uploads/" + `${user.name}.png`, function (err, url) {
-    imgLink = url;
-  });
+  QRCode.toDataURL(
+    url + "/emailed-cert-uploads/" +  `${user.name}_${uid}.png`,
+    function (err, url) {
+      imgLink = url;
+    }
+  );
   const width = 700;
   const height = 500;
 
@@ -137,7 +141,7 @@ router.post("/cert", async (req: any, res: any) => {
 
     const buffer = canvas.toBuffer("image/png");
 
-    const filePath = `./emailed-cert-uploads/${user.name}.png`;
+    const filePath = `./emailed-cert-uploads/${user.name}_${uid}.png`;
 
     await fs.writeFile(filePath, buffer, (err, data) => {
       if (err) console.log(err);
@@ -146,7 +150,8 @@ router.post("/cert", async (req: any, res: any) => {
 
         const emailedCert = new EmailedCertModel({
           _id: new mongoose.Types.ObjectId(),
-          emailedCertUrl: url + "/emailed-cert-uploads/" + `${user.name}.png`,
+          emailedCertUrl:
+          url + "/emailed-cert-uploads/" +  `${user.name}_${uid}.png`,
         });
         emailedCert
           .save()
@@ -154,6 +159,7 @@ router.post("/cert", async (req: any, res: any) => {
             console.log(result);
           })
           .catch((err) => {
+
             console.log(err);
           });
       }
@@ -163,7 +169,7 @@ router.post("/cert", async (req: any, res: any) => {
       service: "Outlook365",
       host: "smtp.office365.com",
       port: "587",
-      name:'certman',
+      name: "certman",
       maxConnections: 10,
       tls: {
         ciphers: "SSLv3",
