@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { loginUser, useAuthState, useAuthDispatch } from "../../Context";
 // import styles from "./login.module.css";
 import Navbar2 from "../Navbar2/Navbar2";
 import "./login.css";
-import { AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 function Login(props) {
   const [email, setEmail] = useState("");
+  // const [errorMessage2,setEmsg]=useState(false)
+
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
 
   const dispatch = useAuthDispatch();
-  const { loading, errorMessage, successMessage }: any = useAuthState();
+  var { loading, errorMessageLog, errorMessageSign, successMessage }: any =
+    useAuthState();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -34,6 +37,7 @@ function Login(props) {
     e.preventDefault();
     setVisible(!visible);
   }
+
   return (
     <>
       <div>
@@ -45,7 +49,9 @@ function Login(props) {
               An <span className="blue">in-house</span> certificate generator.
             </div>
             <div>
-              {errorMessage ? <p className="error">{errorMessage}</p> : null}
+              {errorMessageLog ? (
+                <p className="error">{errorMessageLog}</p>
+              ) : null}
 
               {successMessage ? (
                 <p className="success">{successMessage}</p>
@@ -77,7 +83,7 @@ function Login(props) {
                   className="toggle-button"
                   onClick={(e) => toggleVisible(e)}
                 >
-                  <AiFillEyeInvisible />
+                  {!visible ? <AiFillEyeInvisible /> : <AiFillEye />}
                 </button>
               </div>
               <button

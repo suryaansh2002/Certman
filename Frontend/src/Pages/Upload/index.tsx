@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
 import qr from "../../images/qrcode.png";
+import up from "../../images/upload-btn.png";
 
 export default function Upload() {
   const userDetails = useAuthState();
@@ -245,7 +246,7 @@ export default function Upload() {
 
   console.log(userId);
   return (
-    <div className="container">
+    <div className={type === "comp" ? "container cont2" : "container"}>
       {alert && (
         <div className="alert">
           Congratulations! Certifcate has been uploaded successfully!!
@@ -262,13 +263,18 @@ export default function Upload() {
           <img alt="qr" src={qr} id="qrc"></img>
 
           <button className="up-btn" id="up-btn" onClick={upload}>
-            Choose a file
+            <img src={up} />
           </button>
         </div>
 
         <button className="delete-up" onClick={() => window.location.reload()}>
           Delete Image
         </button>
+        <div className={type === "comp" ? "upload-info info2" : "upload-info"}>
+          <span style={{ fontWeight: 800, marginRight: "10px" }}>Note:</span>
+          The dimmensions of the certificate are 700px x 500px, please enter all
+          coordinates in px keeping this height and width in mind.
+        </div>
       </div>
       <div className="right-c">
         <form onSubmit={onSubmit}>
@@ -285,289 +291,223 @@ export default function Upload() {
               onChange={(e) => setType(e.target.value)}
               className="up-select"
             >
-              <option value="">Select Type of Certificate</option>
-              <option value="wc">WC Completion</option>
-              <option value="mc">MC Completion</option>
-              <option value="org">Organizing a Competition</option>
-              <option value="comp">
+              <option id="op" value="">
+                Purpose of Generating Certificate
+              </option>
+              <option id="op" value="wc">
+                WC Completion
+              </option>
+              <option id="op" value="mc">
+                MC Completion
+              </option>
+              <option id="op" value="org">
+                Organizing a Competition
+              </option>
+              <option id="op" value="comp">
                 Participating in or winning a Competition
               </option>
             </select>
             {type && (
-              <div>
+              <div className="type-container">
                 <div>
-                  <div className="row type-row">
-                    <div>QRCODE:</div>
-                    <label className="type-label">
-                      Coordinates for QRCODE:
-                    </label>
-                    <br />
-                    <div className="row input-row">
-                      <label>Top:</label>
-                      <input
-                        className="type-input"
-                        type="number"
-                        onChange={(e) => positionqrTop(e)}
-                      ></input>
-                      <label>Left:</label>
-                      <input
-                        className="type-input"
-                        type="number"
-                        onChange={(e) => positionqrLeft(e)}
-                      ></input>
+                  <div className="enter">ENTER THE COORDINATES:</div>
+                  <div>
+                    <div className="row type-row">
+                      <label className="type-label">1. Name:</label>
+                      <br />
+                      <div className="row input-row">
+                        <label>Top:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionNameTop(e)}
+                        ></input>
+                        <label>Left:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionNameLeft(e)}
+                        ></input>
+                        <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => NameW(e)}
+                        ></input>
+                      </div>
                     </div>
-                    <div className="row input-row" id="qr-row">
-                      <label>Width:</label>
+                    <div className="row type-row">
+                      <label className="type-label">2. QRCODE:</label>
+                      <br />
+                      <div className="row qr-row input-row">
+                        <label>Top:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionqrTop(e)}
+                        ></input>
+                        <label>Left:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionqrLeft(e)}
+                        ></input>
+                        {/* <div className="row input-row" id="qr-row"> */}
+                        <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => qrWidth(e)}
+                        ></input>
+
+                        {/* </div> */}
+                      </div>
+                      <label className="height">Height:</label>
                       <input
-                        className="type-input"
-                        type="number"
-                        onChange={(e) => qrWidth(e)}
-                      ></input>
-                      <label>Height:</label>
-                      <input
-                        className="type-input"
+                        className="type-input height"
                         type="number"
                         onChange={(e) => qrHeight(e)}
                       ></input>
                     </div>
                   </div>
-                </div>
-                {(type === "wc" || type === "mc") && (
-                  <div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for name:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => NameW(e)}
-                        ></input>
+                  {(type === "wc" || type === "mc") && <div></div>}
+                  {type === "org" && (
+                    <div>
+                      <div className="row type-row">
+                        <label className="type-label">3. Event Name:</label>
+                        <br />
+                        <div className="row input-row">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventTop(e)}
+                          ></input>
+                          <label>Left:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventLeft(e)}
+                          ></input>
+                          <label>Width:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventW(e)}
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="row type-row">
+                        <label className="type-label">4. Event Date:</label>
+                        <br />
+                        <div className="row input-row">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventDateTop(e)}
+                          ></input>
+                          <label>Left:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventDateLeft(e)}
+                          ></input>
+                          <label>Width:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventDateW(e)}
+                          ></input>
+                        </div>
                       </div>
                     </div>
+                  )}{" "}
+                  {type === "comp" && (
+                    <div>
+                      <div className="row type-row">
+                        <label className="type-label">3. Event Name:</label>
+                        <br />
+                        <div className="row input-row">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventTop(e)}
+                          ></input>
+                          <label>Left:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventLeft(e)}
+                          ></input>
+                          <label>Width:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventW(e)}
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="row type-row">
+                        <label className="type-label">4. Event Date:</label>
+                        <br />
+                        <div className="row input-row">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventDateTop(e)}
+                          ></input>
+                          <label>Left:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionEventDateLeft(e)}
+                          ></input>
+                          <label>Width:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventDateW(e)}
+                          ></input>
+                        </div>
+                      </div>{" "}
+                      <div className="row type-row">
+                        <label className="type-label">5. Positon Won:</label>
+                        <br />
+                        <div className="row input-row">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionPosTop(e)}
+                          ></input>
+                          <label>Left:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionPosLeft(e)}
+                          ></input>
+                          <label>Width:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => PositionW(e)}
+                          ></input>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div style={{ textAlign: "right" }}>
+                    <button type="submit" className="submit-up">
+                      Upload
+                    </button>
                   </div>
-                )}
-                {type === "org" && (
-                  <div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for name:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => NameW(e)}
-                        ></input>
-                      </div>
-                    </div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for Event Name:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => EventW(e)}
-                        ></input>
-                      </div>
-                    </div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for Event Date:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventDateTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventDateLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => EventDateW(e)}
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                )}{" "}
-                {type === "comp" && (
-                  <div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for name:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) =>
-                            // setNameTop(parseInt(e.target.value)),
-                            positionNameTop(e)
-                          }
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => NameW(e)}
-                        ></input>
-                      </div>
-                    </div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for Event Name:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => EventW(e)}
-                        ></input>
-                      </div>
-                    </div>
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for Event Date:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventDateTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionEventDateLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => EventDateW(e)}
-                        ></input>
-                      </div>
-                    </div>{" "}
-                    <div className="row type-row">
-                      <label className="type-label">
-                        Enter Coordinates for Positon Won:
-                      </label>
-                      <br />
-                      <div className="row input-row">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionPosTop(e)}
-                        ></input>
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionPosLeft(e)}
-                        ></input>
-                        <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => PositionW(e)}
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div className="upload-info">
-                  The height of the certificate is 700px x 500px, please enter
-                  all coordinates in px keeping this height and width in mind.
-                </div>
-                <div>
-                  <button type="submit" className="submit-up">
-                    Upload
-                  </button>
                 </div>
               </div>
             )}

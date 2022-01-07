@@ -15,10 +15,19 @@ export default function Navbar2(props) {
     logOut(dispatch);
     window.location.href = "/home";
   }; //relative to domain  };
+  const { loading, errorMessageLog, errorMessageSign, successMessage }: any =
+    useAuthState();
 
   return (
     <div className="nav-c">
-      {props.login || props.signup ? (
+      <img className="logo2" src={logo2} alt="logo"></img>
+      <div className="b">
+        <Link className="certman" to={"/home"}>
+          CERTMAN
+        </Link>
+      </div>
+
+      {/* {props.login || props.signup ? (
         <div className="b">
           <Link className="certman" to={"/home"}>
             CERTMAN
@@ -27,6 +36,11 @@ export default function Navbar2(props) {
       ) : userDetails.user ? (
         <div className="b2">
           <img className="s" src={s} alt="logo"></img>
+          <div className="b">
+          <Link className="certman" to={"/home"}>
+            CERTMAN
+          </Link>
+        </div>
           <div className="s-c">
             {" "}
             <Link className="certman2" to={"/dashboard"}>
@@ -36,14 +50,24 @@ export default function Navbar2(props) {
         </div>
       ) : (
         <div>
+           <div className="b">
+          <Link className="certman" to={"/home"}>
+            CERTMAN
+          </Link>
+        </div>
           <img className="logo2" alt="logo2" src={logo2}></img>
         </div>
-      )}
+      )} */}
 
       <div className="nav-right">
         {userDetails.user ? (
           <div className="right-container">
-            <button className="icon-btn" onClick={() => setToggle(!toggle)}>
+            <button
+              className="icon-btn"
+              onClick={() => {
+                setToggle(!toggle);
+              }}
+            >
               <img alt="icon" src={user} className="user-icon"></img>
             </button>
           </div>

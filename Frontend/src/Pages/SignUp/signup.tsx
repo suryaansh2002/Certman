@@ -3,16 +3,20 @@ import axios from "axios";
 
 import { signUpUser, useAuthState, useAuthDispatch } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
-import { AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cnfrmpass, setcnfrmPassword] = useState("");
+
   const [name, setName] = useState("");
 
   const dispatch = useAuthDispatch();
-  var { loading, errorMessage }: any = useAuthState();
+  var { loading, errorMessageLog, errorMessageSign }: any = useAuthState();
   const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+
   const [successMessage, setSuccessMsg] = useState("");
   const url = "http://localhost:5000";
 
@@ -27,7 +31,7 @@ function Login(props) {
         role: "MC",
       });
       if (res === "success") {
-        errorMessage = "";
+        errorMessageSign = "";
         console.log("res is success time for another request");
         console.log(email);
         setSuccessMsg("Signed up Successfully");
@@ -51,6 +55,11 @@ function Login(props) {
     e.preventDefault();
     setVisible(!visible);
   }
+  function toggleVisible2(e) {
+    e.preventDefault();
+    setVisible2(!visible2);
+  }
+
   return (
     <>
       <div>
@@ -62,7 +71,9 @@ function Login(props) {
               An <span className="blue">in-house</span> certificate generator.
             </div>
             <div>
-              {errorMessage ? <p className="error">{errorMessage}</p> : null}
+              {errorMessageSign ? (
+                <p className="error">{errorMessageSign}</p>
+              ) : null}
 
               {successMessage ? (
                 <p className="success">{successMessage}</p>
@@ -105,13 +116,33 @@ function Login(props) {
                   className="toggle-button-2"
                   onClick={(e) => toggleVisible(e)}
                 >
-                  <AiFillEyeInvisible />
+                  {!visible ? <AiFillEyeInvisible /> : <AiFillEye />}
                 </button>
               </div>
+              <div>
+                <input
+                  className="form-item"
+                  type={visible2 ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  id="password"
+                  value={cnfrmpass}
+                  onChange={(e) => setcnfrmPassword(e.target.value)}
+                  disabled={loading}
+                />
+                <button
+                  className="toggle-button-3"
+                  onClick={(e) => toggleVisible2(e)}
+                >
+                  {!visible2 ? <AiFillEyeInvisible /> : <AiFillEye />}
+                </button>
+              </div>
+              {cnfrmpass !== password && (
+                <div className="match">Passwords do not match</div>
+              )}
               <button
                 className="submit-btn"
                 onClick={handleSignUp}
-                disabled={loading}
+                disabled={loading || cnfrmpass !== password}
               >
                 Sign Up
               </button>

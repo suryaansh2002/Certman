@@ -163,11 +163,11 @@ a.modal-open {
   height: 300px;
   width: 420px;
   display: inline;
-  margin: 20px;
+  margin: 20px 40px;
   transition: 0.4s;
 }
 .home-photo:hover {
-  transform: scale(1.4);
+  transform: scale(1.2);
 }
 .home-photo:hover .container {
   height: max-content;

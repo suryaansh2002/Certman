@@ -1,33 +1,52 @@
 .left-c {
   width: 700px;
-  height: calc(100vh - 120px);
   padding: 1rem;
 
   float: left;
+}
+.cont2 {
+  height: 115vh;
 }
 .right-c {
   float: left;
   width: calc(100% - 800px);
 
   padding: 1rem;
-  height: calc(100vh - 120px);
   float: left;
   text-align: center;
   align-items: center;
   justify-content: center;
 }
 .left-box {
-  border: 3px solid rgb(60, 0, 201);
   width: 700px;
   height: 500px;
-  border-radius: 20px;
-  border-style: dashed;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
   background-size: 100% 100%;
   position: absolute;
+  background: #c4c4c475;
+  left: 7%;
+  background: rgb(196, 196, 196, 0.4);
+  border: 4px dashed #ffffff6c;
+  box-sizing: border-box;
+  top: 20%;
+  background-size: 100% 100%;
+  background-position: center;
+}
+.type-container {
+  width: 80%;
+  margin-left: 20%;
+}
+.enter {
+  font-size: 16px;
+  font-weight: 700;
+  color: #79c6f2;
+  font-style: italic;
+  margin-top: 2rem;
+  text-align: left;
 }
 .up-btn {
   background: transparent;
@@ -47,36 +66,64 @@
 .delete-up {
   margin: 1rem;
   border: none;
-  background-color: rgb(255, 0, 0, 0.8);
-  padding: 0.5rem 1rem;
+  background-color: #ff6961;
+  padding: 0.5rem 1.5rem;
   color: white;
   font-size: 0.9rem;
   border-radius: 5px;
   position: absolute;
-  top: 600px;
+  top: 650px;
+  font-size: 16px;
+
+  left: 650px;
 }
 .delete-up:hover {
   cursor: pointer;
 }
 
 .up-select {
-  padding: 0.5rem 1rem;
-  border: 1px solid rgb(60, 0, 201);
-  border-radius: 15px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+}
+.up-select * {
+  text-align: center;
+  background: transparent;
+  font-size: 16px;
+  color: white;
+  background-color: #0c17358f;
 }
 
 .type-row {
   margin: 1rem 0;
+  align-items: center;
+  text-align: left;
 }
 .type-label {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-align: left;
+  color: #79c6f2;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+.input-row {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 .type-input {
   width: 60px;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 20px;
   border-radius: 10px;
-  padding: 0.5rem;
+  font-size: 15px;
+  padding: 0.3rem 0.5rem;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
 }
 
 .logout-btn {
@@ -101,18 +148,30 @@
 .upload-info {
   font-size: 0.9rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: 1.5rem;
+  margin-top: 20.5rem;
+  position: absolute;
+  bottom: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}
+.info2 {
+  bottom: -150px;
 }
 
 .submit-up {
-  font-size: 1.1rem;
-  color: white;
-  font-weight: bold;
-  padding: 0.8rem 2rem;
-  margin-top: 2rem;
-  background-color: green;
+  margin: 1rem;
   border: none;
-  border-radius: 10px;
+  background-color: #77dd778f;
+  padding: 0.5rem 1.5rem;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  top: 650px;
+  font-size: 16px;
 }
 
 .submit-up:hover {
@@ -127,9 +186,8 @@
   height: 50px;
   visibility: hidden;
 }
-
-#qr-row {
-  margin-top: 10px;
+.height {
+  margin-bottom: 1rem;
 }
 
 .up-box {

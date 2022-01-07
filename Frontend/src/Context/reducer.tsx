@@ -9,7 +9,8 @@ export const initialState = {
   user: "" || JSON.parse(localStorage.getItem("currentUser")),
   token: "" || token,
   loading: false,
-  errorMessage: null,
+  errorMessageLog: null,
+  errorMessageSign: null,
   successMessage: null,
 };
 
@@ -38,7 +39,8 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         loading: false,
-        errorMessage: action.error,
+        errorMessageLog: action.error,
+        errorMessageSign: "",
       };
 
     case "REQUEST_SIGNUP":
@@ -51,13 +53,15 @@ export const AuthReducer = (initialState, action) => {
         ...initialState,
         successMessage: "Signed up Successfully",
         loading: false,
-        errorMessage: "",
+        errorMessageLog: "",
+        errorMessageSign: "",
       };
     case "SIGNUP_ERROR":
       return {
         ...initialState,
         loading: false,
-        errorMessage: action.error,
+        errorMessageSign: action.error,
+        errorMessageLog: "",
       };
 
     default:

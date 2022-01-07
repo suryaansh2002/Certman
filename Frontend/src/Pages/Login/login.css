@@ -2,7 +2,7 @@
 .login-box {
   /* position: absolute; */
   width: 600px;
-  height: 400px;
+  height: auto;
   /* left: 311px;
   top: 250px; */
 
@@ -15,6 +15,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -35%);
+  padding-bottom: 2rem;
 }
 
 .login-h {
@@ -74,6 +75,27 @@
   cursor: pointer;
 }
 
+.toggle-button-3 {
+  background: transparent;
+  border: none;
+  color: rgb(255, 255, 255, 0.5);
+  font-size: 20px;
+  position: absolute;
+  right: 110px;
+  top: 340px;
+}
+.toggle-button-3:hover {
+  cursor: pointer;
+}
+
+.match {
+  color: red;
+  font-size: 0.9rem;
+  text-align: left;
+  margin-left: calc(20% - 15px);
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
 .submit-btn {
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.4);
