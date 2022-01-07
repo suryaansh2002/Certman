@@ -1,5 +1,5 @@
-import  { useState, useEffect } from "react";
-import {  useAuthState } from "../../Context";
+import { useState, useEffect } from "react";
+import { useAuthState } from "../../Context";
 import "./user_upload.css";
 import axios from "axios";
 import Navbar2 from "../Navbar2/Navbar2";
@@ -9,7 +9,6 @@ export default function User_Upload() {
 
   const [uploadedCerts, setUploadedCerts] = useState([]);
   const user_id = userDetails.user.id;
-
 
   useEffect(() => {
     axios

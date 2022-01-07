@@ -2,13 +2,11 @@ import "../Dashboard/dashboard.css";
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { useAuthDispatch, logOut, useAuthState } from "../../Context";
 import NavBar2 from "../Navbar2/Navbar2";
 
 function Generate(props) {
- 
-
   const [uploadedCerts, setUploadedCerts] = useState([]);
 
   useEffect(() => {

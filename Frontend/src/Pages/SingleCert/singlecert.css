@@ -1,15 +1,14 @@
-.csv-inst{
-    text-align: center;
-    color: white;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
+.csv-inst {
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
 }
-.mail-input{
-    width: 80%;
-    margin: 0.5rem;
-    margin-left: 10%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 20px;
-
+.mail-input {
+  width: 80%;
+  margin: 0.5rem;
+  margin-left: 10%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 20px;
 }

@@ -119,7 +119,7 @@
   cursor: pointer;
 }
 
-#qrc{
+#qrc {
   position: absolute;
   top: 0;
   left: 0;
@@ -128,15 +128,15 @@
   visibility: hidden;
 }
 
-#qr-row{
-margin-top: 10px;
+#qr-row {
+  margin-top: 10px;
 }
 
-.up-box{
+.up-box {
   color: white;
 }
 
-.alert{
+.alert {
   position: fixed;
   top: 10px;
   left: 50%;

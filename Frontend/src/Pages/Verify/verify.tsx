@@ -18,21 +18,16 @@ const Verify = (props) => {
   useEffect(() => {
     axios
       .patch(url + "/api/auth/verifyacc", data)
-      .then(
-        (res: any) =>
-          (res.data.status === "success"
-            ?(
-              console.log(res.data),
-              setMsg("Account Verrified Successfully!"),
-              setTimeout(function(){
-                window.location.href="../login"
-              }, 2000)
-              
-              )
-            : setMsg(res.data.error))
+      .then((res: any) =>
+        res.data.status === "success"
+          ? (console.log(res.data),
+            setMsg("Account Verrified Successfully!"),
+            setTimeout(function () {
+              window.location.href = "../login";
+            }, 2000))
+          : setMsg(res.data.error)
       )
       .catch((err) => setMsg(err.message));
-
   }, []);
 
   const [msg, setMsg] = useState<string>("");

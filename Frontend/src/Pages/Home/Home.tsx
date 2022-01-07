@@ -9,14 +9,14 @@ export default function Home() {
       <div className="main-c">
         <div className="bg-design"></div>
         <div className="home-box">
-        <div className="c-heading">CERTMAN</div>
-        <div className="c-byline">An in-house certificate generator</div>
-        <div className="c-more">
-          Log in to experience a wide range of features.
-        </div> 
+          <div className="c-heading">CERTMAN</div>
+          <div className="c-byline">An in-house certificate generator</div>
+          <div className="c-more">
+            Log in to experience a wide range of features.
+          </div>
         </div>
-        {/* 
-*/}
+        {/*
+         */}
       </div>
     </div>
   );

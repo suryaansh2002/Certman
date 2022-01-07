@@ -1,4 +1,3 @@
-
 // let user = localStorage.getItem("currentUser")
 //   ? JSON.parse(localStorage.getItem("currentUser")).name
 //   : "";
@@ -52,7 +51,7 @@ export const AuthReducer = (initialState, action) => {
         ...initialState,
         successMessage: "Signed up Successfully",
         loading: false,
-        errorMessage:''
+        errorMessage: "",
       };
     case "SIGNUP_ERROR":
       return {

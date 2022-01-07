@@ -35,16 +35,16 @@
   font-size: 16px;
 }
 
-.home-box{
+.home-box {
   position: absolute;
   right: 50px;
   top: 250px;
   width: auto;
   height: 200px;
 }
-.verify-msg{
+.verify-msg {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }

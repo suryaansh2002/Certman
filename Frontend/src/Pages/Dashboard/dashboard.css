@@ -156,7 +156,7 @@ a.modal-open {
   color: white;
   font-weight: 700;
   font-family: "Source Sans Pro", sans-serif;
-text-align: center;
+  text-align: center;
   margin: 1rem;
 }
 .home-photo {
@@ -165,24 +165,21 @@ text-align: center;
   display: inline;
   margin: 20px;
   transition: 0.4s;
-
 }
-.home-photo:hover{
+.home-photo:hover {
   transform: scale(1.4);
-
 }
-.home-photo:hover .container{
+.home-photo:hover .container {
   height: max-content;
 }
-.img-container{
+.img-container {
   text-align: center;
   justify-content: center;
   padding-top: 3rem;
 }
-.home-header{
+.home-header {
   padding-top: 2rem;
 }
-.adjust{
+.adjust {
   height: 50px;
-
 }

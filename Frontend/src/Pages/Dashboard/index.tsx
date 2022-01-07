@@ -1,15 +1,13 @@
 import "./dashboard.css";
 import axios from "axios";
-import  { useState, useEffect } from "react";
-import {  useAuthState } from "../../Context";
+import { useState, useEffect } from "react";
+import { useAuthState } from "../../Context";
 import NavBar2 from "../Navbar2/Navbar2";
 function Home2(props) {
   const userDetails = useAuthState();
 
   // const [cert, setCert] = useState("");
   const [uploadedCerts, setUploadedCerts] = useState([]);
-
-
 
   useEffect(() => {
     axios
@@ -29,15 +27,14 @@ function Home2(props) {
   console.log(userDetails.user.role);
   return (
     <div className="container">
-    <NavBar2/>
+      <NavBar2 />
       <div className="home-header">Existing Templates</div>
       <div className="img-container">
-      {uploadedCerts.map((cert) => (
-        <img alt="Certificate"  src={cert.certUrl} className="home-photo" />
-      ))}
+        {uploadedCerts.map((cert) => (
+          <img alt="Certificate" src={cert.certUrl} className="home-photo" />
+        ))}
       </div>
-      <div className="adjust">
-      </div>
+      <div className="adjust"></div>
     </div>
   );
 }

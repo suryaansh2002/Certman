@@ -40,9 +40,9 @@
   right: 10px;
   /* background: rgba(0, 0, 0, 0.7); */
   background: rgba(255, 255, 255, 0.05);
-backdrop-filter: blur(50px);
   backdrop-filter: blur(50px);
-    border-radius: 10px;
+  backdrop-filter: blur(50px);
+  border-radius: 10px;
   border: none;
   text-align: center;
   height: auto;
@@ -61,7 +61,6 @@ backdrop-filter: blur(50px);
   margin: 0.2rem 0rem;
   border-radius: 10px;
   transition: 0.3s;
-
 }
 .toggle-div div:hover {
   transform: scale(1.1);
@@ -69,15 +68,15 @@ backdrop-filter: blur(50px);
 
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 
-.certman{
+.certman {
   color: white;
-margin-left: 30px;
+  margin-left: 30px;
   font-size: 1.6rem;
   font-weight: 600;
   font-family: "Source Sans Pro", sans-serif;
   text-decoration: none;
 }
-.certman2{
+.certman2 {
   color: white;
   font-size: 1.6rem;
   font-weight: 600;
@@ -85,18 +84,17 @@ margin-left: 30px;
   text-decoration: none;
 }
 
-.b{
+.b {
   margin-top: 25px;
 }
-.s{
-height:30px;
-margin-left: 20px;
-margin-right: 10px;
-position: absolute;
-top: 25px;
-
+.s {
+  height: 30px;
+  margin-left: 20px;
+  margin-right: 10px;
+  position: absolute;
+  top: 25px;
 }
-.s-c{
+.s-c {
   display: inline-block;
   position: absolute;
   top: 25px;

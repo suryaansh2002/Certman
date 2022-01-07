@@ -25,7 +25,7 @@ function App() {
               <ResetPassword />
             </Route>
             <Route path="/verify/:id" exact>
-              <Verify/>
+              <Verify />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />

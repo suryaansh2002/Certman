@@ -65,8 +65,8 @@ router.post("/cert", async (req: any, res: any) => {
   console.log(arr2);
   try {
     for (var i = 0; i < arr2.length; i++) {
-console.log(coordinates)
-      var user=arr2[i]
+      console.log(coordinates);
+      var user = arr2[i];
       var content = req.body.content;
       var imgLink;
       const uid = uuidv4();
@@ -81,8 +81,7 @@ console.log(coordinates)
       const width = 700;
       const height = 500;
 
-      loadImage(certUrl).then( (image) => {
-
+      loadImage(certUrl).then((image) => {
         const url = req.protocol + "://" + req.get("host");
         const canvas = createCanvas(width, height);
         const context = canvas.getContext("2d");
@@ -107,37 +106,49 @@ console.log(coordinates)
         context.fillStyle = "black";
 
         if (type == "wc" || type == "mc") {
-        context.textAlign = "center";
-          context.fillText(user.name, coordinates.name[1]+coordinates.name[2]/2, coordinates.name[0]);
+          context.textAlign = "center";
+          context.fillText(
+            user.name,
+            coordinates.name[1] + coordinates.name[2] / 2,
+            coordinates.name[0]
+          );
         }
         if (type == "org") {
-          context.fillText(user.name, coordinates.name[1]+coordinates.name[2]/2, coordinates.name[0]);
+          context.fillText(
+            user.name,
+            coordinates.name[1] + coordinates.name[2] / 2,
+            coordinates.name[0]
+          );
           context.fillText(
             user.event,
-            coordinates.event[1]+coordinates.event[2]/2,
+            coordinates.event[1] + coordinates.event[2] / 2,
             coordinates.event[0]
           );
           context.fillText(
             user.event_date,
-            coordinates.date[1]+coordinates.date[2]/2,
+            coordinates.date[1] + coordinates.date[2] / 2,
             coordinates.date[0]
           );
         }
         if (type == "comp") {
-          context.fillText(user.name, coordinates.name[1]+coordinates.name[2]/2, coordinates.name[0]);
+          context.fillText(
+            user.name,
+            coordinates.name[1] + coordinates.name[2] / 2,
+            coordinates.name[0]
+          );
           context.fillText(
             user.event,
-            coordinates.event[1]+coordinates.event[2]/2,
+            coordinates.event[1] + coordinates.event[2] / 2,
             coordinates.event[0]
           );
           context.fillText(
             user.event_date,
-            coordinates.date[1]+ coordinates.date[2]/2,
+            coordinates.date[1] + coordinates.date[2] / 2,
             coordinates.date[0]
           );
           context.fillText(
             user.position,
-            coordinates.position[1]+coordinates.position[2]/2,
+            coordinates.position[1] + coordinates.position[2] / 2,
             coordinates.position[0]
           );
         }
@@ -146,7 +157,7 @@ console.log(coordinates)
 
         const filePath = `./emailed-cert-uploads/${user.name}_${uid}.png`;
 
-         fs.writeFile(filePath, buffer, (err, data) => {
+        fs.writeFile(filePath, buffer, (err, data) => {
           if (err) console.log(err);
           else {
             console.log("File written successfully\n");
@@ -160,7 +171,6 @@ console.log(coordinates)
               .save()
               .then((result) => {
                 console.log("Certificate Saved");
-
               })
               .catch((err) => {
                 console.log(err);
@@ -183,64 +193,60 @@ console.log(coordinates)
         //   console.log('Email sent')
         //   console.log(user.name + "e")
 
-    
         // })
         // .catch((error) => {
         //   console.error(error.message)
         // })
 
-          let transporter = nodemailer.createTransport({
-            service: "Outlook365",
-            host: "smtp.office365.com",
-            port: "587",
-            name: "certman",
-            maxConnections: 10,
-            tls: {
-              ciphers: "SSLv3",
-              rejectUnauthorized: false,
-            },
-            auth: {
-              //   user: "temp_certman@outlook.com",
-              user: "temp_cert@outlook.com",
+        let transporter = nodemailer.createTransport({
+          service: "Outlook365",
+          host: "smtp.office365.com",
+          port: "587",
+          name: "certman",
+          maxConnections: 10,
+          tls: {
+            ciphers: "SSLv3",
+            rejectUnauthorized: false,
+          },
+          auth: {
+            //   user: "temp_certman@outlook.com",
+            user: "temp_cert@outlook.com",
 
-              pass: "123@ABC@abc",
+            pass: "123@ABC@abc",
+          },
+        });
+        const options = {
+          // from: "temp_certman@outlook.com",
+          from: "temp_cert@outlook.com",
+
+          to: user.email,
+          subject: subject,
+          text: content,
+          attachments: [
+            {
+              // utf-8 string as an attachment
+              filename: `${user.name}.png`,
+              content: buffer,
             },
+          ],
+        };
+
+        transporter.sendMail(options, async function (err, info) {
+          if (err) {
+            console.log(err);
+            res.json({ status: "error", error: err, data: user, buffer });
+
+            return;
+          }
+          console.log(info);
+          res.json({
+            status: "success",
+            error: "",
+            data: user,
+            info,
+            buffer,
           });
-          const options = {
-            // from: "temp_certman@outlook.com",
-            from: "temp_cert@outlook.com",
-
-            to: user.email,
-            subject: subject,
-            text: content,
-            attachments: [
-              {
-                // utf-8 string as an attachment
-                filename: `${user.name}.png`,
-                content: buffer,
-              },
-            ],
-          };
-
-            transporter.sendMail(
-            options,
-            async function (err, info) {
-              if (err) {
-                console.log(err);
-                res.json({ status: "error", error: err, data: user, buffer });
-
-                return;
-              }
-              console.log(info);
-              res.json({
-                status: "success",
-                error: "",
-                data: user,
-                info,
-                buffer,
-              });
-            }
-          );
+        });
       });
     }
   } catch (err) {
