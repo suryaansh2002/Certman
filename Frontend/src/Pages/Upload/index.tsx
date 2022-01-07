@@ -19,15 +19,19 @@ export default function Upload() {
 
   const [nameTop, setNameTop] = useState<number>(0);
   const [nameLeft, setNameLeft] = useState<number>(0);
+  const [nameW, setNameW] = useState<number>(0);
 
   const [eventTop, setEventTop] = useState<number>(0);
   const [eventLeft, setEventLeft] = useState<number>(0);
+  const [eventW, setEventW] = useState<number>(0);
 
   const [dateTop, setDateTop] = useState<number>(0);
   const [dateLeft, setDateLeft] = useState<number>(0);
+  const [dateW, setDateW] = useState<number>(0);
 
   const [positionTop, setPositionTop] = useState<number>(0);
   const [positionLeft, setPositionLeft] = useState<number>(0);
+  const [positionW, setPositionW] = useState<number>(0);
 
   const [alert, setAlert] = useState<boolean>(false);
 
@@ -107,6 +111,15 @@ export default function Upload() {
     name.innerHTML = "Person Name";
   }
 
+  function NameW(e) {
+    setNameW(parseInt(e.target.value));
+    const name = document.getElementById("name");
+    name.style.width = e.target.value.toString() + "px";
+    name.style.visibility = "visible";
+    name.style.zIndex = "10";
+    name.innerHTML = "Person Name";
+  }
+
   function positionEventTop(e) {
     setEventTop(parseInt(e.target.value));
     const event = document.getElementById("event");
@@ -125,8 +138,18 @@ export default function Upload() {
     event.innerHTML = "Event Name";
   }
 
+  function EventW(e) {
+    setEventW(parseInt(e.target.value));
+
+    const event = document.getElementById("event");
+    event.style.width = e.target.value.toString() + "px";
+    event.style.visibility = "visible";
+    event.style.zIndex = "10";
+    event.innerHTML = "Event Name";
+  }
+
   function positionEventDateTop(e) {
-    setDateTop(e.target.value);
+    setDateTop(parseInt(e.target.value));
     const event = document.getElementById("e-date");
     event.style.top = e.target.value.toString() + "px";
     event.style.visibility = "visible";
@@ -134,15 +157,24 @@ export default function Upload() {
     event.innerHTML = "01-01-2022";
   }
   function positionEventDateLeft(e) {
-    setDateLeft(e.target.value);
+    setDateLeft(parseInt(e.target.value));
     const eventDate = document.getElementById("e-date");
     eventDate.style.left = e.target.value.toString() + "px";
     eventDate.style.visibility = "visible";
     eventDate.style.zIndex = "10";
     eventDate.innerHTML = "01-01-2022";
   }
+  function EventDateW(e) {
+    setDateW(parseInt(e.target.value));
+    const eventDate = document.getElementById("e-date");
+    eventDate.style.width = e.target.value.toString() + "px";
+    eventDate.style.visibility = "visible";
+    eventDate.style.zIndex = "10";
+    eventDate.innerHTML = "01-01-2022";
+  }
+
   function positionPosTop(e) {
-    setPositionTop(e.target.value);
+    setPositionTop(parseInt(e.target.value));
     const position = document.getElementById("position");
     position.style.top = e.target.value.toString() + "px";
     position.style.visibility = "visible";
@@ -150,19 +182,26 @@ export default function Upload() {
     position.innerHTML = "1st";
   }
   function positionPosLeft(e) {
-    setPositionLeft(e.target.value);
+    setPositionLeft(parseInt(e.target.value));
     const position = document.getElementById("position");
     position.style.left = e.target.value.toString() + "px";
     position.style.visibility = "visible";
     position.style.zIndex = "10";
     position.innerHTML = "1st";
   }
-
+  function PositionW(e) {
+    setPositionLeft(parseInt(e.target.value));
+    const position = document.getElementById("position");
+    position.style.width = e.target.value.toString() + "px";
+    position.style.visibility = "visible";
+    position.style.zIndex = "10";
+    position.innerHTML = "1st";
+  }
   const coordinates = {
-    name: [nameTop, nameLeft],
-    event: [eventTop, eventLeft],
-    date: [dateTop, dateLeft],
-    postion: [positionTop, positionLeft],
+    name: [nameTop, nameLeft, nameW],
+    event: [eventTop, eventLeft, eventW],
+    date: [dateTop, dateLeft, dateW],
+    position: [positionTop, positionLeft, positionW],
     qr: [qrTop, qrLeft, qrH, qrW],
   };
 
@@ -194,10 +233,9 @@ export default function Upload() {
             console.log(res);
             // window.alert("Certificate Uploaded Successfully");
             setAlert(true);
-            setTimeout(function(){
+            setTimeout(function () {
               window.location.reload();
             }, 2000);
-
           })
           .catch((err) => {
             console.log(err);
@@ -314,6 +352,12 @@ export default function Upload() {
                           type="number"
                           onChange={(e) => positionNameLeft(e)}
                         ></input>
+                        <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => NameW(e)}
+                        ></input>
                       </div>
                     </div>
                   </div>
@@ -338,6 +382,12 @@ export default function Upload() {
                           type="number"
                           onChange={(e) => positionNameLeft(e)}
                         ></input>
+                        <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => NameW(e)}
+                        ></input>
                       </div>
                     </div>
                     <div className="row type-row">
@@ -358,6 +408,13 @@ export default function Upload() {
                           type="number"
                           onChange={(e) => positionEventLeft(e)}
                         ></input>
+                        <label>Width:</label>
+
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => EventW(e)}
+                        ></input>
                       </div>
                     </div>
                     <div className="row type-row">
@@ -377,6 +434,13 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => positionEventDateLeft(e)}
+                        ></input>
+                        <label>Width:</label>
+
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => EventDateW(e)}
                         ></input>
                       </div>
                     </div>
@@ -405,6 +469,13 @@ export default function Upload() {
                           type="number"
                           onChange={(e) => positionNameLeft(e)}
                         ></input>
+                        <label>Width:</label>
+
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => NameW(e)}
+                        ></input>
                       </div>
                     </div>
                     <div className="row type-row">
@@ -424,6 +495,13 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => positionEventLeft(e)}
+                        ></input>
+                        <label>Width:</label>
+
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => EventW(e)}
                         ></input>
                       </div>
                     </div>
@@ -445,6 +523,13 @@ export default function Upload() {
                           type="number"
                           onChange={(e) => positionEventDateLeft(e)}
                         ></input>
+                        <label>Width:</label>
+
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => EventDateW(e)}
+                        ></input>
                       </div>
                     </div>{" "}
                     <div className="row type-row">
@@ -464,6 +549,12 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => positionPosLeft(e)}
+                        ></input>
+                        <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => PositionW(e)}
                         ></input>
                       </div>
                     </div>

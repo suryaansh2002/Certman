@@ -94,6 +94,8 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   visibility: hidden;
+  background-color: rgba(157, 212, 212, 0.527);
+  text-align: center;
 }
 
 .upload-info {

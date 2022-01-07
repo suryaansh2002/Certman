@@ -4,7 +4,7 @@ import axios from "axios";
 import Navbar2 from "../Navbar2/Navbar2";
 import QRCode from "qrcode";
 import qrcode_1 from "../../images/qrcode.png";
-import './singlecert.css';
+import "./singlecert.css";
 
 export default function SingleImage(props) {
   const id = window.location.pathname.split("/")[2];
@@ -31,8 +31,6 @@ export default function SingleImage(props) {
   const [type, setType] = useState("");
 
   const canvasRef = useRef(null);
-
-  
 
   function onFileChange(e) {
     setCsv(e.target.files[0]);
@@ -63,36 +61,72 @@ export default function SingleImage(props) {
     background.src = certUrl;
 
     background.onload = function () {
+      console.log(coordinates);
       ctx.drawImage(background, 0, 0, 700, 500);
-        var img = new Image();
-        img.src = qrcode_1;
-        ctx.drawImage(
-          img,
-          coordinates.qr[1],
-          coordinates.qr[0],
-          coordinates.qr[3],
-          coordinates.qr[2]
-        );
+      var img = new Image();
+      img.src = qrcode_1;
+      ctx.drawImage(
+        img,
+        coordinates.qr[1],
+        coordinates.qr[0],
+        coordinates.qr[3],
+        coordinates.qr[2]
+      );
       ctx.font = "20px Arial";
-      ctx.textAlign = "left";
+      ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = "black";
       // ctx.drawImage(qr, 20, 422,50,50);
       // ctx.fillText("Personffffff", 200, 200);
 
       if (type === "wc" || type === "mc") {
-        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
+        ctx.textAlign = "center";
+        ctx.fillText(
+          "Person Name",
+          coordinates.name[1] + coordinates.name[2] / 2,
+          coordinates.name[0]
+        );
       }
       if (type === "org") {
-        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
-        ctx.fillText("Event Name", coordinates.event[1], coordinates.event[0]);
-        ctx.fillText("01/01/2021", coordinates.date[1], coordinates.date[0]);
+        ctx.textAlign = "center";
+        ctx.fillText(
+          "Person Name",
+          coordinates.name[1] + coordinates.name[2] / 2,
+          coordinates.name[0]
+        );
+        ctx.fillText(
+          "Event Name",
+          coordinates.event[1] + coordinates.event[2] / 2,
+          coordinates.event[0]
+        );
+        ctx.fillText(
+          "01/01/2021",
+          coordinates.date[1] + coordinates.date[2] / 2,
+          coordinates.date[0]
+        );
       }
       if (type === "comp") {
-        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
-        ctx.fillText("Event Name", coordinates.event[1], coordinates.event[0]);
-        ctx.fillText("01/01/2021", coordinates.date[1], coordinates.date[0]);
-        ctx.fillText("1st", coordinates.postion[1], coordinates.postion[0]);
+        ctx.textAlign = "center";
+        ctx.fillText(
+          "Person Name",
+          coordinates.name[1] + coordinates.name[2] / 2,
+          coordinates.name[0]
+        );
+        ctx.fillText(
+          "Event Name",
+          coordinates.event[1] + coordinates.event[2] / 2,
+          coordinates.event[0]
+        );
+        ctx.fillText(
+          "01/01/2021",
+          coordinates.date[1] + coordinates.date[2] / 2,
+          coordinates.date[0]
+        );
+        ctx.fillText(
+          "1st",
+          coordinates.position[1] + coordinates.position[2] / 2,
+          coordinates.position[0]
+        );
       }
     };
   }, [final]);
@@ -107,23 +141,23 @@ export default function SingleImage(props) {
 
     setShow(true);
     console.log(certUrl);
-    for (var i = 0; i < arr2.length; i++) {
+    // for (var i = 0; i < arr2.length; i++) {
 
-      var user = arr2[i]
-      console.log("Sending:", user);
-      var data = {
-        subject,
-        content,
-        user,
-        certUrl,
-        type,
-        coordinates,
-      };
-      await axios
-        .post("http://localhost:5000/api/sendmail/cert/", data)
-        .then((res) => ( setEmailCount((c) => c + 1)))
-        .catch((err) => console.log(err.message));
-    }
+    //   var user = arr2[i]
+    //   console.log("Sending:", user);
+    var data = {
+      subject,
+      content,
+      arr2,
+      certUrl,
+      type,
+      coordinates,
+    };
+    await axios
+      .post("http://localhost:5000/api/sendmail/cert/", data)
+      .then((res) => setEmailCount((c) => c + 1))
+      .catch((err) => console.log(err.message));
+
     setShow(false);
   };
 
@@ -154,6 +188,7 @@ export default function SingleImage(props) {
     }
     console.log(arr2);
     arr2.map((element) => {
+      console.log(element);
       const elementCanvas = document.createElement("canvas");
       elementCanvas.setAttribute("ref", element.name);
       const canvasObj = canvasRef.current;
@@ -169,37 +204,55 @@ export default function SingleImage(props) {
         ctx.drawImage(background, 0, 0, 700, 500);
 
         ctx.font = "20px Arial";
-        ctx.textAlign = "left";
+        ctx.textAlign = "center";
         ctx.textBaseline = "top";
         ctx.fillStyle = "black";
-
         if (type === "wc" || type === "mc") {
-          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
-        }
-        if (type === "wc" || type === "mc") {
-          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
-        }
-        if (type === "org") {
-          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
           ctx.fillText(
-            element.event_name,
-            coordinates.event[1],
+            element.name,
+            coordinates.name[1] + coordinates.name[2] / 2,
+            coordinates.name[0]
+          );
+        }
+
+        if (type === "org") {
+          ctx.fillText(
+            element.name,
+            coordinates.name[1] + coordinates.name[2] / 2,
+            coordinates.name[0]
+          );
+
+          ctx.fillText(
+            element.event,
+            coordinates.event[1] + coordinates.event[2] / 2,
             coordinates.event[0]
           );
-          ctx.fillText(element.date, coordinates.date[1], coordinates.date[0]);
+          ctx.fillText(
+            element.event_date,
+            coordinates.date[1] + coordinates.date[2] / 2,
+            coordinates.date[0]
+          );
         }
         if (type === "comp") {
-          ctx.fillText(element.name, coordinates.name[1], coordinates.name[0]);
           ctx.fillText(
-            element.event_name,
-            coordinates.event[1],
+            element.name,
+            coordinates.name[1] + coordinates.name[2] / 2,
+            coordinates.name[0]
+          );
+          ctx.fillText(
+            element.event,
+            coordinates.event[1] + coordinates.event[2] / 2,
             coordinates.event[0]
           );
-          ctx.fillText(element.date, coordinates.date[1], coordinates.date[0]);
           ctx.fillText(
-            element.postion,
-            coordinates.postion[1],
-            coordinates.postion[0]
+            element.event_date,
+            coordinates.date[1] + coordinates.date[2] / 2,
+            coordinates.date[0]
+          );
+          ctx.fillText(
+            element.position,
+            coordinates.position[1] + coordinates.position[2] / 2,
+            coordinates.position[0]
           );
         }
 
@@ -350,7 +403,7 @@ export default function SingleImage(props) {
           <div>
             The csv uploaded should contain 5 columns only, with headings-{" "}
             <b>name</b>, <b>email</b>,<b>event_name</b>,<b>date</b>,
-            <b>postion</b>.{" "}
+            <b>position</b>.{" "}
           </div>
         )}
       </div>
