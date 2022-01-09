@@ -40,9 +40,10 @@ router.post("/login", async (req: any, res: any) => {
       data: "",
     });
   } else {
-    if (user.confirmed == false) {
+    if(user.confirmed==false){
       return res.json({ status: "error", error: "Account not verified" });
-    } else {
+
+    }else{
       if (await bcrypt.compare(password, user.password)) {
         const token = jwt.sign(
           {
@@ -54,7 +55,7 @@ router.post("/login", async (req: any, res: any) => {
           JWT_SECRET
         );
         var payload = jwt_decode(token);
-
+  
         return res.json({ status: "success", error: "", data: payload });
       } else {
         return res.json({
@@ -64,6 +65,7 @@ router.post("/login", async (req: any, res: any) => {
         });
       }
     }
+    
   }
 });
 router.post("/signup", async (req: any, res: any) => {
@@ -104,7 +106,12 @@ router.post("/signup", async (req: any, res: any) => {
     }
     throw error;
   }
+
+
+
 });
+
+
 
 router.post("/forgot", async (req: any, res: any) => {
   const { email } = req.body;
@@ -184,6 +191,7 @@ router.patch("/reset", async (req: any, res: any) => {
   }
 });
 
+
 router.post("/verify", async (req: any, res: any) => {
   const { email } = req.body;
   const user = await Users.findOne({ email }).lean();
@@ -227,11 +235,13 @@ router.post("/verify", async (req: any, res: any) => {
   }
 });
 
+
 router.patch("/verifyacc", async (req: any, res: any) => {
   const { id } = req.body;
-  const user = await Users.findOne({ id }).lean();
+  const user = await 
+  Users.findOne({ id }).lean();
   if (!user) {
-    console.log("e1");
+    console.log("e1")
     return res.json({
       status: "error",
       error: "User does not exist!",
@@ -245,7 +255,7 @@ router.patch("/verifyacc", async (req: any, res: any) => {
         { _id: id },
         {
           $set: {
-            confirmed: true,
+            confirmed: true
           },
         }
       );
@@ -255,5 +265,10 @@ router.patch("/verifyacc", async (req: any, res: any) => {
     }
   }
 });
+
+
+
+
+
 
 module.exports = router;
