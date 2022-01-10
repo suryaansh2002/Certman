@@ -1,7 +1,10 @@
 export {};
+require('dotenv').config()
+
 const express = require("express");
 const router = express.Router();
 const Users = require("../models/User");
+
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -11,6 +14,8 @@ const jwt_decode = require("jwt-decode");
 const JWT_SECRET = "certmanjwtsecret";
 
 const nodemailer = require("nodemailer");
+
+
 
 router.get("/", (req: any, res: any) => {
   try {
@@ -116,6 +121,7 @@ router.post("/signup", async (req: any, res: any) => {
 router.post("/forgot", async (req: any, res: any) => {
   const { email } = req.body;
   const user = await Users.findOne({ email }).lean();
+  console.log("forgot",user)
   if (!user) {
     return res.json({
       status: "error",
@@ -129,35 +135,37 @@ router.post("/forgot", async (req: any, res: any) => {
       id: user._id,
     };
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
-
     const link = `http://localhost:3000/reset/${user._id}/${token}`;
+    // console.log(link)
 
     let transporter = nodemailer.createTransport({
-      service: "Outlook365",
-      host: "smtp.office365.com",
-      port: "587",
-      tls: {
-        ciphers: "SSLv3",
-        rejectUnauthorized: false,
-      },
+      service: "hotmail",
+      // host: "smtp.office365.com",
+      // port: "587",
+      // tls: {
+      //   ciphers: "SSLv3",
+      //   rejectUnauthorized: false,
+      // },
       auth: {
-        user: "temp_certman@outlook.com",
-        pass: "123@ABC@abc",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
 
     const options = {
-      from: "temp_certman@outlook.com",
+      from: process.env.EMAIL,
       to: email,
       subject: "Reset Certman Password",
       text: `Reset your password at ${link}`,
     };
 
+    console.log(options)
     transporter.sendMail(options, function (err, info) {
       if (err) {
         console.log(err);
         return;
       }
+      console.log(info)
       res.json({ status: "success", error: "", data: "" });
     });
   }
@@ -203,25 +211,25 @@ router.post("/verify", async (req: any, res: any) => {
     });
   } else {
     const link = `http://localhost:3000/verify/${user._id}`;
-
+console.log('in verify')
     let transporter = nodemailer.createTransport({
-      service: "Outlook365",
-      host: "smtp.office365.com",
-      port: "587",
-      tls: {
-        ciphers: "SSLv3",
-        rejectUnauthorized: false,
-      },
+      service: "hotmail",
+      // host: "smtp.office365.com",
+      // port: "587",
+      // tls: {
+      //   ciphers: "SSLv3",
+      //   rejectUnauthorized: false,
+      // },
       auth: {
-        user: "temp_certman@outlook.com",
-        pass: "123@ABC@abc",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
 
     const options = {
-      from: "temp_certman@outlook.com",
+      from: process.env.EMAIL,
       to: email,
-      subject: "Verify your account",
+      subject: "Certman: Verify your account",
       text: `Verify your account at ${link}`,
     };
 
@@ -230,6 +238,7 @@ router.post("/verify", async (req: any, res: any) => {
         console.log(err);
         return;
       }
+      console.log(info)
       res.json({ status: "success", error: "", data: "" });
     });
   }
