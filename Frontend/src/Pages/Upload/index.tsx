@@ -21,18 +21,26 @@ export default function Upload() {
   const [nameTop, setNameTop] = useState<number>(0);
   const [nameLeft, setNameLeft] = useState<number>(0);
   const [nameW, setNameW] = useState<number>(0);
+  const [nameFont, setNameFont] = useState<number>(0);
+  
 
   const [eventTop, setEventTop] = useState<number>(0);
   const [eventLeft, setEventLeft] = useState<number>(0);
   const [eventW, setEventW] = useState<number>(0);
+  const [eventFont, setEventFont] = useState<number>(0);
+
 
   const [dateTop, setDateTop] = useState<number>(0);
   const [dateLeft, setDateLeft] = useState<number>(0);
   const [dateW, setDateW] = useState<number>(0);
+  const [dateFont, setDateFont] = useState<number>(0);
 
   const [positionTop, setPositionTop] = useState<number>(0);
   const [positionLeft, setPositionLeft] = useState<number>(0);
   const [positionW, setPositionW] = useState<number>(0);
+  const [positionFont, setPositionFont] = useState<number>(0);
+
+
 
   const [alert, setAlert] = useState<boolean>(false);
 
@@ -76,7 +84,6 @@ export default function Upload() {
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
-
   function qrWidth(e) {
     setqrW(parseInt(e.target.value));
     const q = document.getElementById("qrc");
@@ -93,9 +100,9 @@ export default function Upload() {
     q.style.zIndex = "10";
   }
 
+
   function positionNameTop(e) {
     setNameTop(parseInt(e.target.value));
-
     const name = document.getElementById("name");
     name.style.top = e.target.value.toString() + "px";
     name.style.visibility = "visible";
@@ -111,7 +118,6 @@ export default function Upload() {
     name.style.zIndex = "10";
     name.innerHTML = "Person Name";
   }
-
   function NameW(e) {
     setNameW(parseInt(e.target.value));
     const name = document.getElementById("name");
@@ -120,6 +126,16 @@ export default function Upload() {
     name.style.zIndex = "10";
     name.innerHTML = "Person Name";
   }
+  function NameFont(e) {
+    setNameFont(parseInt(e.target.value));
+    const name = document.getElementById("name");
+    name.style.fontSize = e.target.value.toString() + "px";
+    name.style.visibility = "visible";
+    name.style.zIndex = "10";
+    name.innerHTML = "Person Name";
+  }
+
+
 
   function positionEventTop(e) {
     setEventTop(parseInt(e.target.value));
@@ -138,7 +154,6 @@ export default function Upload() {
     event.style.zIndex = "10";
     event.innerHTML = "Event Name";
   }
-
   function EventW(e) {
     setEventW(parseInt(e.target.value));
 
@@ -148,6 +163,17 @@ export default function Upload() {
     event.style.zIndex = "10";
     event.innerHTML = "Event Name";
   }
+  function EventFont(e) {
+    setEventFont(parseInt(e.target.value));
+
+    const event = document.getElementById("event");
+    event.style.fontSize = e.target.value.toString() + "px";
+    event.style.visibility = "visible";
+    event.style.zIndex = "10";
+    event.innerHTML = "Event Name";
+  }
+
+
 
   function positionEventDateTop(e) {
     setDateTop(parseInt(e.target.value));
@@ -173,6 +199,16 @@ export default function Upload() {
     eventDate.style.zIndex = "10";
     eventDate.innerHTML = "01-01-2022";
   }
+  function EventDateFont(e) {
+    setDateFont(parseInt(e.target.value));
+    const eventDate = document.getElementById("e-date");
+    eventDate.style.fontSize = e.target.value.toString() + "px";
+    eventDate.style.visibility = "visible";
+    eventDate.style.zIndex = "10";
+    eventDate.innerHTML = "01-01-2022";
+  }
+
+
 
   function positionPosTop(e) {
     setPositionTop(parseInt(e.target.value));
@@ -191,18 +227,28 @@ export default function Upload() {
     position.innerHTML = "1st";
   }
   function PositionW(e) {
-    setPositionLeft(parseInt(e.target.value));
+    setPositionW(parseInt(e.target.value));
     const position = document.getElementById("position");
     position.style.width = e.target.value.toString() + "px";
     position.style.visibility = "visible";
     position.style.zIndex = "10";
     position.innerHTML = "1st";
   }
+  function PositionFont(e) {
+    setPositionFont(parseInt(e.target.value));
+    const position = document.getElementById("position");
+    position.style.fontSize = e.target.value.toString() + "px";
+    position.style.visibility = "visible";
+    position.style.zIndex = "10";
+    position.innerHTML = "1st";
+  }
+
+  
   const coordinates = {
-    name: [nameTop, nameLeft, nameW],
-    event: [eventTop, eventLeft, eventW],
-    date: [dateTop, dateLeft, dateW],
-    position: [positionTop, positionLeft, positionW],
+    name: [nameTop, nameLeft, nameW,nameFont],
+    event: [eventTop, eventLeft, eventW,eventFont],
+    date: [dateTop, dateLeft, dateW, dateFont],
+    position: [positionTop, positionLeft, positionW,positionFont],
     qr: [qrTop, qrLeft, qrH, qrW],
   };
 
@@ -246,7 +292,7 @@ export default function Upload() {
 
   console.log(userId);
   return (
-    <div className={type === "comp" ? "container cont2" : "container"}>
+    <div className={type === "comp" ? "container cont3" : type==="org" ? "container cont2" : "container"}>
       {alert && (
         <div className="alert">
           Congratulations! Certifcate has been uploaded successfully!!
@@ -270,12 +316,14 @@ export default function Upload() {
         <button className="delete-up" onClick={() => window.location.reload()}>
           Delete Image
         </button>
-        <div className={type === "comp" ? "upload-info info2" : "upload-info"}>
+
+        <div className={type === "comp" ? "upload-info info3" : type==="org" ? "upload-info info2" : "upload-info"}>
           <span style={{ fontWeight: 800, marginRight: "10px" }}>Note:</span>
           The dimmensions of the certificate are 700px x 500px, please enter all
           coordinates in px keeping this height and width in mind.
         </div>
       </div>
+
       <div className="right-c">
         <form onSubmit={onSubmit}>
           <div>
@@ -307,6 +355,7 @@ export default function Upload() {
                 Participating in or winning a Competition
               </option>
             </select>
+
             {type && (
               <div className="type-container">
                 <div>
@@ -316,79 +365,123 @@ export default function Upload() {
                       <label className="type-label">1. Name:</label>
                       <br />
                       <div className="row input-row">
+                        <div className="col-lg-6">
                         <label>Top:</label>
                         <input
                           className="type-input"
                           type="number"
                           onChange={(e) => positionNameTop(e)}
                         ></input>
+
+                          </div>
+                          <div className="col-lg-6">
                         <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
                           onChange={(e) => positionNameLeft(e)}
                         ></input>
-                        <label>Width:</label>
+                        </div>
+                      </div>
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Width:</label>
                         <input
                           className="type-input"
                           type="number"
                           onChange={(e) => NameW(e)}
                         ></input>
+
+                          </div>
+                          <div className="col-lg-6">
+                        <label>Font:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => NameFont(e)}
+                        ></input>
+                          </div>
+
                       </div>
                     </div>
                     <div className="row type-row">
                       <label className="type-label">2. QRCODE:</label>
                       <br />
-                      <div className="row qr-row input-row">
-                        <label>Top:</label>
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Top:</label>
                         <input
                           className="type-input"
                           type="number"
                           onChange={(e) => positionqrTop(e)}
                         ></input>
-                        <label>Left:</label>
+
+                          </div>
+                          <div className="col-lg-6">
+                          <label>Left:</label>
                         <input
                           className="type-input"
                           type="number"
                           onChange={(e) => positionqrLeft(e)}
                         ></input>
+
+                          </div>
+
                         {/* <div className="row input-row" id="qr-row"> */}
-                        <label>Width:</label>
+                      </div>
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Width:</label>
                         <input
                           className="type-input"
                           type="number"
                           onChange={(e) => qrWidth(e)}
                         ></input>
 
-                        {/* </div> */}
+                          </div>
+                          <div className="col-lg-6">
+
+                        <label className="">Height:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => qrHeight(e)}
+                        ></input>
                       </div>
-                      <label className="height">Height:</label>
-                      <input
-                        className="type-input height"
-                        type="number"
-                        onChange={(e) => qrHeight(e)}
-                      ></input>
+                      </div>
                     </div>
                   </div>
-                  {(type === "wc" || type === "mc") && <div></div>}
                   {type === "org" && (
                     <div>
                       <div className="row type-row">
                         <label className="type-label">3. Event Name:</label>
                         <br />
                         <div className="row input-row">
+
+                        <div className="col-lg-6">
+                         
+
                           <label>Top:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventTop(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+
                           <label>Left:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventLeft(e)}
                           ></input>
+                           </div> 
+                           </div>
+                         
+                          <div className="row input-row">
+                            <div className="col-lg-6">
+
                           <label>Width:</label>
 
                           <input
@@ -396,24 +489,44 @@ export default function Upload() {
                             type="number"
                             onChange={(e) => EventW(e)}
                           ></input>
-                        </div>
+                          </div>
+                          <div className="col-lg-6">
+                          <label>Font:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventFont(e)}
+                          ></input>
+                           </div>
+                          </div> 
+
+                        
                       </div>
                       <div className="row type-row">
                         <label className="type-label">4. Event Date:</label>
                         <br />
                         <div className="row input-row">
+                          <div className="col-lg-6">
+
                           <label>Top:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventDateTop(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
                           <label>Left:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventDateLeft(e)}
                           ></input>
+                          </div>
+                        </div>
+                        <div className="row input-row">
+                          <div className="col-lg-6">
                           <label>Width:</label>
 
                           <input
@@ -421,6 +534,16 @@ export default function Upload() {
                             type="number"
                             onChange={(e) => EventDateW(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+                          <label>Font:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventDateFont(e)}
+                          ></input>
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -431,43 +554,73 @@ export default function Upload() {
                         <label className="type-label">3. Event Name:</label>
                         <br />
                         <div className="row input-row">
+                          <div className="col-lg-6">
                           <label>Top:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventTop(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+
                           <label>Left:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventLeft(e)}
                           ></input>
+                          </div>
+                        </div>
+                        <div className="row input-row">
+                        <div className="col-lg-6">
+
                           <label>Width:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventFont(e)}
+                          ></input>
+                          </div>
+                          <div className="col-lg-6">
+
+                          <label>Font:</label>
 
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => EventW(e)}
                           ></input>
+                          </div>
                         </div>
                       </div>
                       <div className="row type-row">
                         <label className="type-label">4. Event Date:</label>
                         <br />
                         <div className="row input-row">
+                        <div className="col-lg-6">
+
                           <label>Top:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventDateTop(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+
                           <label>Left:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionEventDateLeft(e)}
                           ></input>
+                          </div>
+                        </div>
+                        <div className="row input-row">
+                        <div className="col-lg-6">
+
                           <label>Width:</label>
 
                           <input
@@ -475,38 +628,72 @@ export default function Upload() {
                             type="number"
                             onChange={(e) => EventDateW(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+
+                          <label>Font:</label>
+
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => EventDateFont(e)}
+                          ></input>
+                          </div>
                         </div>
                       </div>{" "}
                       <div className="row type-row">
                         <label className="type-label">5. Positon Won:</label>
                         <br />
                         <div className="row input-row">
+                        <div className="col-lg-6">
+
                           <label>Top:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionPosTop(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+
                           <label>Left:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => positionPosLeft(e)}
                           ></input>
+                          </div>
+                        </div>
+                        <div className="row input-row">
+                        <div className="col-lg-6">
+
                           <label>Width:</label>
                           <input
                             className="type-input"
                             type="number"
                             onChange={(e) => PositionW(e)}
                           ></input>
+                          </div>
+                          <div className="col-lg-6">
+
+                          <label>Font:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => PositionFont(e)}
+                          ></input>
+                          </div>
                         </div>
                       </div>
                     </div>
                   )}
-                  <div style={{ textAlign: "right" }}>
+                  <div className="row input-row">
+                  <div className="col-lg-6"></div>
+                    <div className="col-lg-6">
                     <button type="submit" className="submit-up">
                       Upload
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>

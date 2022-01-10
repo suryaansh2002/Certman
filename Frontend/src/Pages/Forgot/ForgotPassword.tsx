@@ -18,6 +18,8 @@ const ForgotPassword: React.FC<Props> = (props) => {
       email,
     };
     console.log(data);
+    setSuccess(true);
+    setMsg("Sending password reset link...");
 
     axios
       .post(url + "/api/auth/forgot", data)
