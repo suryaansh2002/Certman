@@ -5,6 +5,12 @@ import Navbar2 from "../Navbar2/Navbar2";
 import QRCode from "qrcode";
 import qrcode_1 from "../../images/qrcode.png";
 import "./singlecert.css";
+import sig from "../../images/sig.png";
+import uploadImg from "../../images/upload_icon.png";
+import downloadImg from "../../images/download_icon.png";
+import mailImg from "../../images/mail_icon.png";
+import mailBtn from "../../images/mail_btn_img.png";
+
 
 export default function SingleImage(props) {
   const id = window.location.pathname.split("/")[2];
@@ -76,7 +82,28 @@ export default function SingleImage(props) {
         coordinates.qr[3],
         coordinates.qr[2]
       );
-      ctx.font = "20px Montserrat";
+
+      var SIG2 = new Image();
+      SIG2.src = sig;
+      ctx.drawImage(
+        SIG2,
+        coordinates.faSig[1],
+        coordinates.faSig[0],
+        coordinates.faSig[3],
+        coordinates.faSig[2]
+      );
+
+      var SIG1 = new Image();
+      SIG1.src = sig;
+      ctx.drawImage(
+        SIG1,
+        coordinates.cpSig[1],
+        coordinates.cpSig[0],
+        coordinates.cpSig[3],
+        coordinates.cpSig[2]
+      );
+
+      ctx.font = "20px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = "black";
@@ -94,7 +121,7 @@ export default function SingleImage(props) {
         );
       }
       if (type === "org") {
-        ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
         ctx.textAlign = "center";
         ctx.fillText(
@@ -102,14 +129,14 @@ export default function SingleImage(props) {
           coordinates.name[1] + coordinates.name[2] / 2,
           coordinates.name[0]
         );
-        ctx.font = coordinates.event[3].toString() + "px" + " Montserrat";
 
+        ctx.font = coordinates.event[3].toString() + "px" + " Arial";
         ctx.fillText(
-          "Event Name",
+          "in Event Name held on",
           coordinates.event[1] + coordinates.event[2] / 2,
           coordinates.event[0]
         );
-        ctx.font = coordinates.date[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.date[3].toString() + "px" + " Arial";
 
         ctx.fillText(
           "01/01/2021",
@@ -331,15 +358,15 @@ export default function SingleImage(props) {
     <div className="container">
       <Navbar2 />
       <div className="row">
-        <a className="modal-open" href="#modal">
+        {/* <a className="modal-open" href="#modal">
           <button className="home-button">Upload CSV File</button>
-        </a>
-        <button className="home-button" onClick={download}>
+        </a> */}
+        {/* <button className="home-button" onClick={download}>
           Download All
-        </button>
-        <a className="modal-open" href="#modal2">
+        </button> */}
+        {/* <a className="modal-open" href="#modal2">
           <button className="home-button">Mail Certifcates</button>
-        </a>
+        </a> */}
         <div className="modal" id="modal">
           <div className="modal-content">
             <a
@@ -373,7 +400,7 @@ export default function SingleImage(props) {
         </div>
 
         <div className="modal" id="modal2">
-          <div className="modal-content">
+          <div className="modal-content c-2">
             <a
               href="#"
               className="modal-close"
@@ -382,7 +409,7 @@ export default function SingleImage(props) {
             >
               X
             </a>
-            <h3 className="modal-title">Mail Certificates</h3>
+            <h3 className="title">Mail Certificates</h3>
             <div className="modal-area">
               {show ? (
                 <div className="count">
@@ -392,37 +419,21 @@ export default function SingleImage(props) {
               ) : null}
               <div className="row">
                 <form onSubmit={emailHandler}>
-                  <div className="form-group">
-                    <div>
-                      <input
-                        className="mail-input"
-                        placeholder="Enter Subject"
-                        required
-                        type="text"
-                        onChange={(e) => setSubject(e.target.value)}
-                      ></input>
-                    </div>
-                    <div>
-                      <input
-                        className="mail-input"
-                        placeholder="Enter Content For Mail"
-                        type="text"
-                        onChange={(e) => setContent(e.target.value)}
-                      ></input>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <button className="upload-button" type="submit">
-                      Send Mail
+                    <div className="mail-1">
+                      <input type="text" className="mail-inp" placeholder="Subject" onChange={(e)=>setSubject(e.target.value)}/>
+                      <input type="text" className="mail-inp" placeholder="Content" onChange={(e)=>setContent(e.target.value)}/>
+
+                      </div>
+                    <button className="mail-btn" type="submit">
+                      <img className="mail-btn-img" src={mailBtn}/>
                     </button>
-                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="csv-inst">
+      {/* <div className="csv-inst">
         {(type === "wc" || type === "mc") && (
           <div>
             The csv uploaded should contain 2 columns only, one column with
@@ -442,15 +453,30 @@ export default function SingleImage(props) {
             <b>position</b>.{" "}
           </div>
         )}
-      </div>
+      </div> */}
       <div className="canvas-container">
         <canvas
           ref={canvasRef}
           id="myCanvas"
-          className="cnvas2"
+          className="cnvs"
           width="700"
-          height="200"
+          height="500"
         ></canvas>
+      </div>
+      <div className="row btn-c">
+        <a className="modal-open" href="#modal">
+          <button className="row-btn">
+            <img className="row-img" src={uploadImg} />
+          </button>
+        </a>
+        <button className="row-btn" onClick={download}>
+          <img className="row-img" src={downloadImg} />
+        </button>
+        <a className="modal-open" href="#modal2">
+          <button className="row-btn">
+            <img className="row-img" src={mailImg} />
+          </button>
+        </a>
       </div>
     </div>
   );

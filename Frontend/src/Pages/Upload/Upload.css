@@ -4,12 +4,15 @@
 
   float: left;
 }
+.cont1{
+  height: 135vh;
+}
 .cont2 {
-  height: 125vh;
+  height: 175vh;
 }
 
 .cont3{
-  height: 150vh;
+  height: 200vh;
 }
 .right-c {
   float: left;
@@ -39,6 +42,7 @@
   top: 20%;
   background-size: 100% 100%;
   background-position: center;
+  position: fixed;
 }
 .type-container {
   width: 80%;
@@ -79,6 +83,7 @@
   position: absolute;
   top: 650px;
   font-size: 16px;
+  position: fixed;
 
   left: 650px;
 }
@@ -95,6 +100,7 @@
   width: 75%;
   margin-left: 5%;
   font-size: 1.1rem;
+  margin-top: 1.1rem;
 }
 .up-select * {
   text-align: center;
@@ -105,12 +111,11 @@
 }
 
 .type-row {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   align-items: center;
   text-align: left;
 }
 .type-label {
-  margin-bottom: 2rem;
   text-align: left;
   color: #79c6f2;
   font-weight: bold;
@@ -118,8 +123,8 @@
   margin-bottom: 40px;
 }
 .input-row {
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   /* background-color: #79c6f2; */
   width: 80%;
@@ -166,15 +171,15 @@
 .upload-info {
   font-size: 0.9rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: 20.5rem;
-  position: absolute;
+  /* position: absolute;
   bottom: -70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
+  left: 50%; */
+  width: 100%;
   text-align: center;
   color: white;
   font-weight: 600;
+  width: 200%;
+  transform: translateX(-75%);
 }
 .info2 {
   bottom: -230px;
@@ -199,7 +204,7 @@
   cursor: pointer;
 }
 
-#qrc {
+#qrc,#sig1,#sig2 {
   position: absolute;
   top: 0;
   left: 0;

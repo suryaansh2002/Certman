@@ -4,6 +4,8 @@ import axios from "axios";
 import { useAuthState } from "../../Context";
 import Navbar2 from "../Navbar2/Navbar2";
 import qr from "../../images/qrcode.png";
+import sig from "../../images/sig.png";
+
 import up from "../../images/upload-btn.png";
 
 export default function Upload() {
@@ -17,6 +19,16 @@ export default function Upload() {
   const [qrLeft, setqrLeft] = useState<number>(0);
   const [qrW, setqrW] = useState<number>(0);
   const [qrH, setqrH] = useState<number>(0);
+
+  const [sig1Top, setsig1Top] = useState<number>(0);
+  const [sig1Left, setsig1Left] = useState<number>(0);
+  const [sig1W, setsig1W] = useState<number>(0);
+  const [sig1H, setsig1H] = useState<number>(0);
+
+  const [sig2Top, setsig2Top] = useState<number>(0);
+  const [sig2Left, setsig2Left] = useState<number>(0);
+  const [sig2W, setsig2W] = useState<number>(0);
+  const [sig2H, setsig2H] = useState<number>(0);
 
   const [nameTop, setNameTop] = useState<number>(0);
   const [nameLeft, setNameLeft] = useState<number>(0);
@@ -101,6 +113,71 @@ export default function Upload() {
   }
 
 
+  function positionsig1Top(e) {
+    setsig1Top(parseInt(e.target.value));
+    const q = document.getElementById("sig1");
+    q.style.top = e.target.value.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function positionsig1Left(e) {
+    setsig1Left(parseInt(e.target.value));
+    const q = document.getElementById("sig1");
+    q.style.left = e.target.value.toString() + "px";
+    console.log(nameLeft);
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function sig1Width(e) {
+    setsig1W(parseInt(e.target.value));
+    const q = document.getElementById("sig1");
+    q.style.width = e.target.value.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function sig1Height(e) {
+    setsig1H(parseInt(e.target.value));
+
+    const q = document.getElementById("sig1");
+    q.style.height = e.target.value.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+
+
+  function positionsig2Top(e) {
+    setsig2Top(parseInt(e.target.value));
+    const q = document.getElementById("sig2");
+    q.style.top = e.target.value.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function positionsig2Left(e) {
+    setsig2Left(parseInt(e.target.value));
+    const q = document.getElementById("sig2");
+    q.style.left = e.target.value.toString() + "px";
+    console.log(nameLeft);
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function sig2Width(e) {
+    setsig2W(parseInt(e.target.value));
+    const q = document.getElementById("sig2");
+    q.style.width = e.target.value.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+  function sig2Height(e) {
+    setsig2H(parseInt(e.target.value));
+
+    const q = document.getElementById("sig2");
+    q.style.height = e.target.value.toString() + "px";
+    q.style.visibility = "visible";
+    q.style.zIndex = "10";
+  }
+
+
+
   function positionNameTop(e) {
     setNameTop(parseInt(e.target.value));
     const name = document.getElementById("name");
@@ -143,7 +220,7 @@ export default function Upload() {
     event.style.top = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "Event Name";
+    event.innerHTML = "in Event Name held on ";
   }
   function positionEventLeft(e) {
     setEventLeft(parseInt(e.target.value));
@@ -152,7 +229,7 @@ export default function Upload() {
     event.style.left = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "Event Name";
+    event.innerHTML = "in Event Name held on ";
   }
   function EventW(e) {
     setEventW(parseInt(e.target.value));
@@ -161,7 +238,7 @@ export default function Upload() {
     event.style.width = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "Event Name";
+    event.innerHTML = "in Event Name held on ";
   }
   function EventFont(e) {
     setEventFont(parseInt(e.target.value));
@@ -170,7 +247,7 @@ export default function Upload() {
     event.style.fontSize = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "Event Name";
+    event.innerHTML = "in Event Name held on ";
   }
 
 
@@ -250,6 +327,9 @@ export default function Upload() {
     date: [dateTop, dateLeft, dateW, dateFont],
     position: [positionTop, positionLeft, positionW,positionFont],
     qr: [qrTop, qrLeft, qrH, qrW],
+    cpSig:[sig1Top,sig1Left,sig1H,sig1W],
+    faSig:[sig2Top,sig2Left,sig2H,sig2W]
+
   };
 
   const onSubmit = async (e) => {
@@ -292,7 +372,7 @@ export default function Upload() {
 
   console.log(userId);
   return (
-    <div className={type === "comp" ? "container cont3" : type==="org" ? "container cont2" : "container"}>
+    <div className={type === "comp" ? "container cont3" : type==="org" ? "container cont2" : "container cont1"}>
       {alert && (
         <div className="alert">
           Congratulations! Certifcate has been uploaded successfully!!
@@ -307,6 +387,9 @@ export default function Upload() {
           <div id="e-date">01/01/21</div>
           <div id="position">2</div>
           <img alt="qr" src={qr} id="qrc"></img>
+          <img alt="sig1" src={sig} id="sig1"></img>
+          <img alt="sig1" src={sig} id="sig2"></img>
+
 
           <button className="up-btn" id="up-btn" onClick={upload}>
             <img src={up} />
@@ -317,11 +400,7 @@ export default function Upload() {
           Delete Image
         </button>
 
-        <div className={type === "comp" ? "upload-info info3" : type==="org" ? "upload-info info2" : "upload-info"}>
-          <span style={{ fontWeight: 800, marginRight: "10px" }}>Note:</span>
-          The dimmensions of the certificate are 700px x 500px, please enter all
-          coordinates in px keeping this height and width in mind.
-        </div>
+     
       </div>
 
       <div className="right-c">
@@ -446,6 +525,98 @@ export default function Upload() {
                           className="type-input"
                           type="number"
                           onChange={(e) => qrHeight(e)}
+                        ></input>
+                      </div>
+                      </div>
+                    </div>
+                    <div className="row type-row">
+                      <label className="type-label">3. Faculty Advisor Signature:</label>
+                      <br />
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Top:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionsig2Top(e)}
+                        ></input>
+
+                          </div>
+                          <div className="col-lg-6">
+                          <label>Left:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionsig2Left(e)}
+                        ></input>
+
+                          </div>
+
+                        {/* <div className="row input-row" id="qr-row"> */}
+                      </div>
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => sig2Width(e)}
+                        ></input>
+
+                          </div>
+                          <div className="col-lg-6">
+
+                        <label className="">Height:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => sig2Height(e)}
+                        ></input>
+                      </div>
+                      </div>
+                    </div> 
+                    <div className="row type-row">
+                      <label className="type-label">4. Chairperson Signature:</label>
+                      <br />
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Top:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionsig1Top(e)}
+                        ></input>
+
+                          </div>
+                          <div className="col-lg-6">
+                          <label>Left:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => positionsig1Left(e)}
+                        ></input>
+
+                          </div>
+
+                        {/* <div className="row input-row" id="qr-row"> */}
+                      </div>
+                      <div className="row input-row">
+                      <div className="col-lg-6">
+                      <label>Width:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => sig1Width(e)}
+                        ></input>
+
+                          </div>
+                          <div className="col-lg-6">
+
+                        <label className="">Height:</label>
+                        <input
+                          className="type-input"
+                          type="number"
+                          onChange={(e) => sig1Height(e)}
                         ></input>
                       </div>
                       </div>
@@ -695,6 +866,12 @@ export default function Upload() {
                     </button>
                     </div>
                   </div>
+                  {/* <div className={type === "comp" ? "upload-info info3" : type==="org" ? "upload-info info2" : "upload-info"}> */}
+                  <div className="upload-info">
+          <span style={{ fontWeight: 800, marginRight: "10px" }}>Note:</span>
+          The dimmensions of the certificate are 700px x 500px, please enter all
+          coordinates in px keeping this height and width in mind.
+        </div>
                 </div>
               </div>
             )}
