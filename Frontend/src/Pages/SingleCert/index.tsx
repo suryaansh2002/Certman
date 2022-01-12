@@ -10,7 +10,7 @@ import uploadImg from "../../images/upload_icon.png";
 import downloadImg from "../../images/download_icon.png";
 import mailImg from "../../images/mail_icon.png";
 import mailBtn from "../../images/mail_btn_img.png";
-
+import uploadBtn from "../../images/uploadBtn.png";
 
 export default function SingleImage(props) {
   const id = window.location.pathname.split("/")[2];
@@ -354,8 +354,14 @@ export default function SingleImage(props) {
       }
     };
   }
+
+  function handle_upload(id) {
+    var input = document.getElementById(id);
+    input.click();
+  }
+
   return (
-    <div className="container">
+    <div className="container container_2">
       <Navbar2 />
       <div className="row">
         {/* <a className="modal-open" href="#modal">
@@ -368,7 +374,7 @@ export default function SingleImage(props) {
           <button className="home-button">Mail Certifcates</button>
         </a> */}
         <div className="modal" id="modal">
-          <div className="modal-content">
+          <div className="modal-content c-2">
             <a
               href="#"
               className="modal-close"
@@ -377,20 +383,75 @@ export default function SingleImage(props) {
             >
               X
             </a>
-            <h3 className="modal-title">Upload CSV File</h3>
-            <div className="modal-area">
+            <h3 className="modal-title">Upload</h3>
+            <div className="modal-area area2">
               <div className="row">
-                <form onSubmit={onSubmit} id="csvForm">
-                  <div className="form-group">
-                    <input
-                      className="upload-input"
-                      type="file"
-                      onChange={onFileChange}
-                    />
+                <form onSubmit={() => {}} id="csvForm">
+                  <div className="csv-file">
+                    <p className="h">1.CSV File</p>
+                    <p>
+                      The CSV file should contain 2 columns only, one column
+                      with heading name and one with heading email.
+                    </p>
+                    <div className="form-group">
+                      {
+                        <input
+                          id="csv"
+                          className="upload-input"
+                          type="file"
+                          onChange={onFileChange}
+                        />
+                      }
+                      <button
+                        className="upload_button"
+                        onClick={() => handle_upload("csv")}
+                      >
+                        Choose file
+                      </button>
+                    </div>
+                  </div>
+                  <div className="signatures">
+                    <p className="h1">2.Signatures</p>
+                    <p>
+                      The images of signatures should have a transparent
+                      background.
+                    </p>
+                    <div className="form-group">
+                      {
+                        <input
+                          id="chairperson"
+                          className="upload-input"
+                          type="file"
+                          onChange={onFileChange}
+                        />
+                      }
+                      <button
+                        className="upload_button"
+                        onClick={() => handle_upload("chairperson")}
+                      >
+                        Choose signature for chairperson
+                      </button>
+                    </div>
+                    <div className="form-group">
+                      {
+                        <input
+                          id="faculty-advisor"
+                          className="upload-input"
+                          type="file"
+                          onChange={onFileChange}
+                        />
+                      }
+                      <button
+                        className="upload_button"
+                        onClick={() => handle_upload("faculty-advisor")}
+                      >
+                        Choose signature for faculty advisor
+                      </button>
+                    </div>
                   </div>
                   <div className="form-group">
-                    <button className="upload-button" type="submit">
-                      Upload
+                    <button className="upload-btn" type="submit">
+                      <img className="upload-btn-img" src={uploadBtn} />
                     </button>
                   </div>
                 </form>
@@ -419,14 +480,23 @@ export default function SingleImage(props) {
               ) : null}
               <div className="row">
                 <form onSubmit={emailHandler}>
-                    <div className="mail-1">
-                      <input type="text" className="mail-inp" placeholder="Subject" onChange={(e)=>setSubject(e.target.value)}/>
-                      <input type="text" className="mail-inp" placeholder="Content" onChange={(e)=>setContent(e.target.value)}/>
-
-                      </div>
-                    <button className="mail-btn" type="submit">
-                      <img className="mail-btn-img" src={mailBtn}/>
-                    </button>
+                  <div className="mail-1">
+                    <input
+                      type="text"
+                      className="mail-inp"
+                      placeholder="Subject"
+                      onChange={(e) => setSubject(e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      className="mail-inp"
+                      placeholder="Content"
+                      onChange={(e) => setContent(e.target.value)}
+                    />
+                  </div>
+                  <button className="mail-btn" type="submit">
+                    <img className="mail-btn-img" src={mailBtn} />
+                  </button>
                 </form>
               </div>
             </div>

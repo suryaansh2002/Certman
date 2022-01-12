@@ -34,13 +34,11 @@ export default function Upload() {
   const [nameLeft, setNameLeft] = useState<number>(0);
   const [nameW, setNameW] = useState<number>(0);
   const [nameFont, setNameFont] = useState<number>(0);
-  
 
   const [eventTop, setEventTop] = useState<number>(0);
   const [eventLeft, setEventLeft] = useState<number>(0);
   const [eventW, setEventW] = useState<number>(0);
   const [eventFont, setEventFont] = useState<number>(0);
-
 
   const [dateTop, setDateTop] = useState<number>(0);
   const [dateLeft, setDateLeft] = useState<number>(0);
@@ -51,8 +49,6 @@ export default function Upload() {
   const [positionLeft, setPositionLeft] = useState<number>(0);
   const [positionW, setPositionW] = useState<number>(0);
   const [positionFont, setPositionFont] = useState<number>(0);
-
-
 
   const [alert, setAlert] = useState<boolean>(false);
 
@@ -112,7 +108,6 @@ export default function Upload() {
     q.style.zIndex = "10";
   }
 
-
   function positionsig1Top(e) {
     setsig1Top(parseInt(e.target.value));
     const q = document.getElementById("sig1");
@@ -144,7 +139,6 @@ export default function Upload() {
     q.style.zIndex = "10";
   }
 
-
   function positionsig2Top(e) {
     setsig2Top(parseInt(e.target.value));
     const q = document.getElementById("sig2");
@@ -175,8 +169,6 @@ export default function Upload() {
     q.style.visibility = "visible";
     q.style.zIndex = "10";
   }
-
-
 
   function positionNameTop(e) {
     setNameTop(parseInt(e.target.value));
@@ -211,8 +203,6 @@ export default function Upload() {
     name.style.zIndex = "10";
     name.innerHTML = "Person Name";
   }
-
-
 
   function positionEventTop(e) {
     setEventTop(parseInt(e.target.value));
@@ -250,8 +240,6 @@ export default function Upload() {
     event.innerHTML = "in Event Name held on ";
   }
 
-
-
   function positionEventDateTop(e) {
     setDateTop(parseInt(e.target.value));
     const event = document.getElementById("e-date");
@@ -284,8 +272,6 @@ export default function Upload() {
     eventDate.style.zIndex = "10";
     eventDate.innerHTML = "01-01-2022";
   }
-
-
 
   function positionPosTop(e) {
     setPositionTop(parseInt(e.target.value));
@@ -320,16 +306,14 @@ export default function Upload() {
     position.innerHTML = "1st";
   }
 
-  
   const coordinates = {
-    name: [nameTop, nameLeft, nameW,nameFont],
-    event: [eventTop, eventLeft, eventW,eventFont],
+    name: [nameTop, nameLeft, nameW, nameFont],
+    event: [eventTop, eventLeft, eventW, eventFont],
     date: [dateTop, dateLeft, dateW, dateFont],
-    position: [positionTop, positionLeft, positionW,positionFont],
+    position: [positionTop, positionLeft, positionW, positionFont],
     qr: [qrTop, qrLeft, qrH, qrW],
-    cpSig:[sig1Top,sig1Left,sig1H,sig1W],
-    faSig:[sig2Top,sig2Left,sig2H,sig2W]
-
+    cpSig: [sig1Top, sig1Left, sig1H, sig1W],
+    faSig: [sig2Top, sig2Left, sig2H, sig2W],
   };
 
   const onSubmit = async (e) => {
@@ -372,7 +356,15 @@ export default function Upload() {
 
   console.log(userId);
   return (
-    <div className={type === "comp" ? "container cont3" : type==="org" ? "container cont2" : "container cont1"}>
+    <div
+      className={
+        type === "comp"
+          ? "container cont3"
+          : type === "org"
+          ? "container cont2"
+          : "container cont1"
+      }
+    >
       {alert && (
         <div className="alert">
           Congratulations! Certifcate has been uploaded successfully!!
@@ -390,7 +382,6 @@ export default function Upload() {
           <img alt="sig1" src={sig} id="sig1"></img>
           <img alt="sig1" src={sig} id="sig2"></img>
 
-
           <button className="up-btn" id="up-btn" onClick={upload}>
             <img src={up} />
           </button>
@@ -399,8 +390,6 @@ export default function Upload() {
         <button className="delete-up" onClick={() => window.location.reload()}>
           Delete Image
         </button>
-
-     
       </div>
 
       <div className="right-c">
@@ -445,276 +434,257 @@ export default function Upload() {
                       <br />
                       <div className="row input-row">
                         <div className="col-lg-6">
-                        <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameTop(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
-                        <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionNameLeft(e)}
-                        ></input>
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionNameTop(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
+                          <label>Left:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionNameLeft(e)}
+                          ></input>
                         </div>
                       </div>
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => NameW(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
-                        <label>Font:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => NameFont(e)}
-                        ></input>
-                          </div>
-
+                        <div className="col-lg-6">
+                          <label>Width:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => NameW(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
+                          <label>Font:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => NameFont(e)}
+                          ></input>
+                        </div>
                       </div>
                     </div>
                     <div className="row type-row">
                       <label className="type-label">2. QRCODE:</label>
                       <br />
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionqrTop(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
+                        <div className="col-lg-6">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionqrTop(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
                           <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionqrLeft(e)}
-                        ></input>
-
-                          </div>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionqrLeft(e)}
+                          ></input>
+                        </div>
 
                         {/* <div className="row input-row" id="qr-row"> */}
                       </div>
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => qrWidth(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
-
-                        <label className="">Height:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => qrHeight(e)}
-                        ></input>
-                      </div>
+                        <div className="col-lg-6">
+                          <label>Width:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => qrWidth(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="">Height:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => qrHeight(e)}
+                          ></input>
+                        </div>
                       </div>
                     </div>
                     <div className="row type-row">
-                      <label className="type-label">3. Faculty Advisor Signature:</label>
+                      <label className="type-label">
+                        3. Faculty Advisor Signature:
+                      </label>
                       <br />
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionsig2Top(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
+                        <div className="col-lg-6">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionsig2Top(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
                           <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionsig2Left(e)}
-                        ></input>
-
-                          </div>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionsig2Left(e)}
+                          ></input>
+                        </div>
 
                         {/* <div className="row input-row" id="qr-row"> */}
                       </div>
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => sig2Width(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
-
-                        <label className="">Height:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => sig2Height(e)}
-                        ></input>
+                        <div className="col-lg-6">
+                          <label>Width:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => sig2Width(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="">Height:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => sig2Height(e)}
+                          ></input>
+                        </div>
                       </div>
-                      </div>
-                    </div> 
+                    </div>
                     <div className="row type-row">
-                      <label className="type-label">4. Chairperson Signature:</label>
+                      <label className="type-label">
+                        4. Chairperson Signature:
+                      </label>
                       <br />
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Top:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionsig1Top(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
+                        <div className="col-lg-6">
+                          <label>Top:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionsig1Top(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
                           <label>Left:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => positionsig1Left(e)}
-                        ></input>
-
-                          </div>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => positionsig1Left(e)}
+                          ></input>
+                        </div>
 
                         {/* <div className="row input-row" id="qr-row"> */}
                       </div>
                       <div className="row input-row">
-                      <div className="col-lg-6">
-                      <label>Width:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => sig1Width(e)}
-                        ></input>
-
-                          </div>
-                          <div className="col-lg-6">
-
-                        <label className="">Height:</label>
-                        <input
-                          className="type-input"
-                          type="number"
-                          onChange={(e) => sig1Height(e)}
-                        ></input>
-                      </div>
+                        <div className="col-lg-6">
+                          <label>Width:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => sig1Width(e)}
+                          ></input>
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="">Height:</label>
+                          <input
+                            className="type-input"
+                            type="number"
+                            onChange={(e) => sig1Height(e)}
+                          ></input>
+                        </div>
                       </div>
                     </div>
                   </div>
                   {type === "org" && (
                     <div>
                       <div className="row type-row">
-                        <label className="type-label">3. Event Name:</label>
+                        <label className="type-label">5. Event Name:</label>
                         <br />
                         <div className="row input-row">
-
-                        <div className="col-lg-6">
-                         
-
-                          <label>Top:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventTop(e)}
-                          ></input>
+                          <div className="col-lg-6">
+                            <label>Top:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventTop(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
+                            <label>Left:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventLeft(e)}
+                            ></input>
+                          </div>
+                        </div>
 
-                          <label>Left:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventLeft(e)}
-                          ></input>
-                           </div> 
-                           </div>
-                         
-                          <div className="row input-row">
-                            <div className="col-lg-6">
+                        <div className="row input-row">
+                          <div className="col-lg-6">
+                            <label>Width:</label>
 
-                          <label>Width:</label>
-
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventW(e)}
-                          ></input>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventW(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-                          <label>Font:</label>
+                            <label>Font:</label>
 
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventFont(e)}
-                          ></input>
-                           </div>
-                          </div> 
-
-                        
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventFont(e)}
+                            ></input>
+                          </div>
+                        </div>
                       </div>
                       <div className="row type-row">
-                        <label className="type-label">4. Event Date:</label>
+                        <label className="type-label">6. Event Date:</label>
                         <br />
                         <div className="row input-row">
                           <div className="col-lg-6">
-
-                          <label>Top:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventDateTop(e)}
-                          ></input>
+                            <label>Top:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventDateTop(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-                          <label>Left:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventDateLeft(e)}
-                          ></input>
+                            <label>Left:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventDateLeft(e)}
+                            ></input>
                           </div>
                         </div>
                         <div className="row input-row">
                           <div className="col-lg-6">
-                          <label>Width:</label>
+                            <label>Width:</label>
 
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventDateW(e)}
-                          ></input>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventDateW(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-                          <label>Font:</label>
+                            <label>Font:</label>
 
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventDateFont(e)}
-                          ></input>
-                        </div>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventDateFont(e)}
+                            ></input>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -722,156 +692,148 @@ export default function Upload() {
                   {type === "comp" && (
                     <div>
                       <div className="row type-row">
-                        <label className="type-label">3. Event Name:</label>
+                        <label className="type-label">5. Event Name:</label>
                         <br />
                         <div className="row input-row">
                           <div className="col-lg-6">
-                          <label>Top:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventTop(e)}
-                          ></input>
+                            <label>Top:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventTop(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-
-                          <label>Left:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventLeft(e)}
-                          ></input>
+                            <label>Left:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventLeft(e)}
+                            ></input>
                           </div>
                         </div>
                         <div className="row input-row">
-                        <div className="col-lg-6">
+                          <div className="col-lg-6">
+                            <label>Width:</label>
 
-                          <label>Width:</label>
-
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventFont(e)}
-                          ></input>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventFont(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
+                            <label>Font:</label>
 
-                          <label>Font:</label>
-
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventW(e)}
-                          ></input>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventW(e)}
+                            ></input>
                           </div>
                         </div>
                       </div>
                       <div className="row type-row">
-                        <label className="type-label">4. Event Date:</label>
+                        <label className="type-label">6. Event Date:</label>
                         <br />
                         <div className="row input-row">
-                        <div className="col-lg-6">
-
-                          <label>Top:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventDateTop(e)}
-                          ></input>
+                          <div className="col-lg-6">
+                            <label>Top:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventDateTop(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-
-                          <label>Left:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionEventDateLeft(e)}
-                          ></input>
+                            <label>Left:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionEventDateLeft(e)}
+                            ></input>
                           </div>
                         </div>
                         <div className="row input-row">
-                        <div className="col-lg-6">
+                          <div className="col-lg-6">
+                            <label>Width:</label>
 
-                          <label>Width:</label>
-
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventDateW(e)}
-                          ></input>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventDateW(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
+                            <label>Font:</label>
 
-                          <label>Font:</label>
-
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => EventDateFont(e)}
-                          ></input>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => EventDateFont(e)}
+                            ></input>
                           </div>
                         </div>
                       </div>{" "}
                       <div className="row type-row">
-                        <label className="type-label">5. Positon Won:</label>
+                        <label className="type-label">7. Positon Won:</label>
                         <br />
                         <div className="row input-row">
-                        <div className="col-lg-6">
-
-                          <label>Top:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionPosTop(e)}
-                          ></input>
+                          <div className="col-lg-6">
+                            <label>Top:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionPosTop(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-
-                          <label>Left:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => positionPosLeft(e)}
-                          ></input>
+                            <label>Left:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => positionPosLeft(e)}
+                            ></input>
                           </div>
                         </div>
                         <div className="row input-row">
-                        <div className="col-lg-6">
-
-                          <label>Width:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => PositionW(e)}
-                          ></input>
+                          <div className="col-lg-6">
+                            <label>Width:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => PositionW(e)}
+                            ></input>
                           </div>
                           <div className="col-lg-6">
-
-                          <label>Font:</label>
-                          <input
-                            className="type-input"
-                            type="number"
-                            onChange={(e) => PositionFont(e)}
-                          ></input>
+                            <label>Font:</label>
+                            <input
+                              className="type-input"
+                              type="number"
+                              onChange={(e) => PositionFont(e)}
+                            ></input>
                           </div>
                         </div>
                       </div>
                     </div>
                   )}
                   <div className="row input-row">
-                  <div className="col-lg-6"></div>
+                    <div className="col-lg-6"></div>
                     <div className="col-lg-6">
-                    <button type="submit" className="submit-up">
-                      Upload
-                    </button>
+                      <button type="submit" className="submit-up">
+                        Upload
+                      </button>
                     </div>
                   </div>
                   {/* <div className={type === "comp" ? "upload-info info3" : type==="org" ? "upload-info info2" : "upload-info"}> */}
                   <div className="upload-info">
-          <span style={{ fontWeight: 800, marginRight: "10px" }}>Note:</span>
-          The dimmensions of the certificate are 700px x 500px, please enter all
-          coordinates in px keeping this height and width in mind.
-        </div>
+                    <span style={{ fontWeight: 800, marginRight: "10px" }}>
+                      Note:
+                    </span>
+                    The dimmensions of the certificate are 700px x 500px, please
+                    enter all coordinates in px keeping this height and width in
+                    mind.
+                  </div>
                 </div>
               </div>
             )}

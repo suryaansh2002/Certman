@@ -38,7 +38,7 @@ function Login(props) {
         const data = {
           email,
         };
-        console.log("Sending verify request")
+        console.log("Sending verify request");
         axios
           .post(url + "/api/auth/verify", data)
           .then((res: any) =>
