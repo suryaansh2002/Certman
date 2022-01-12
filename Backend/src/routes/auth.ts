@@ -1,10 +1,9 @@
 export {};
-require('dotenv').config()
+require("dotenv").config();
 
 const express = require("express");
 const router = express.Router();
 const Users = require("../models/User");
-
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -14,8 +13,6 @@ const jwt_decode = require("jwt-decode");
 const JWT_SECRET = "certmanjwtsecret";
 
 const nodemailer = require("nodemailer");
-
-
 
 router.get("/", (req: any, res: any) => {
   try {
@@ -45,10 +42,9 @@ router.post("/login", async (req: any, res: any) => {
       data: "",
     });
   } else {
-    if(user.confirmed==false){
+    if (user.confirmed == false) {
       return res.json({ status: "error", error: "Account not verified" });
-
-    }else{
+    } else {
       if (await bcrypt.compare(password, user.password)) {
         const token = jwt.sign(
           {
@@ -60,7 +56,7 @@ router.post("/login", async (req: any, res: any) => {
           JWT_SECRET
         );
         var payload = jwt_decode(token);
-  
+
         return res.json({ status: "success", error: "", data: payload });
       } else {
         return res.json({
@@ -70,7 +66,6 @@ router.post("/login", async (req: any, res: any) => {
         });
       }
     }
-    
   }
 });
 router.post("/signup", async (req: any, res: any) => {
@@ -111,17 +106,12 @@ router.post("/signup", async (req: any, res: any) => {
     }
     throw error;
   }
-
-
-
 });
-
-
 
 router.post("/forgot", async (req: any, res: any) => {
   const { email } = req.body;
   const user = await Users.findOne({ email }).lean();
-  console.log("forgot",user)
+  console.log("forgot", user);
   if (!user) {
     return res.json({
       status: "error",
@@ -159,13 +149,13 @@ router.post("/forgot", async (req: any, res: any) => {
       text: `Reset your password at ${link}`,
     };
 
-    console.log(options)
+    console.log(options);
     transporter.sendMail(options, function (err, info) {
       if (err) {
         console.log(err);
         return;
       }
-      console.log(info)
+      console.log(info);
       res.json({ status: "success", error: "", data: "" });
     });
   }
@@ -199,7 +189,6 @@ router.patch("/reset", async (req: any, res: any) => {
   }
 });
 
-
 router.post("/verify", async (req: any, res: any) => {
   const { email } = req.body;
   const user = await Users.findOne({ email }).lean();
@@ -211,7 +200,7 @@ router.post("/verify", async (req: any, res: any) => {
     });
   } else {
     const link = `http://localhost:3000/verify/${user._id}`;
-console.log('in verify')
+    console.log("in verify");
     let transporter = nodemailer.createTransport({
       service: "hotmail",
       // host: "smtp.office365.com",
@@ -238,19 +227,17 @@ console.log('in verify')
         console.log(err);
         return;
       }
-      console.log(info)
+      console.log(info);
       res.json({ status: "success", error: "", data: "" });
     });
   }
 });
 
-
 router.patch("/verifyacc", async (req: any, res: any) => {
   const { id } = req.body;
-  const user = await 
-  Users.findOne({ id }).lean();
+  const user = await Users.findOne({ id }).lean();
   if (!user) {
-    console.log("e1")
+    console.log("e1");
     return res.json({
       status: "error",
       error: "User does not exist!",
@@ -264,7 +251,7 @@ router.patch("/verifyacc", async (req: any, res: any) => {
         { _id: id },
         {
           $set: {
-            confirmed: true
+            confirmed: true,
           },
         }
       );
@@ -274,10 +261,5 @@ router.patch("/verifyacc", async (req: any, res: any) => {
     }
   }
 });
-
-
-
-
-
 
 module.exports = router;
