@@ -5,14 +5,14 @@
   float: left;
 }
 .cont1 {
-  height: 135vh;
+  height: 800px;
 }
 .cont2 {
-  height: 175vh;
+  height: 1100px;
 }
 
 .cont3 {
-  height: 200vh;
+  height: 1250px;
 }
 .right-c {
   float: left;
@@ -84,7 +84,7 @@
   font-size: 16px;
   /* position: fixed; */
 
-  left: 48%;
+  left: 350px;
 }
 .delete-up:hover {
   cursor: pointer;
@@ -179,7 +179,7 @@
   color: white;
   font-weight: 600;
   width: 200%;
-  transform: translateX(-75%);
+  transform: translateX(-50%);
 }
 .info2 {
   bottom: -230px;

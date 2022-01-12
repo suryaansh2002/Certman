@@ -574,7 +574,8 @@ export default function Upload() {
                           <input
                             className="type-input"
                             type="number"
-                            onChange={(e) => positionsig1Left(e)}
+                            onChan
+                            ge={(e) => positionsig1Left(e)}
                           ></input>
                         </div>
 
