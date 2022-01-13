@@ -422,7 +422,7 @@ export default function SingleImage(props) {
                           id="chairperson"
                           className="upload-input"
                           type="file"
-                          onChange={onFileChange}
+                          // onChange={onFileChange}
                         />
                       }
                       <button
@@ -438,7 +438,7 @@ export default function SingleImage(props) {
                           id="faculty-advisor"
                           className="upload-input"
                           type="file"
-                          onChange={onFileChange}
+                          // onChange={onFileChange}
                         />
                       }
                       <button
@@ -450,7 +450,11 @@ export default function SingleImage(props) {
                     </div>
                   </div>
                   <div className="form-group">
-                    <button className="upload-btn" type="submit">
+                    <button
+                      className="upload-btn"
+                      onClick={onSubmit}
+                      type="submit"
+                    >
                       <img className="upload-btn-img" src={uploadBtn} />
                     </button>
                   </div>

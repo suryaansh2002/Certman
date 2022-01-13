@@ -561,7 +561,7 @@ export default function Upload() {
                       </label>
                       <br />
                       <div className="row input-row">
-                        <                               div className="col-lg-6">
+                        <div className="col-lg-6">
                           <label>Top:</label>
                           <input
                             className="type-input"
@@ -570,7 +570,7 @@ export default function Upload() {
                           ></input>
                         </div>
                         <div className="col-lg-6">
-                                                                <label>Left:</label>
+                          <label>Left:</label>
                           <input
                             className="type-input"
                             type="number"

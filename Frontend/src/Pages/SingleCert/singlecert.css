@@ -236,3 +236,9 @@ a.modal-open {
 .upload-btn:hover {
   cursor: pointer;
 }
+
+@media screen and (min-height: 730px) {
+  .container_2 {
+    min-height: calc(100vh - 80px);
+  }
+}

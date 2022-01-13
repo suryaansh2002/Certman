@@ -72,10 +72,9 @@
   visibility: hidden;
 }
 .delete-up {
-  margin: 1rem;
   border: none;
   background-color: #ff6961;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem;
   color: white;
   font-size: 0.9rem;
   border-radius: 5px;
@@ -83,8 +82,8 @@
   top: 650px;
   font-size: 16px;
   /* position: fixed; */
-
-  left: 350px;
+  width: 140px;
+  left: calc(5% + 700px - 140px);
 }
 .delete-up:hover {
   cursor: pointer;
@@ -239,4 +238,10 @@
   color: rgb(6, 56, 6);
   font-weight: 700;
   z-index: 1000;
+}
+
+@media screen and (min-width: 1300px) {
+  .input-row {
+    width: 70%;
+  }
 }
