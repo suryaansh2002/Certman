@@ -245,3 +245,37 @@
     width: 70%;
   }
 }
+
+
+
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 32px;
+	height: 32px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+
+input[type="tecxt"]{
+}
+#color{
+  width: 25px;
+  height: 15px;
+  padding: 0;
+  border: 0;
+  border: none;
+  margin: 0;
+ margin-bottom: -55px;
+
+}
+
+#c-label{
+  margin-right: 20px;
+ margin-bottom: -55px;
+padding-bottom: 45px;
+}

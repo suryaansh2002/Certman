@@ -51,7 +51,9 @@ export default function Upload() {
   const [positionFont, setPositionFont] = useState<number>(0);
 
   const [alert, setAlert] = useState<boolean>(false);
+const [c,setC]=useState();
 
+  // const[color,setColor]=useState();
   function onFileChange(e) {
     setCert(e.target.files[0]);
 
@@ -314,8 +316,22 @@ export default function Upload() {
     qr: [qrTop, qrLeft, qrH, qrW],
     cpSig: [sig1Top, sig1Left, sig1H, sig1W],
     faSig: [sig2Top, sig2Left, sig2H, sig2W],
+    color:c
   };
+function setColor(value){
+setC(value);
+  var name=document.getElementById("name");
+  var event=document.getElementById("event");
+  var eDate=document.getElementById("e-date");
+  var position=document.getElementById("position");
 
+  name.style.color=value;
+  event.style.color=value;
+  eDate.style.color=value;
+  position.style.color=value;
+
+
+}
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -427,8 +443,13 @@ export default function Upload() {
             {type && (
               <div className="type-container">
                 <div>
-                  <div className="enter">ENTER THE COORDINATES:</div>
+                  <div className="enter">ENTER THE SPECIFICATIONS:</div>
                   <div>
+                    <div className="row type-row">
+                    <label className="type-label" id="c-label">Font Colour:</label>
+                    <input type={"color"} id="color" onChange={(e)=>setColor(e.target.value)}/>
+
+                      </div>
                     <div className="row type-row">
                       <label className="type-label">1. Name:</label>
                       <br />

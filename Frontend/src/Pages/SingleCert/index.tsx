@@ -39,6 +39,7 @@ export default function SingleImage(props) {
   const canvasRef = useRef(null);
 
   function onFileChange(e) {
+    console.log(e.target.files[0]);
     setCsv(e.target.files[0]);
   }
 
@@ -103,15 +104,16 @@ export default function SingleImage(props) {
         coordinates.cpSig[2]
       );
 
-      ctx.font = "20px Arial";
+      ctx.font = "20px Arial ";
+
+      ctx.fillStyle=coordinates.color;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
-      ctx.fillStyle = "black";
       // ctx.drawImage(qr, 20, 422,50,50);
       // ctx.fillText("Personffffff", 200, 200);
 
       if (type === "wc" || type === "mc") {
-        ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
         ctx.textAlign = "center";
         ctx.fillText(
@@ -146,28 +148,28 @@ export default function SingleImage(props) {
       }
       if (type === "comp") {
         ctx.textAlign = "center";
-        ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
         ctx.fillText(
           "Person Name",
           coordinates.name[1] + coordinates.name[2] / 2,
           coordinates.name[0]
         );
-        ctx.font = coordinates.event[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.event[3].toString() + "px" + " Arial";
 
         ctx.fillText(
           "Event Name",
           coordinates.event[1] + coordinates.event[2] / 2,
           coordinates.event[0]
         );
-        ctx.font = coordinates.date[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.date[3].toString() + "px" + " Arial";
 
         ctx.fillText(
           "01/01/2021",
           coordinates.date[1] + coordinates.date[2] / 2,
           coordinates.date[0]
         );
-        ctx.font = coordinates.position[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.position[3].toString() + "px" + " Arial";
 
         ctx.fillText(
           "1st",
@@ -233,9 +235,7 @@ export default function SingleImage(props) {
       alert("No csv uploaded!");
       return;
     }
-    console.log(arr2);
     arr2.map((element) => {
-      console.log(element);
       const elementCanvas = document.createElement("canvas");
       elementCanvas.setAttribute("ref", element.name);
       const canvasObj = canvasRef.current;
@@ -253,9 +253,9 @@ export default function SingleImage(props) {
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "top";
-        ctx.fillStyle = "black";
+        ctx.fillStyle = coordinates.color;
         if (type === "wc" || type === "mc") {
-          ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.name,
@@ -265,7 +265,7 @@ export default function SingleImage(props) {
         }
 
         if (type === "org") {
-          ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.name,
@@ -273,13 +273,13 @@ export default function SingleImage(props) {
             coordinates.name[0]
           );
 
-          ctx.font = coordinates.event[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.event[3].toString() + "px" + " Arial";
           ctx.fillText(
             element.event,
             coordinates.event[1] + coordinates.event[2] / 2,
             coordinates.event[0]
           );
-          ctx.font = coordinates.date[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.date[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.event_date,
@@ -288,28 +288,28 @@ export default function SingleImage(props) {
           );
         }
         if (type === "comp") {
-          ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.name,
             coordinates.name[1] + coordinates.name[2] / 2,
             coordinates.name[0]
           );
-          ctx.font = coordinates.event[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.event[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.event,
             coordinates.event[1] + coordinates.event[2] / 2,
             coordinates.event[0]
           );
-          ctx.font = coordinates.date[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.date[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.event_date,
             coordinates.date[1] + coordinates.date[2] / 2,
             coordinates.date[0]
           );
-          ctx.font = coordinates.position[3].toString() + "px" + " Montserrat";
+          ctx.font = coordinates.position[3].toString() + "px" + " Arial";
 
           ctx.fillText(
             element.position,
@@ -346,10 +346,10 @@ export default function SingleImage(props) {
       ctx.font = "20px Arial";
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
-      ctx.fillStyle = "black";
+      ctx.fillStyle = coordinates.color;
 
       if (type === "wc" || type === "mc") {
-        ctx.font = coordinates.name[3].toString() + "px" + " Montserrat";
+        ctx.font = coordinates.name[3].toString() + "px" + " Arial";
         ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
       }
     };
