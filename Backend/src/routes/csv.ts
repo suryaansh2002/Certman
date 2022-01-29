@@ -32,11 +32,12 @@ var upload_new = multer({
 //to upload a new csv file
 router.post("/csv-upload", upload_new.single("csv"), (req, res, next) => {
   try {
-    const results = [];
 
     if (req.file === undefined)
       return res.status(404).send("You must select a file.");
     let path = DIR + req.file.filename;
+    var results = [];
+
     fs.createReadStream(path)
       .pipe(csv({}))
       .on("data", (data) => results.push(data))

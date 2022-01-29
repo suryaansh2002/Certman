@@ -130,17 +130,13 @@ router.post("/forgot", async (req: any, res: any) => {
 
     let transporter = nodemailer.createTransport({
       service: "hotmail",
-      // host: "smtp.office365.com",
-      // port: "587",
-      // tls: {
-      //   ciphers: "SSLv3",
-      //   rejectUnauthorized: false,
-      // },
+   
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD,
       },
     });
+
 
     const options = {
       from: process.env.EMAIL,
@@ -184,6 +180,7 @@ router.patch("/reset", async (req: any, res: any) => {
       );
       res.json({ status: "success", error: "", data: "" });
     } catch (error) {
+      console.log(error);
       res.json({ status: "error", error: error.message, data: "" });
     }
   }
