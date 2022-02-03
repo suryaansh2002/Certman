@@ -3,7 +3,7 @@ const express = require("express");
 
 const InitiateMongoServer = require("./config/db");
 const authRoute = require("./routes/auth");
-const certRoute = require("./routes/cert.ts");
+const certRoute = require("./routes/cert-temp.ts");
 const csvRoute = require("./routes/csv.ts");
 const sendMailRoute = require("./routes/sendmail.ts");
 
@@ -33,6 +33,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/cert-uploads", express.static("cert-uploads"));
 app.use("/csv-uploads", express.static("csv-uploads"));
+app.use("/sign-uploads", express.static("sign-uploads"));
 app.use("/emailed-cert-uploads", express.static("emailed-cert-uploads"));
 app.use("/api/cert", certRoute);
 app.use("/api/csv", csvRoute);

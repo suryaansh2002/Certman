@@ -199,25 +199,25 @@ router.post("/cert", async (req: any, res: any) => {
         // })
 
         let transporter = nodemailer.createTransport({
-          service: "hotmail",
-          // host: "smtp.office365.com",
-          // port: "587",
-          // name: "certman",
-          // maxConnections: 10,
-          // tls: {
-          //   ciphers: "SSLv3",
-          //   rejectUnauthorized: false,
-          // },
+          service: "Outlook365",
+          host: "smtp.office365.com",
+          port: "587",
+          name: "certman",
+          maxConnections: 10,
+          tls: {
+            ciphers: "SSLv3",
+            rejectUnauthorized: false,
+          },
           auth: {
             //   user: "temp_certman@outlook.com",
-            user: process.env.EMAIL,
+            user: "temp_cert@outlook.com",
 
-            pass: process.env.PASSWORD,
+            pass: "123@ABC@abc",
           },
         });
         const options = {
           // from: "temp_certman@outlook.com",
-          from: process.env.EMAIL,
+          from: "temp_cert@outlook.com",
 
           to: user.email,
           subject: subject,

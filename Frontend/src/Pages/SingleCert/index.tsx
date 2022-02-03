@@ -25,6 +25,8 @@ export default function SingleImage(props) {
   // With async/await
 
   const [csv, setCsv] = useState("");
+  const [facSign, setFacSign] = useState("");
+  const [chairSign, setChairSign] = useState("");
   const [certUrl, setCertUrl] = useState("");
   const [arr2, setArr2] = useState([]);
   const [subject, setSubject] = useState("");
@@ -36,11 +38,21 @@ export default function SingleImage(props) {
   const [final, setFinal] = useState(false);
   const [type, setType] = useState("");
 
+  const [temp, setTemp] = useState("");
+
   const canvasRef = useRef(null);
 
-  function onFileChange(e) {
+  function onCsvChange(e) {
     console.log(e.target.files[0]);
     setCsv(e.target.files[0]);
+  }
+  function onChairChange(e) {
+    console.log(e.target.files[0]);
+    setChairSign(e.target.files[0]);
+  }
+  function onFacChange(e) {
+    console.log(e.target.files[0]);
+    setFacSign(e.target.files[0]);
   }
 
   useEffect(() => {
@@ -106,7 +118,7 @@ export default function SingleImage(props) {
 
       ctx.font = "20px Arial ";
 
-      ctx.fillStyle=coordinates.color;
+      ctx.fillStyle = coordinates.color;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       // ctx.drawImage(qr, 20, 422,50,50);
@@ -210,24 +222,50 @@ export default function SingleImage(props) {
     setShow(false);
   };
 
+  let one = "http://localhost:5000/api/csv/csv-upload";
+  let two = "http://localhost:5000/api/csv/upload-facsign";
+  let three = "http://localhost:5000/api/csv/upload-chairsign";
+
   const onSubmit = async (e) => {
-    if (csv === "") {
-      alert("No csv uploaded!");
+    if (csv === "" || facSign === "" || chairSign === "") {
+      alert("Please upload everything!");
       return;
     }
     e.preventDefault();
     const formData = new FormData();
     formData.append("csv", csv);
 
-    await axios
-      .post("http://localhost:5000/api/csv/csv-upload", formData, {})
-      .then((res: any) => {
-        setArr2([]);
-        setArr2(res.data);
-        console.log(res.data);
-        const modalClose = document.getElementById("modalClose");
-        modalClose.click();
+    const requestOne = axios.post(one, formData, {});
+
+    formData.delete("csv");
+    formData.append("facSign", facSign);
+    const requestTwo = axios.post(two, formData, {});
+    formData.delete("facSign");
+    formData.append("chairSign", chairSign);
+    const requestThree = axios.post(three, formData, {});
+
+    axios
+      .all([requestOne, requestTwo, requestThree])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+          const responseThree = responses[2];
+
+          setArr2(responseTwo);
+          console.log(responseOne.data);
+          console.log(responseTwo.data);
+          console.log(responseThree.data);
+
+          
+        })
+      ) 
+      .catch((errors) => {
+        // react on errors.
       });
+
+    const modalClose = document.getElementById("modalClose");
+    modalClose.click();
   };
 
   function download() {
@@ -399,14 +437,14 @@ export default function SingleImage(props) {
                           id="csv"
                           className="upload-input"
                           type="file"
-                          onChange={onFileChange}
+                          onChange={onCsvChange}
                         />
                       }
                       <button
                         className="upload_button"
                         onClick={() => handle_upload("csv")}
                       >
-                        Choose file
+                        {csv != "" ? "Uploaded" : "Choose CSV file"}
                       </button>
                     </div>
                   </div>
@@ -422,14 +460,16 @@ export default function SingleImage(props) {
                           id="chairperson"
                           className="upload-input"
                           type="file"
-                          // onChange={onFileChange}
+                          onChange={onChairChange}
                         />
                       }
                       <button
                         className="upload_button"
                         onClick={() => handle_upload("chairperson")}
                       >
-                        Choose signature for chairperson
+                        {chairSign != ""
+                          ? "Uploaded"
+                          : "Choose signature for chairperson"}
                       </button>
                     </div>
                     <div className="form-group">
@@ -438,14 +478,16 @@ export default function SingleImage(props) {
                           id="faculty-advisor"
                           className="upload-input"
                           type="file"
-                          // onChange={onFileChange}
+                          onChange={onFacChange}
                         />
                       }
                       <button
                         className="upload_button"
                         onClick={() => handle_upload("faculty-advisor")}
                       >
-                        Choose signature for faculty advisor
+                        {facSign != ""
+                          ? "Uploaded"
+                          : "Choose signature for faculty advisor"}
                       </button>
                     </div>
                   </div>

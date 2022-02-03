@@ -1,0 +1,20 @@
+
+    await axios
+      .post("http://localhost:5000/api/csv/csv-upload", formData, {})
+      .then(async (res: any) => {
+        setArr2([]);
+        setArr2(res.data);
+        console.log(res.data);
+        formData.delete("csv");
+        formData.append("facSign", facSign);
+
+        await axios
+          .post("", formData)
+          .then((res) => {
+            console.log(res);
+            
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
