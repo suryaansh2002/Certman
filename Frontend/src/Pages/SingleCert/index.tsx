@@ -222,6 +222,8 @@ export default function SingleImage(props) {
       certUrl,
       type,
       coordinates,
+      faUrl,
+      cpUrl
     };
     await axios
       .post("http://localhost:5000/api/sendmail/cert/", data)
@@ -267,7 +269,7 @@ export default function SingleImage(props) {
           console.log(responseThree.data);
 
           setCpUrl(responseTwo.data);
-          setFaUrl(responseTwo.data);
+          setFaUrl(responseThree.data);
         })
       )
       .catch((errors) => {
@@ -285,144 +287,142 @@ export default function SingleImage(props) {
     }
     console.log(arr2);
     arr2.map((element) => {
-      console.log("in map");
       const elementCanvas = document.createElement("canvas");
       elementCanvas.setAttribute("ref", element.name);
       const canvasObj = canvasRef.current;
       const ctx = canvasObj.getContext("2d");
       canvasObj.width = 700;
       canvasObj.height = 500;
-
       var background = new Image();
       background.setAttribute("crossOrigin", "anonymous");
       background.src = certUrl;
-      console.log(background);
-
-      background.onload = function () {
-        console.log("in map");
+      background.onload =  async function() {
         ctx.drawImage(background, 0, 0, 700, 500);
-
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "top";
         ctx.fillStyle = coordinates.color;
         var img = new Image();
         img.src = qrcode_1;
-        img.onload = function(){
-          ctx.drawImage(
+        img.crossOrigin="anonymous"
+         img.onload =  function (){
+           ctx.drawImage(
             img,
             coordinates.qr[1],
             coordinates.qr[0],
             coordinates.qr[3],
             coordinates.qr[2]
           );
+          var SIG2 = new Image();
+          SIG2.src = cpUrl;
+          SIG2.crossOrigin="anonymous"
+          SIG2.onload=  function(){
+            ctx.drawImage(
+              SIG2,
+              coordinates.faSig[1],
+              coordinates.faSig[0],
+              coordinates.faSig[3],
+              coordinates.faSig[2]
+            );
+            var SIG1 = new Image();
+            SIG1.src = faUrl;
+            SIG1.crossOrigin="anonymous"
+            SIG1.onload=  function(){
+              ctx.drawImage(
+                SIG1,
+                coordinates.cpSig[1],
+                coordinates.cpSig[0],
+                coordinates.cpSig[3],
+                coordinates.cpSig[2]
+              );
+
+              if (type === "wc" || type === "mc") {
+                ctx.font = coordinates.name[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.name,
+                  coordinates.name[1] + coordinates.name[2] / 2,
+                  coordinates.name[0]
+                );
+              }
+      
+              if (type === "org") {
+                ctx.font = coordinates.name[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.name,
+                  coordinates.name[1] + coordinates.name[2] / 2,
+                  coordinates.name[0]
+                );
+      
+                ctx.font = coordinates.event[3].toString() + "px" + " Arial";
+                ctx.fillText(
+                  element.event,
+                  coordinates.event[1] + coordinates.event[2] / 2,
+                  coordinates.event[0]
+                );
+                ctx.font = coordinates.date[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.event_date,
+                  coordinates.date[1] + coordinates.date[2] / 2,
+                  coordinates.date[0]
+                );
+              }
+              if (type === "comp") {
+                ctx.font = coordinates.name[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.name,
+                  coordinates.name[1] + coordinates.name[2] / 2,
+                  coordinates.name[0]
+                );
+                ctx.font = coordinates.event[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.event,
+                  coordinates.event[1] + coordinates.event[2] / 2,
+                  coordinates.event[0]
+                );
+                ctx.font = coordinates.date[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.event_date,
+                  coordinates.date[1] + coordinates.date[2] / 2,
+                  coordinates.date[0]
+                );
+                ctx.font = coordinates.position[3].toString() + "px" + " Arial";
+      
+                ctx.fillText(
+                  element.position,
+                  coordinates.position[1] + coordinates.position[2] / 2,
+                  coordinates.position[0]
+                );
+      
+             
+              }
+      
+              var canvas2: any = document.getElementById("myCanvas");
+              var url = canvas2.toDataURL("image/png");
+      console.log(canvasObj)
+      console.log(url)
+      
+              var link = document.createElement("a");
+              link.download = `${element.name}.png`;
+              link.href = url;
+              link.click();
+
+            }
+       
+    
+          }
         }
     
-        var SIG2 = new Image();
-        SIG2.src = cpUrl;
-        SIG2.onload=function(){
-          ctx.drawImage(
-            SIG2,
-            coordinates.faSig[1],
-            coordinates.faSig[0],
-            coordinates.faSig[3],
-            coordinates.faSig[2]
-          );
-  
-        }
+      
         
-        var SIG1 = new Image();
-        SIG1.src = faUrl;
-        SIG1.onload=function(){
-          ctx.drawImage(
-            SIG1,
-            coordinates.cpSig[1],
-            coordinates.cpSig[0],
-            coordinates.cpSig[3],
-            coordinates.cpSig[2]
-          );
-        }
-   
+       
 
-        if (type === "wc" || type === "mc") {
-          ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.name,
-            coordinates.name[1] + coordinates.name[2] / 2,
-            coordinates.name[0]
-          );
-        }
-
-        if (type === "org") {
-          ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.name,
-            coordinates.name[1] + coordinates.name[2] / 2,
-            coordinates.name[0]
-          );
-
-          ctx.font = coordinates.event[3].toString() + "px" + " Arial";
-          ctx.fillText(
-            element.event,
-            coordinates.event[1] + coordinates.event[2] / 2,
-            coordinates.event[0]
-          );
-          ctx.font = coordinates.date[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.event_date,
-            coordinates.date[1] + coordinates.date[2] / 2,
-            coordinates.date[0]
-          );
-        }
-        if (type === "comp") {
-          ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.name,
-            coordinates.name[1] + coordinates.name[2] / 2,
-            coordinates.name[0]
-          );
-          ctx.font = coordinates.event[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.event,
-            coordinates.event[1] + coordinates.event[2] / 2,
-            coordinates.event[0]
-          );
-          ctx.font = coordinates.date[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.event_date,
-            coordinates.date[1] + coordinates.date[2] / 2,
-            coordinates.date[0]
-          );
-          ctx.font = coordinates.position[3].toString() + "px" + " Arial";
-
-          ctx.fillText(
-            element.position,
-            coordinates.position[1] + coordinates.position[2] / 2,
-            coordinates.position[0]
-          );
-
-          var canvas2: any = document.getElementById("myCanvas");
-          var url = canvas2.toDataURL("image/png");
-          console.log("Before link");
-          var link = document.createElement("a");
-          link.download = `${element.name}.png`;
-          link.href = url;
-          link.click();
-        }
-
-        var canvas2: any = document.getElementById("myCanvas");
-        var url = canvas2.toDataURL("image/png");
-
-        var link = document.createElement("a");
-        link.download = `${element.name}.png`;
-        link.href = url;
-        link.click();
+    
       };
     });
 

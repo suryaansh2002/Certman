@@ -178,26 +178,7 @@ router.post("/cert", async (req: any, res: any) => {
           }
         });
 
-        // const sgMail = require("@sendgrid/mail");
-        // sgMail.setApiKey('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');
-        // const msg = {
-        //   to: user.email,
-        //   from: "suryaansh2002@gmail.com", // Use the email address or domain you verified above
-        //   subject: subject,
-        //   text: content,
-        // };
-        // sgMail
-        // .send(msg)
-        // .then(() => {
-        //   console.log(user)
-        //   console.log('Email sent')
-        //   console.log(user.name + "e")
-
-        // })
-        // .catch((error) => {
-        //   console.error(error.message)
-        // })
-
+  
         let transporter = nodemailer.createTransport({
           service: "Outlook365",
           host: "smtp.office365.com",
