@@ -102,9 +102,7 @@ router.post(
       console.log("Uploaded chair signature");
 
       const url = req.protocol + "://" + req.get("host");
-      res
-        .status(200)
-        .send(url + "/sign-uploads/" + req.file.filename);
+      res.status(200).send(url + "/sign-uploads/" + req.file.filename);
     } catch (e) {
       console.log(e);
     }

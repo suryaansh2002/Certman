@@ -11,6 +11,7 @@ import AppRoute from "./Components/AppRoute";
 import ForgotPassword from "./Pages/Forgot/ForgotPassword";
 import ResetPassword from "./Pages/Forgot/ResetPassword";
 import Verify from "./Pages/Verify/verify";
+import Certificate from "./Pages/Certificate/Certificate";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
+            </Route>
+            <Route path="/certificate/:id" exact>
+              <Certificate />
             </Route>
             {routes.map((route) => {
               return (

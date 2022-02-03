@@ -23,19 +23,18 @@ const ForgotPassword: React.FC<Props> = (props) => {
 
     axios
       .post(url + "/api/auth/forgot", data)
-      .then((res: any) =>
-      {console.log(res);
-        if(res.data.status === "error"){
-        setError(true);
-         setMsg(res.data.error);
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.status === "error") {
+          setError(true);
+          setMsg(res.data.error);
         }
-        if(res.data.status === "success"){
+        if (res.data.status === "success") {
           setError(false);
           setSuccess(true);
           setMsg("Mail with password reset link has been sent.");
         }
-      }
-      )
+      })
       .catch((err) => console.log(err.message));
 
     console.log(data);

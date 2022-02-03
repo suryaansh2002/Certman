@@ -178,7 +178,6 @@ router.post("/cert", async (req: any, res: any) => {
           }
         });
 
-  
         let transporter = nodemailer.createTransport({
           service: "Outlook365",
           host: "smtp.office365.com",

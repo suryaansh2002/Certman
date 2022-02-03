@@ -51,7 +51,7 @@ export default function Upload() {
   const [positionFont, setPositionFont] = useState<number>(0);
 
   const [alert, setAlert] = useState<boolean>(false);
-const [c,setC]=useState();
+  const [c, setC] = useState();
 
   // const[color,setColor]=useState();
   function onFileChange(e) {
@@ -212,7 +212,7 @@ const [c,setC]=useState();
     event.style.top = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "in Event Name held on ";
+    event.innerHTML = "Event Name";
   }
   function positionEventLeft(e) {
     setEventLeft(parseInt(e.target.value));
@@ -221,7 +221,7 @@ const [c,setC]=useState();
     event.style.left = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "in Event Name held on ";
+    event.innerHTML = "Event Name";
   }
   function EventW(e) {
     setEventW(parseInt(e.target.value));
@@ -230,7 +230,7 @@ const [c,setC]=useState();
     event.style.width = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "in Event Name held on ";
+    event.innerHTML = "Event Name";
   }
   function EventFont(e) {
     setEventFont(parseInt(e.target.value));
@@ -239,7 +239,7 @@ const [c,setC]=useState();
     event.style.fontSize = e.target.value.toString() + "px";
     event.style.visibility = "visible";
     event.style.zIndex = "10";
-    event.innerHTML = "in Event Name held on ";
+    event.innerHTML = "Event Name";
   }
 
   function positionEventDateTop(e) {
@@ -316,22 +316,20 @@ const [c,setC]=useState();
     qr: [qrTop, qrLeft, qrH, qrW],
     cpSig: [sig1Top, sig1Left, sig1H, sig1W],
     faSig: [sig2Top, sig2Left, sig2H, sig2W],
-    color:c
+    color: c,
   };
-function setColor(value){
-setC(value);
-  var name=document.getElementById("name");
-  var event=document.getElementById("event");
-  var eDate=document.getElementById("e-date");
-  var position=document.getElementById("position");
+  function setColor(value) {
+    setC(value);
+    var name = document.getElementById("name");
+    var event = document.getElementById("event");
+    var eDate = document.getElementById("e-date");
+    var position = document.getElementById("position");
 
-  name.style.color=value;
-  event.style.color=value;
-  eDate.style.color=value;
-  position.style.color=value;
-
-
-}
+    name.style.color = value;
+    event.style.color = value;
+    eDate.style.color = value;
+    position.style.color = value;
+  }
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -446,10 +444,15 @@ setC(value);
                   <div className="enter">ENTER THE SPECIFICATIONS:</div>
                   <div>
                     <div className="row type-row">
-                    <label className="type-label" id="c-label">Font Colour:</label>
-                    <input type={"color"} id="color" onChange={(e)=>setColor(e.target.value)}/>
-
-                      </div>
+                      <label className="type-label" id="c-label">
+                        Font Colour:
+                      </label>
+                      <input
+                        type={"color"}
+                        id="color"
+                        onChange={(e) => setColor(e.target.value)}
+                      />
+                    </div>
                     <div className="row type-row">
                       <label className="type-label">1. Name:</label>
                       <br />

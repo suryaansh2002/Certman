@@ -110,7 +110,6 @@ export default function SingleImage(props) {
         );
       };
 
-
       var SIG1 = new Image();
 
       SIG1.src = sig;
@@ -123,7 +122,6 @@ export default function SingleImage(props) {
           coordinates.cpSig[2]
         );
       };
-
 
       ctx.font = "20px Arial ";
 
@@ -210,7 +208,6 @@ export default function SingleImage(props) {
     console.log("hello");
 
     setShow(true);
-    console.log(certUrl);
     // for (var i = 0; i < arr2.length; i++) {
 
     //   var user = arr2[i]
@@ -223,11 +220,14 @@ export default function SingleImage(props) {
       type,
       coordinates,
       faUrl,
-      cpUrl
+      cpUrl,
     };
     await axios
       .post("http://localhost:5000/api/sendmail/cert/", data)
-      .then((res) => {setEmailCount((c) => c + 1); console.log(res)})
+      .then((res) => {
+        setEmailCount((c) => c + 1);
+        console.log(res);
+      })
       .catch((err) => console.log(err.message));
 
     setShow(false);
@@ -296,7 +296,7 @@ export default function SingleImage(props) {
       var background = new Image();
       background.setAttribute("crossOrigin", "anonymous");
       background.src = certUrl;
-      background.onload =  async function() {
+      background.onload = async function () {
         ctx.drawImage(background, 0, 0, 700, 500);
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
@@ -304,9 +304,9 @@ export default function SingleImage(props) {
         ctx.fillStyle = coordinates.color;
         var img = new Image();
         img.src = qrcode_1;
-        img.crossOrigin="anonymous"
-         img.onload =  function (){
-           ctx.drawImage(
+        img.crossOrigin = "anonymous";
+        img.onload = function () {
+          ctx.drawImage(
             img,
             coordinates.qr[1],
             coordinates.qr[0],
@@ -314,9 +314,9 @@ export default function SingleImage(props) {
             coordinates.qr[2]
           );
           var SIG2 = new Image();
-          SIG2.src = cpUrl;
-          SIG2.crossOrigin="anonymous"
-          SIG2.onload=  function(){
+          SIG2.src = faUrl;
+          SIG2.crossOrigin = "anonymous";
+          SIG2.onload = function () {
             ctx.drawImage(
               SIG2,
               coordinates.faSig[1],
@@ -325,9 +325,9 @@ export default function SingleImage(props) {
               coordinates.faSig[2]
             );
             var SIG1 = new Image();
-            SIG1.src = faUrl;
-            SIG1.crossOrigin="anonymous"
-            SIG1.onload=  function(){
+            SIG1.src = cpUrl;
+            SIG1.crossOrigin = "anonymous";
+            SIG1.onload = function () {
               ctx.drawImage(
                 SIG1,
                 coordinates.cpSig[1],
@@ -338,23 +338,23 @@ export default function SingleImage(props) {
 
               if (type === "wc" || type === "mc") {
                 ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.name,
                   coordinates.name[1] + coordinates.name[2] / 2,
                   coordinates.name[0]
                 );
               }
-      
+
               if (type === "org") {
                 ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.name,
                   coordinates.name[1] + coordinates.name[2] / 2,
                   coordinates.name[0]
                 );
-      
+
                 ctx.font = coordinates.event[3].toString() + "px" + " Arial";
                 ctx.fillText(
                   element.event,
@@ -362,7 +362,7 @@ export default function SingleImage(props) {
                   coordinates.event[0]
                 );
                 ctx.font = coordinates.date[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.event_date,
                   coordinates.date[1] + coordinates.date[2] / 2,
@@ -371,58 +371,45 @@ export default function SingleImage(props) {
               }
               if (type === "comp") {
                 ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.name,
                   coordinates.name[1] + coordinates.name[2] / 2,
                   coordinates.name[0]
                 );
                 ctx.font = coordinates.event[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.event,
                   coordinates.event[1] + coordinates.event[2] / 2,
                   coordinates.event[0]
                 );
                 ctx.font = coordinates.date[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.event_date,
                   coordinates.date[1] + coordinates.date[2] / 2,
                   coordinates.date[0]
                 );
                 ctx.font = coordinates.position[3].toString() + "px" + " Arial";
-      
+
                 ctx.fillText(
                   element.position,
                   coordinates.position[1] + coordinates.position[2] / 2,
                   coordinates.position[0]
                 );
-      
-             
               }
-      
+
               var canvas2: any = document.getElementById("myCanvas");
               var url = canvas2.toDataURL("image/png");
-      console.log(canvasObj)
-      console.log(url)
-      
+
               var link = document.createElement("a");
               link.download = `${element.name}.png`;
               link.href = url;
               link.click();
-
-            }
-       
-    
-          }
-        }
-    
-      
-        
-       
-
-    
+            };
+          };
+        };
       };
     });
 
@@ -452,9 +439,7 @@ export default function SingleImage(props) {
     //     ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
     //   }
     // };
-
   }
-
 
   function handle_upload(id) {
     var input = document.getElementById(id);
