@@ -202,22 +202,18 @@ router.post("/cert", async (req: any, res: any) => {
           service: "Outlook365",
           host: "smtp.office365.com",
           port: "587",
-          name: "certman",
-          maxConnections: 10,
           tls: {
             ciphers: "SSLv3",
             rejectUnauthorized: false,
           },
           auth: {
-            //   user: "temp_certman@outlook.com",
-            user: "temp_cert@outlook.com",
-
-            pass: "123@ABC@abc",
+            user: "certman_test@outlook.com",
+            pass: "Certman*123*",
           },
         });
         const options = {
           // from: "temp_certman@outlook.com",
-          from: "temp_cert@outlook.com",
+          from: "certman_test@outlook.com",
 
           to: user.email,
           subject: subject,

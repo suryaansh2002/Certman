@@ -115,6 +115,7 @@ router.post("/signup", async (req: any, res: any) => {
 
 router.post("/forgot", async (req: any, res: any) => {
   const { email } = req.body;
+  console.log(req.body);
   const user = await Users.findOne({ email }).lean();
   if (!user) {
     return res.json({
@@ -132,6 +133,29 @@ router.post("/forgot", async (req: any, res: any) => {
 
     const link = `http://localhost:3000/reset/${user._id}/${token}`;
 
+    // let transporter = nodemailer.createTransport({
+    //   service: "hotmail",
+    //   // host: "smtp.office365.com",
+    //   // port: "587",
+    //   // tls: {
+    //   //   ciphers: "SSLv3",
+    //   //   rejectUnauthorized: false,
+    //   // },
+    //   auth: {
+    //     user: "suryaansh.rathinam@learner.manipal.edu",
+    //     pass: "Suryaansh*123*",
+    //   },
+    // });
+
+    // const options = {
+    //   from: "suryaansh.rathinam@learner.manipal.edu",
+    //   to: email,
+    //   subject: "Reset Certman Password",
+    //   text: `Reset your password at ${link}`,
+    // };
+
+
+
     let transporter = nodemailer.createTransport({
       service: "Outlook365",
       host: "smtp.office365.com",
@@ -141,17 +165,20 @@ router.post("/forgot", async (req: any, res: any) => {
         rejectUnauthorized: false,
       },
       auth: {
-        user: "temp_certman@outlook.com",
-        pass: "123@ABC@abc",
+        user: "certman_test@outlook.com",
+        pass: "Certman*123*",
       },
     });
 
     const options = {
-      from: "temp_certman@outlook.com",
+      from: "certman_test@outlook.com",
       to: email,
       subject: "Reset Certman Password",
       text: `Reset your password at ${link}`,
     };
+
+
+    console.log("here");
 
     transporter.sendMail(options, function (err, info) {
       if (err) {

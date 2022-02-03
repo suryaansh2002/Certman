@@ -28,7 +28,7 @@ export default function SingleImage(props) {
   const [facSign, setFacSign] = useState("");
   const [chairSign, setChairSign] = useState("");
   const [certUrl, setCertUrl] = useState("");
-  const [arr2, setArr2] = useState([]);
+  const [arr2, setArr2] = useState<any>([]);
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
 
@@ -37,8 +37,8 @@ export default function SingleImage(props) {
   const [emailCount, setEmailCount] = useState(0);
   const [final, setFinal] = useState(false);
   const [type, setType] = useState("");
-
-  const [temp, setTemp] = useState("");
+  const [faUrl, setFaUrl] = useState<any>();
+  const [cpUrl, setCpUrl] = useState<any>();
 
   const canvasRef = useRef(null);
 
@@ -88,33 +88,42 @@ export default function SingleImage(props) {
       ctx.drawImage(background, 0, 0, 700, 500);
       var img = new Image();
       img.src = qrcode_1;
-      ctx.drawImage(
-        img,
-        coordinates.qr[1],
-        coordinates.qr[0],
-        coordinates.qr[3],
-        coordinates.qr[2]
-      );
+      img.onload = function () {
+        ctx.drawImage(
+          img,
+          coordinates.qr[1],
+          coordinates.qr[0],
+          coordinates.qr[3],
+          coordinates.qr[2]
+        );
+      };
 
       var SIG2 = new Image();
       SIG2.src = sig;
-      ctx.drawImage(
-        SIG2,
-        coordinates.faSig[1],
-        coordinates.faSig[0],
-        coordinates.faSig[3],
-        coordinates.faSig[2]
-      );
+      SIG2.onload = function () {
+        ctx.drawImage(
+          SIG2,
+          coordinates.faSig[1],
+          coordinates.faSig[0],
+          coordinates.faSig[3],
+          coordinates.faSig[2]
+        );
+      };
+
 
       var SIG1 = new Image();
+
       SIG1.src = sig;
-      ctx.drawImage(
-        SIG1,
-        coordinates.cpSig[1],
-        coordinates.cpSig[0],
-        coordinates.cpSig[3],
-        coordinates.cpSig[2]
-      );
+      SIG1.onload = function () {
+        ctx.drawImage(
+          SIG1,
+          coordinates.cpSig[1],
+          coordinates.cpSig[0],
+          coordinates.cpSig[3],
+          coordinates.cpSig[2]
+        );
+      };
+
 
       ctx.font = "20px Arial ";
 
@@ -216,7 +225,7 @@ export default function SingleImage(props) {
     };
     await axios
       .post("http://localhost:5000/api/sendmail/cert/", data)
-      .then((res) => setEmailCount((c) => c + 1))
+      .then((res) => {setEmailCount((c) => c + 1); console.log(res)})
       .catch((err) => console.log(err.message));
 
     setShow(false);
@@ -252,14 +261,15 @@ export default function SingleImage(props) {
           const responseTwo = responses[1];
           const responseThree = responses[2];
 
-          setArr2(responseTwo);
+          setArr2(responseOne.data);
           console.log(responseOne.data);
           console.log(responseTwo.data);
           console.log(responseThree.data);
 
-          
+          setCpUrl(responseTwo.data);
+          setFaUrl(responseTwo.data);
         })
-      ) 
+      )
       .catch((errors) => {
         // react on errors.
       });
@@ -273,7 +283,9 @@ export default function SingleImage(props) {
       alert("No csv uploaded!");
       return;
     }
+    console.log(arr2);
     arr2.map((element) => {
+      console.log("in map");
       const elementCanvas = document.createElement("canvas");
       elementCanvas.setAttribute("ref", element.name);
       const canvasObj = canvasRef.current;
@@ -284,14 +296,54 @@ export default function SingleImage(props) {
       var background = new Image();
       background.setAttribute("crossOrigin", "anonymous");
       background.src = certUrl;
+      console.log(background);
 
       background.onload = function () {
+        console.log("in map");
         ctx.drawImage(background, 0, 0, 700, 500);
 
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "top";
         ctx.fillStyle = coordinates.color;
+        var img = new Image();
+        img.src = qrcode_1;
+        img.onload = function(){
+          ctx.drawImage(
+            img,
+            coordinates.qr[1],
+            coordinates.qr[0],
+            coordinates.qr[3],
+            coordinates.qr[2]
+          );
+        }
+    
+        var SIG2 = new Image();
+        SIG2.src = cpUrl;
+        SIG2.onload=function(){
+          ctx.drawImage(
+            SIG2,
+            coordinates.faSig[1],
+            coordinates.faSig[0],
+            coordinates.faSig[3],
+            coordinates.faSig[2]
+          );
+  
+        }
+        
+        var SIG1 = new Image();
+        SIG1.src = faUrl;
+        SIG1.onload=function(){
+          ctx.drawImage(
+            SIG1,
+            coordinates.cpSig[1],
+            coordinates.cpSig[0],
+            coordinates.cpSig[3],
+            coordinates.cpSig[2]
+          );
+        }
+   
+
         if (type === "wc" || type === "mc") {
           ctx.font = coordinates.name[3].toString() + "px" + " Arial";
 
@@ -354,6 +406,14 @@ export default function SingleImage(props) {
             coordinates.position[1] + coordinates.position[2] / 2,
             coordinates.position[0]
           );
+
+          var canvas2: any = document.getElementById("myCanvas");
+          var url = canvas2.toDataURL("image/png");
+          console.log("Before link");
+          var link = document.createElement("a");
+          link.download = `${element.name}.png`;
+          link.href = url;
+          link.click();
         }
 
         var canvas2: any = document.getElementById("myCanvas");
@@ -365,33 +425,36 @@ export default function SingleImage(props) {
         link.click();
       };
     });
-    const elementCanvas = document.createElement("canvas");
-    elementCanvas.classList.add("hide-canvas");
 
-    elementCanvas.setAttribute("ref", "canvasRef");
-    const canvasObj = canvasRef.current;
-    const ctx = canvasObj.getContext("2d");
-    canvasObj.width = 700;
-    canvasObj.height = 500;
+    // const elementCanvas = document.createElement("canvas");
+    // elementCanvas.classList.add("hide-canvas");
 
-    var background = new Image();
-    // background.setAttribute("crossOrigin", "anonymous");
-    background.src = certUrl;
+    // elementCanvas.setAttribute("ref", "canvasRef");
+    // const canvasObj = canvasRef.current;
+    // const ctx = canvasObj.getContext("2d");
+    // canvasObj.width = 700;
+    // canvasObj.height = 500;
 
-    background.onload = function () {
-      ctx.drawImage(background, 0, 0, 700, 500);
+    // var background = new Image();
+    // // background.setAttribute("crossOrigin", "anonymous");
+    // background.src = certUrl;
 
-      ctx.font = "20px Arial";
-      ctx.textAlign = "left";
-      ctx.textBaseline = "top";
-      ctx.fillStyle = coordinates.color;
+    // background.onload = function () {
+    //   ctx.drawImage(background, 0, 0, 700, 500);
 
-      if (type === "wc" || type === "mc") {
-        ctx.font = coordinates.name[3].toString() + "px" + " Arial";
-        ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
-      }
-    };
+    //   ctx.font = "20px Arial";
+    //   ctx.textAlign = "left";
+    //   ctx.textBaseline = "top";
+    //   ctx.fillStyle = coordinates.color;
+
+    //   if (type === "wc" || type === "mc") {
+    //     ctx.font = coordinates.name[3].toString() + "px" + " Arial";
+    //     ctx.fillText("Person Name", coordinates.name[1], coordinates.name[0]);
+    //   }
+    // };
+
   }
+
 
   function handle_upload(id) {
     var input = document.getElementById(id);
