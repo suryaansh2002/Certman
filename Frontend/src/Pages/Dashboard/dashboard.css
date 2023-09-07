@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+.home-top {
+  width: 100%;
+  height: 7rem;
+  background-color: rgb(107, 107, 204);
+  text-align: right;
+  justify-content: center;
+  align-items: center;
+}
+.home-button {
+  margin: 2rem;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.979);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: rgb(107, 107, 204);
+}
+.home-button:hover {
+  cursor: pointer;
+}
+
+.home-button-2 {
+  margin: 2rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.979);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgb(107, 107, 204);
+}
+.home-button-2:hover {
+  cursor: pointer;
+}
+.logout-button {
+  margin: 2rem;
+  padding: 1rem 2rem;
+  color: rgba(255, 255, 255, 0.979);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: rgb(20, 20, 34);
+}
+
+.logout-button:hover {
+  cursor: pointer;
+}
+
+.home-main {
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+.container {
+  background: radial-gradient(
+    147.85% 147.85% at 50.97% -93.26%,
+    #7ac7f2 0%,
+    #121024 100%
+  );
+
+  padding-top: 80px;
+  min-height: 100vh;
+}
+.home-photo {
+  height: 300px;
+  width: 420px;
+  display: inline;
+  margin: 20px 40px;
+  transition: 0.4s;
+}
+.home-photo:hover {
+  transform: scale(1.2);
+}
+.home-photo:hover .container {
+  height: max-content;
+}
+.img-container {
+  text-align: center;
+  justify-content: center;
+  padding-top: 3rem;
+}
+.home-header {
+  padding-top: 2rem;
+}
+.adjust {
+  height: 50px;
+}

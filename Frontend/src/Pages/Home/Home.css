@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+.main-c {
+  height: calc(100vh);
+  background: radial-gradient(
+    147.85% 147.85% at 50.97% -93.26%,
+    #7ac7f2 0%,
+    #121024 100%
+  );
+}
+.bg-design {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../images/bg-design.png");
+}
+.c-heading {
+  font-size: 70px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #faf8f6;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.c-byline {
+  font-size: 30px;
+  font-weight: 400;
+  font-family: "Mulish", sans-serif;
+  color: white;
+}
+
+.c-more {
+  font-family: "Mulish", sans-serif;
+  color: white;
+  font-size: 16px;
+}
+
+.home-box {
+  position: absolute;
+  right: 50px;
+  top: 250px;
+  width: auto;
+  height: 200px;
+}
+.verify-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
